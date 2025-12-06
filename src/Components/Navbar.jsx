@@ -35,9 +35,7 @@ const Navbar = () => {
       <li>
         <NavLink
           to={"/"}
-          className={({ isActive }) =>
-            isActive ? " border-b-3 border-primary" : ""
-          }
+          className={({ isActive }) => (isActive ? " text-primary" : "")}
         >
           <BiHome></BiHome>Home
         </NavLink>
@@ -45,9 +43,7 @@ const Navbar = () => {
       <li>
         <NavLink
           to={"/dashboard"}
-          className={({ isActive }) =>
-            isActive ? " border-b-3 border-primary" : ""
-          }
+          className={({ isActive }) => (isActive ? " text-primary" : "")}
         >
           <MdDashboard></MdDashboard>
           Dashboard
@@ -56,9 +52,7 @@ const Navbar = () => {
       <li>
         <NavLink
           to={"/all-loans"}
-          className={({ isActive }) =>
-            isActive ? " border-b-3 border-primary" : ""
-          }
+          className={({ isActive }) => (isActive ? " text-primary" : "")}
         >
           All-Loans
           <BiMoney></BiMoney>
@@ -67,9 +61,7 @@ const Navbar = () => {
       <li>
         <NavLink
           to={"/about"}
-          className={({ isActive }) =>
-            isActive ? " border-b-3 border-primary" : ""
-          }
+          className={({ isActive }) => (isActive ? " text-primary" : "")}
         >
           <BsQuestionCircle></BsQuestionCircle>
           About Us
@@ -78,9 +70,7 @@ const Navbar = () => {
       <li>
         <NavLink
           to={"/contact"}
-          className={({ isActive }) =>
-            isActive ? " border-b-3 border-primary" : ""
-          }
+          className={({ isActive }) => (isActive ? " text-primary" : "")}
         >
           <MdCall></MdCall>
           Contact Us
@@ -111,7 +101,7 @@ const Navbar = () => {
 
   return (
     <div className="">
-      <div className="navbar bg-accent shadow-sm  jost fixed top-0 lg:px-10 mx-auto">
+      <div className="navbar bg-accent shadow-sm  jost fixed z-50 top-0 lg:px-10 mx-auto">
         <div className="navbar-start   w-fit">
           <Link
             to={"/"}
