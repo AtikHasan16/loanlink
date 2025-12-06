@@ -4,29 +4,20 @@
   name: "light";
   default: true;
   --color-primary: #1a4dbe;
-  --color-secondary: #055c2d;
+  --color-secondary: #ffffff;
   --color-accent: "#F5FAFF";
 }
 @plugin "daisyui/theme" {
   name: "dark";
   default: true;
-  --color-primary: "#3185ec";
+  --color-primary: "#FFCC00";
   --color-secondary: "#131417";
   --color-accent: "#2c303a";
 }
 
-.codex {
-  font-family: "Caudex", serif;
-  font-weight: 500;
+.jost {
+  font-family: "Jost", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
   font-style: normal;
-}
-
-.lato {
-  font-family: "Lato", sans-serif;
-  font-weight: 500;
-  font-style: normal;
-}
-
-.active {
-  border-bottom: 3px solid #3185ec;
 }

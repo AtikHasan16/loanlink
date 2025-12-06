@@ -24,7 +24,7 @@ import {} from "react-icons/fa";
 // UI Elements (Spinner, Close, Check)
 import {} from "react-icons/im"; // Good for loading states
 import { IoCall } from "react-icons/io5";
-import { BsQuestion, BsQuestionCircle } from "react-icons/bs"; // Theme toggle
+import { BsMoon, BsQuestion, BsQuestionCircle, BsSun } from "react-icons/bs"; // Theme toggle
 
 // Socials (Footer)
 import {} from "react-icons/fa";
@@ -33,41 +33,73 @@ const Navbar = () => {
   const links = (
     <>
       <li>
-        <NavLink to={"/"}>
+        <NavLink
+          to={"/"}
+          className={({ isActive }) =>
+            isActive ? " border-b-3 border-primary" : ""
+          }
+        >
           <BiHome></BiHome>Home
         </NavLink>
       </li>
       <li>
-        <NavLink to={"/all-loans"}>
-          <BiMoney></BiMoney> All-Loans
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to={"/about"}>
-          About Us
-          <BsQuestionCircle></BsQuestionCircle>
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to={"/contact"}>
-          Contact Us
-          <MdCall></MdCall>
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to={"/dashboard"}>
-          Dashboard
+        <NavLink
+          to={"/dashboard"}
+          className={({ isActive }) =>
+            isActive ? " border-b-3 border-primary" : ""
+          }
+        >
           <MdDashboard></MdDashboard>
+          Dashboard
         </NavLink>
       </li>
       <li>
-        <Link to={"/register"} className="btn  btn-primary">
+        <NavLink
+          to={"/all-loans"}
+          className={({ isActive }) =>
+            isActive ? " border-b-3 border-primary" : ""
+          }
+        >
+          All-Loans
+          <BiMoney></BiMoney>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to={"/about"}
+          className={({ isActive }) =>
+            isActive ? " border-b-3 border-primary" : ""
+          }
+        >
+          <BsQuestionCircle></BsQuestionCircle>
+          About Us
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to={"/contact"}
+          className={({ isActive }) =>
+            isActive ? " border-b-3 border-primary" : ""
+          }
+        >
+          <MdCall></MdCall>
+          Contact Us
+        </NavLink>
+      </li>
+      <li>
+        <Link
+          to={"/register"}
+          className="btn bg-primary text-secondary rounded-full btn-lg"
+        >
           Register
           <BiUserPlus></BiUserPlus>
         </Link>
       </li>
       <li>
-        <Link to={"/login"} className="btn  btn-primary">
+        <Link
+          to={"/login"}
+          className="btn rounded-full bg-primary text-secondary  btn-lg"
+        >
           Login
           <BiLogIn></BiLogIn>
         </Link>
@@ -76,9 +108,9 @@ const Navbar = () => {
   );
 
   return (
-    <div>
-      <div className="navbar py-4 bg-base-100 shadow-sm lato fixed top-0 ">
-        <div className="navbar-start w-fit">
+    <div className="">
+      <div className="navbar py-4 bg-base-100 shadow-sm  jost fixed top-0 lg:px-10 mx-auto">
+        <div className="navbar-start   w-fit">
           <Link
             to={"/"}
             className="btn border-none bg-transparent shadow-none text-3xl text-primary"
@@ -103,10 +135,32 @@ const Navbar = () => {
               {links}
             </ul>
           </div>
+          <div className="flex justify-center items-center">
+            <label className="toggle toggle-xl text-primary">
+              <input
+                type="checkbox"
+                value={"dark"}
+                className="theme-controller"
+              />
+              <BsSun size={24}></BsSun>
+              <BsMoon size={24}></BsMoon>
+            </label>
+          </div>
         </div>
         <div className="navbar-end hidden w-full xl:flex">
           <ul className="text-lg text menu menu-horizontal font-semibold gap-4 ">
             {links}
+            <div className="flex justify-center items-center">
+              <label className="toggle toggle-xl text-primary">
+                <input
+                  type="checkbox"
+                  value={"dark"}
+                  className="theme-controller"
+                />
+                <BsSun size={24}></BsSun>
+                <BsMoon size={24}></BsMoon>
+              </label>
+            </div>
           </ul>
         </div>
       </div>
