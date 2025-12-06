@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, NavLink } from "react-router";
 import {} from "react-icons/fa";
-
+import logo from "/logo.png";
 // Dashboard & Navigation Icons
 import { MdCall, MdDashboard } from "react-icons/md";
 import {} from "react-icons/hi";
@@ -86,24 +86,26 @@ const Navbar = () => {
           Contact Us
         </NavLink>
       </li>
-      <li>
-        <Link
-          to={"/register"}
-          className="btn bg-primary text-secondary rounded-full btn-lg"
-        >
-          Register
-          <BiUserPlus></BiUserPlus>
-        </Link>
-      </li>
-      <li>
-        <Link
-          to={"/login"}
-          className="btn rounded-full bg-primary text-secondary  btn-lg"
-        >
-          Login
-          <BiLogIn></BiLogIn>
-        </Link>
-      </li>
+      <>
+        <li>
+          <Link
+            to={"/register"}
+            className="btn bg-primary text-secondary rounded-full btn-lg"
+          >
+            Register
+            <BiUserPlus></BiUserPlus>
+          </Link>
+        </li>
+        <li>
+          <Link
+            to={"/login"}
+            className="btn rounded-full bg-primary text-secondary  btn-lg"
+          >
+            Login
+            <BiLogIn></BiLogIn>
+          </Link>
+        </li>
+      </>
     </>
   );
 
@@ -113,8 +115,11 @@ const Navbar = () => {
         <div className="navbar-start   w-fit">
           <Link
             to={"/"}
-            className="btn border-none bg-transparent shadow-none text-3xl text-primary"
+            className="btn border-none bg-transparent shadow-none text-3xl font-bold text-primary"
           >
+            <figure>
+              <img src={logo} alt="" />
+            </figure>
             LoanLink
           </Link>
         </div>
@@ -148,7 +153,7 @@ const Navbar = () => {
           </div>
         </div>
         <div className="navbar-end hidden w-full xl:flex">
-          <ul className="text-lg text menu menu-horizontal font-semibold gap-4 ">
+          <ul className="text-lg text menu menu-horizontal font-semibold  items-center gap-2">
             {links}
             <div className="flex justify-center items-center">
               <label className="toggle toggle-xl text-primary">
@@ -161,6 +166,29 @@ const Navbar = () => {
                 <BsMoon size={24}></BsMoon>
               </label>
             </div>
+          </ul>
+        </div>
+
+        <div className="dropdown dropdown-end">
+          <div
+            tabIndex={0}
+            role="button"
+            className="btn bg-transparent border-none avatar"
+          >
+            <div className="ring-primary ring-offset-base-100 rounded-full w-15 ring-2 ring-offset-2">
+              <img src="https://img.daisyui.com/images/profile/demo/spiderperson@192.webp" />
+            </div>
+          </div>
+          <ul
+            tabIndex="-1"
+            className="menu dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow gap-2"
+          >
+            <li className="btn">User Information</li>
+            <li>
+              <button className="btn rounded-full btn-primary text-secondary">
+                Log Out
+              </button>
+            </li>
           </ul>
         </div>
       </div>
