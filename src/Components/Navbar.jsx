@@ -111,7 +111,7 @@ const Navbar = () => {
 
   return (
     <div className="">
-      <div className="navbar py-4 bg-base-100 shadow-sm  jost fixed top-0 lg:px-10 mx-auto">
+      <div className="navbar bg-accent shadow-sm  jost fixed top-0 lg:px-10 mx-auto">
         <div className="navbar-start   w-fit">
           <Link
             to={"/"}
@@ -175,7 +175,7 @@ const Navbar = () => {
             role="button"
             className="btn bg-transparent border-none avatar"
           >
-            <div className="ring-primary ring-offset-base-100 rounded-full w-15 ring-2 ring-offset-2">
+            <div className="ring-primary ring-offset-base-100 rounded-full w-13 ring-2 ring-offset-2">
               <img src="https://img.daisyui.com/images/profile/demo/spiderperson@192.webp" />
             </div>
           </div>
