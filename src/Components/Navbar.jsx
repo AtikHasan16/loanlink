@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, NavLink } from "react-router";
 import {} from "react-icons/fa";
-import logo from "/logo.png";
+
 // Dashboard & Navigation Icons
 import { MdCall, MdDashboard } from "react-icons/md";
 import {} from "react-icons/hi";
@@ -117,9 +117,9 @@ const Navbar = () => {
             to={"/"}
             className="btn border-none bg-transparent shadow-none text-3xl font-bold text-primary"
           >
-            <figure>
-              <img src={logo} alt="" />
-            </figure>
+            <div className="w-10 h-10 bg-primary rounded flex items-center justify-center">
+              <span className="text-secondary font-bold">LL</span>
+            </div>
             LoanLink
           </Link>
         </div>
