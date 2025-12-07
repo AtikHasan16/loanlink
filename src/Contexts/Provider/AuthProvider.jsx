@@ -4,10 +4,14 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
+  GithubAuthProvider,
+  signInWithPopup,
 } from "firebase/auth";
 import { auth } from "../../Firebase/firebase.config";
 import { useEffect } from "react";
 import { useState } from "react";
+
+const githubProvider = new GithubAuthProvider();
 
 const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -15,6 +19,11 @@ const AuthProvider = ({ children }) => {
   // Create new user with email
   const registerUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
+  };
+
+  // Github login
+  const githubLogin = () => {
+    return signInWithPopup(auth, githubProvider);
   };
 
   //   observe user
@@ -37,6 +46,7 @@ const AuthProvider = ({ children }) => {
     loginUser,
     loading,
     setLoading,
+    githubLogin,
     currentUser,
   };
   return <AuthContext value={userInfo}>{children}</AuthContext>;

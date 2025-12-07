@@ -3,10 +3,20 @@ import React from "react";
 import { Link } from "react-router";
 import { motion } from "motion/react";
 import { FaGoogle, FaGithub, FaEye } from "react-icons/fa";
+import { useState } from "react";
+import { HiEyeOff } from "react-icons/hi";
+import useAuth from "../../Hooks/useAuth";
 
 const Login = () => {
+  const { githubLogin } = useAuth();
+
+  const [showPass, setShowPass] = useState(false);
+
   const handleGithubLogin = () => {
-    console.log("Github Login");
+    githubLogin().then((result) => {
+      const user = result.user;
+      console.log(user);
+    });
   };
 
   return (
@@ -54,7 +64,7 @@ const Login = () => {
               <input
                 type="email"
                 placeholder="name@example.com"
-                className="input input-bordered w-full rounded-xl focus:border-primary focus:ring-1 focus:ring-primary bg-base-200/50 py-6"
+                className="input input-bordered text-lg w-full rounded-xl focus:border-primary focus:ring-1 focus:ring-primary bg-base-200/50 py-6"
               />
             </div>
 
@@ -65,15 +75,16 @@ const Login = () => {
               </label>
               <div className="relative">
                 <input
-                  type="password"
+                  type={showPass ? "text" : "password"}
                   placeholder="********"
-                  className="input input-bordered w-full rounded-xl focus:border-primary focus:ring-1 focus:ring-primary bg-base-200/50 pr-10 py-6"
+                  className="input input-bordered text-lg w-full rounded-xl focus:border-primary focus:ring-1 focus:ring-primary bg-base-200/50 pr-10 py-6"
                 />
                 <button
                   type="button"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary transition-colors"
+                  onClick={() => setShowPass(!showPass)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 hover:text-primary transition-colors"
                 >
-                  <FaEye size={24} />
+                  {showPass ? <HiEyeOff size={24} /> : <FaEye size={24} />}
                 </button>
               </div>
             </div>
@@ -98,13 +109,9 @@ const Login = () => {
             </div>
 
             <div className="flex gap-4 justify-center mt-6">
-              <button className="btn btn-outline hover:btn-primary hover:text-white rounded-full px-6 gap-2">
-                <FaGoogle className="text-lg" />
-                <span className="hidden sm:inline">Google</span>
-              </button>
               <button
                 onClick={handleGithubLogin}
-                className="btn btn-outline hover:btn-primary hover:text-white rounded-full px-6 gap-2"
+                className="btn btn-outline btn-block hover:btn-primary hover:text-white rounded-full px-6 gap-2"
               >
                 <FaGithub className="text-lg" />
                 <span className="hidden sm:inline">GitHub</span>
