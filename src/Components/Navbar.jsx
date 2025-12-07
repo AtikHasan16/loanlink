@@ -30,10 +30,11 @@ import { BsMoon, BsQuestion, BsQuestionCircle, BsSun } from "react-icons/bs"; //
 import {} from "react-icons/fa";
 import useAuth from "../Hooks/useAuth";
 import toast from "react-hot-toast";
+import Loading from "../Pages/Loading/Loading";
 
 const Navbar = () => {
   const { currentUser, logOutUser, loading } = useAuth();
-  console.log(loading);
+
   const handleLogOut = () => {
     logOutUser()
       .then(() => {
@@ -97,8 +98,8 @@ const Navbar = () => {
           to={"/all-loans"}
           className={({ isActive }) => (isActive ? " text-primary" : "")}
         >
-          All-Loans
           <BiMoney></BiMoney>
+          All-Loans
         </NavLink>
       </li>
       <li>
@@ -121,40 +122,42 @@ const Navbar = () => {
       </li>
       <>
         {currentUser ? (
-          <div className="dropdown dropdown-end">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn bg-transparent shadow-none border-none avatar"
-            >
-              <div className="ring-primary ring-offset-base-100 rounded-full w-13 ring-2 ring-offset-2">
-                <img src={currentUser?.photoURL} />
+          <div className="m-5 sm:m-0">
+            <div className="dropdown dropdown-end">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn bg-transparent shadow-none border-none avatar"
+              >
+                <div className="ring-primary ring-offset-base-100 rounded-full w-13 ring-2 ring-offset-2">
+                  <img src={currentUser?.photoURL} />
+                </div>
               </div>
+              <ul
+                tabIndex="-1"
+                className="menu dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow gap-2"
+              >
+                <li className="btn bg-transparent text-primary border-none shadow-none">
+                  {currentUser?.displayName}
+                </li>
+                <li>
+                  <button
+                    onClick={handleLogOut}
+                    className="btn rounded-full btn-primary text-secondary"
+                  >
+                    Log Out
+                  </button>
+                </li>
+                <li>
+                  <Link
+                    to={"/profile"}
+                    className="btn rounded-full btn-primary text-secondary"
+                  >
+                    Profile
+                  </Link>
+                </li>
+              </ul>
             </div>
-            <ul
-              tabIndex="-1"
-              className="menu dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow gap-2"
-            >
-              <li className="btn bg-transparent text-primary border-none shadow-none">
-                {currentUser?.displayName}
-              </li>
-              <li>
-                <button
-                  onClick={handleLogOut}
-                  className="btn rounded-full btn-primary text-secondary"
-                >
-                  Log Out
-                </button>
-              </li>
-              <li>
-                <Link
-                  to={"/profile"}
-                  className="btn rounded-full btn-primary text-secondary"
-                >
-                  Profile
-                </Link>
-              </li>
-            </ul>
           </div>
         ) : (
           <>
@@ -184,7 +187,7 @@ const Navbar = () => {
 
   return (
     <div className="">
-      <div className="navbar bg-accent shadow-sm  jost fixed z-50 top-0 lg:px-10 mx-auto">
+      <div className="navbar py-3 bg-accent shadow-sm  jost fixed z-50 top-0 lg:px-10 mx-auto">
         <div className="navbar-start   w-fit">
           <Link
             to={"/"}
@@ -208,7 +211,7 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex="-1"
-              className="menu  dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow text-lg  font-semibold"
+              className="menu dropdown-content bg-accent rounded-box z-1 mt-3 w-52 p-2 shadow text-lg  font-semibold"
             >
               {links}
             </ul>

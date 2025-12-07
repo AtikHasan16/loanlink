@@ -54,9 +54,11 @@ const Register = () => {
 
             updateCurrentUser(updateUser)
               .then(() => {
+                setLoading(false);
                 toast.success("Profile updated successfully");
               })
               .catch((error) => {
+                setLoading(false);
                 toast.error(error.message);
               });
           })
