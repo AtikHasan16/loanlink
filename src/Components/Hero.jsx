@@ -6,7 +6,7 @@ import { Link } from "react-router";
 
 const Hero = () => {
   return (
-    <div className="relative w-full min-h-screen  flex items-center justify-center overflow-hidden jost">
+    <div className="relative w-full min-h-[750px]  flex items-center justify-center overflow-hidden jost">
       {/* Abstract Background Shapes (Animated) */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Circle 1 */}
@@ -19,7 +19,7 @@ const Hero = () => {
         <motion.div
           animate={{ y: [0, 40, 0], x: [0, -30, 0] }}
           transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-40 right-55 w-64 h-64 bg-primary rounded-full blur-3xl"
+          className="absolute bottom-34 right-100 w-64 h-64 bg-primary rounded-full blur-3xl"
         ></motion.div>
       </div>
 
