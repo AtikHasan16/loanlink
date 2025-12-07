@@ -28,7 +28,7 @@ const Login = () => {
         className="bg-base-100 rounded-3xl shadow-2xl overflow-hidden max-w-5xl w-full grid grid-cols-1 md:grid-cols-2"
       >
         {/* Left Side - Blue Gradient & Text */}
-        <div className="hidden md:flex flex-col justify-center items-center bg-linear-to-br from-primary to-blue-800 text-white p-12 text-center relative overflow-hidden">
+        <div className="hidden md:flex flex-col justify-center items-center bg-linear-to-br from-primary to-secondary  p-12 text-center relative overflow-hidden">
           {/* Abstract Background Shapes */}
           <div className="absolute top-0 left-0 w-full h-full opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
           <div className="absolute -top-10 -left-10 w-40 h-40 bg-white/10 rounded-full blur-2xl"></div>
