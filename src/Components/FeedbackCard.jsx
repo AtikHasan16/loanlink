@@ -5,7 +5,7 @@ const FeedbackCard = ({ feedback }) => {
   const { name, role, message, rating, avatar } = feedback;
 
   return (
-    <div className="bg-base-100 border border-base-200 rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow min-w-[400px] max-w-[400px] mx-4">
+    <div className="bg-accent border border-base-200 rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow min-w-[400px] max-w-[400px] mx-4">
       {/* Rating Stars */}
       <div className="flex gap-1 mb-4">
         {[...Array(5)].map((_, index) => (

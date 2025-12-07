@@ -60,7 +60,7 @@ const feedbackData = [
 
 const Feedback = () => {
   return (
-    <section className="py-24 bg-base-100 overflow-hidden jost">
+    <section className="py-24 overflow-hidden jost">
       <div className="container mx-auto px-6 mb-16">
         <div className="text-center">
           <span className="text-primary font-bold tracking-widest uppercase text-sm">

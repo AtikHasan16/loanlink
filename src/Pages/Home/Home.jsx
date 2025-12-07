@@ -5,6 +5,8 @@ import Hero from "../../Components/Hero";
 import HowWorks from "../../Components/HowWorks";
 import HomeCard from "../../Components/HomeCard";
 import Feedback from "../../Components/Feedback";
+import WhyChooseUs from "../../Components/WhyChooseUs";
+import CTA from "../../Components/CTA";
 
 const Home = () => {
   const { message } = useContext(AuthContext);
@@ -18,11 +20,15 @@ const Home = () => {
 
       <HomeCard></HomeCard>
 
+      <WhyChooseUs></WhyChooseUs>
+
       <Feedback></Feedback>
 
       <section>
         <HowWorks></HowWorks>
       </section>
+
+      <CTA></CTA>
     </div>
   );
 };
