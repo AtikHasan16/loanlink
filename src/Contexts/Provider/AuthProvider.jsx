@@ -13,7 +13,6 @@ import {
 import { auth } from "../../Firebase/firebase.config";
 import { useEffect } from "react";
 import { useState } from "react";
-import toast from "react-hot-toast";
 
 const githubProvider = new GithubAuthProvider();
 

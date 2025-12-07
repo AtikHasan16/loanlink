@@ -6,7 +6,7 @@ import { motion } from "motion/react";
 import { FaUser, FaEnvelope, FaShieldAlt, FaTrashAlt } from "react-icons/fa";
 
 const Profile = () => {
-  const { currentUser, deleteCurrentUser } = useAuth();
+  const { currentUser, deleteCurrentUser, setLoading } = useAuth();
 
   const handleDeleteAccount = () => {
     Swal.fire({
@@ -21,6 +21,7 @@ const Profile = () => {
       if (result.isConfirmed) {
         deleteCurrentUser()
           .then(() => {
+            setLoading(false);
             Swal.fire({
               title: "Deleted!",
               text: "Your account has been deleted.",
@@ -28,6 +29,7 @@ const Profile = () => {
             });
           })
           .catch((error) => {
+            setLoading(false);
             Swal.fire({
               title: "Error!",
               text: error.message,
