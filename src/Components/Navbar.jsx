@@ -32,8 +32,8 @@ import useAuth from "../Hooks/useAuth";
 import toast from "react-hot-toast";
 
 const Navbar = () => {
-  const { currentUser, logOutUser } = useAuth();
-
+  const { currentUser, logOutUser, loading } = useAuth();
+  console.log(loading);
   const handleLogOut = () => {
     logOutUser()
       .then(() => {
@@ -45,7 +45,33 @@ const Navbar = () => {
       });
   };
 
-  const links = (
+  const links = loading ? (
+    // Skeleton Loading State
+    <>
+      <li>
+        <div className="skeleton  h-10 w-24"></div>
+      </li>
+      <li>
+        <div className="skeleton h-10 w-24"></div>
+      </li>
+      <li>
+        <div className="skeleton h-10 w-28"></div>
+      </li>
+      <li>
+        <div className="skeleton h-10 w-32"></div>
+      </li>
+      <li>
+        <div className="skeleton h-10 w-32"></div>
+      </li>
+      {/* Auth Skeleton */}
+      <li>
+        <div className="skeleton h-12 w-28 rounded-full"></div>
+      </li>
+      <li>
+        <div className="skeleton h-12 w-24 rounded-full"></div>
+      </li>
+    </>
+  ) : (
     <>
       <li>
         <NavLink

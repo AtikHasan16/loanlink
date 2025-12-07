@@ -12,7 +12,8 @@ import axios from "axios";
 console.log(import.meta.env.VITE_IMAGEBB_KEY);
 
 const Register = () => {
-  const { githubLogin, registerUser, updateCurrentUser } = useAuth();
+  const { githubLogin, registerUser, updateCurrentUser, setLoading } =
+    useAuth();
   const {
     register,
     handleSubmit,
@@ -27,6 +28,7 @@ const Register = () => {
     // user registration
     registerUser(data.email, data.password)
       .then((result) => {
+        setLoading(false);
         console.log(result.user);
         toast.success("Registration successful");
 
@@ -55,7 +57,7 @@ const Register = () => {
                 toast.success("Profile updated successfully");
               })
               .catch((error) => {
-                console.log(error.message);
+                toast.error(error.message);
               });
           })
           // error handling of image upload
@@ -65,6 +67,7 @@ const Register = () => {
       })
       // error handling of user registration
       .catch((error) => {
+        setLoading(false);
         toast.error(error.message);
       });
   };
@@ -72,11 +75,13 @@ const Register = () => {
   const handleGithubLogin = () => {
     githubLogin()
       .then((result) => {
+        setLoading(false);
         const user = result.user;
         console.log(user);
         toast.success("Login successful");
       })
       .catch((error) => {
+        setLoading(false);
         toast.error(error.message);
       });
   };

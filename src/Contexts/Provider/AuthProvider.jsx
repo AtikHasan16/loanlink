@@ -13,6 +13,7 @@ import {
 import { auth } from "../../Firebase/firebase.config";
 import { useEffect } from "react";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 const githubProvider = new GithubAuthProvider();
 
@@ -21,18 +22,17 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   // Create new user with email
   const registerUser = (email, password) => {
+    setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
   const updateCurrentUser = (profile) => {
-    return updateProfile(auth.currentUser, {
-      displayName: profile.displayName,
-      photoURL: profile.photoURL,
-    });
+    return updateProfile(auth.currentUser, profile);
   };
 
   // Github login
   const githubLogin = () => {
+    setLoading(true);
     return signInWithPopup(auth, githubProvider);
   };
 
@@ -47,18 +47,21 @@ const AuthProvider = ({ children }) => {
 
   //   Create existing
   const loginUser = (email, password) => {
+    setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
   // Logout user
 
   const logOutUser = () => {
+    setLoading(true);
     return signOut(auth);
   };
 
   // delete user
 
   const deleteCurrentUser = () => {
+    setLoading(true);
     return deleteUser(auth.currentUser);
   };
 
@@ -73,6 +76,7 @@ const AuthProvider = ({ children }) => {
     logOutUser,
     deleteCurrentUser,
     updateCurrentUser,
+    setCurrentUser,
   };
   return <AuthContext value={userInfo}>{children}</AuthContext>;
 };
