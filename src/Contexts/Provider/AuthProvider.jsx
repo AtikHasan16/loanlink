@@ -6,6 +6,7 @@ import {
   onAuthStateChanged,
   GithubAuthProvider,
   signInWithPopup,
+  signOut,
 } from "firebase/auth";
 import { auth } from "../../Firebase/firebase.config";
 import { useEffect } from "react";
@@ -40,6 +41,12 @@ const AuthProvider = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
+  // Logout user
+
+  const logOutUser = () => {
+    return signOut(auth);
+  };
+
   const userInfo = {
     message: "hello user",
     registerUser,
@@ -48,6 +55,7 @@ const AuthProvider = ({ children }) => {
     setLoading,
     githubLogin,
     currentUser,
+    logOutUser,
   };
   return <AuthContext value={userInfo}>{children}</AuthContext>;
 };

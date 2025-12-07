@@ -9,6 +9,7 @@ import Contacts from "../Pages/Home/Contacts";
 import DashboardLayout from "../Layouts/DashboardLayout";
 import ManageUser from "../Pages/Dashboard/Admin/ManageUser";
 import Error from "../Pages/Error/Error";
+import GuestRoute from "./Private/GuestRoute";
 
 const router = createBrowserRouter([
   {
@@ -35,11 +36,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/login",
-        element: <Login></Login>,
+        element: (
+          <GuestRoute>
+            <Login></Login>,
+          </GuestRoute>
+        ),
       },
       {
         path: "/register",
-        element: <Register></Register>,
+        element: (
+          <GuestRoute>
+            <Register></Register>,
+          </GuestRoute>
+        ),
       },
     ],
   },

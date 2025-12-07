@@ -28,8 +28,23 @@ import { BsMoon, BsQuestion, BsQuestionCircle, BsSun } from "react-icons/bs"; //
 
 // Socials (Footer)
 import {} from "react-icons/fa";
+import useAuth from "../Hooks/useAuth";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
+  const { currentUser, logOutUser } = useAuth();
+
+  const handleLogOut = () => {
+    logOutUser()
+      .then(() => {
+        toast.success("Logout successfully");
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error(error.message);
+      });
+  };
+
   const links = (
     <>
       <li>
@@ -40,15 +55,17 @@ const Navbar = () => {
           <BiHome></BiHome>Home
         </NavLink>
       </li>
-      <li>
-        <NavLink
-          to={"/dashboard"}
-          className={({ isActive }) => (isActive ? " text-primary" : "")}
-        >
-          <MdDashboard></MdDashboard>
-          Dashboard
-        </NavLink>
-      </li>
+      {currentUser && (
+        <li>
+          <NavLink
+            to={"/dashboard"}
+            className={({ isActive }) => (isActive ? " text-primary" : "")}
+          >
+            <MdDashboard></MdDashboard>
+            Dashboard
+          </NavLink>
+        </li>
+      )}
       <li>
         <NavLink
           to={"/all-loans"}
@@ -77,24 +94,54 @@ const Navbar = () => {
         </NavLink>
       </li>
       <>
-        <li>
-          <Link
-            to={"/register"}
-            className="btn bg-primary text-secondary rounded-full btn-lg"
-          >
-            Register
-            <BiUserPlus></BiUserPlus>
-          </Link>
-        </li>
-        <li>
-          <Link
-            to={"/login"}
-            className="btn rounded-full bg-primary text-secondary  btn-lg"
-          >
-            Login
-            <BiLogIn></BiLogIn>
-          </Link>
-        </li>
+        {currentUser ? (
+          <div className="dropdown dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn bg-transparent shadow-none border-none avatar"
+            >
+              <div className="ring-primary ring-offset-base-100 rounded-full w-13 ring-2 ring-offset-2">
+                <img src="https://img.daisyui.com/images/profile/demo/spiderperson@192.webp" />
+              </div>
+            </div>
+            <ul
+              tabIndex="-1"
+              className="menu dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow gap-2"
+            >
+              <li className="btn">User Information</li>
+              <li>
+                <button
+                  onClick={handleLogOut}
+                  className="btn rounded-full btn-primary text-secondary"
+                >
+                  Log Out
+                </button>
+              </li>
+            </ul>
+          </div>
+        ) : (
+          <>
+            <li>
+              <Link
+                to={"/register"}
+                className="btn bg-primary text-secondary rounded-full btn-lg"
+              >
+                Register
+                <BiUserPlus></BiUserPlus>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={"/login"}
+                className="btn rounded-full bg-primary text-secondary  btn-lg"
+              >
+                Login
+                <BiLogIn></BiLogIn>
+              </Link>
+            </li>
+          </>
+        )}
       </>
     </>
   );
@@ -119,7 +166,7 @@ const Navbar = () => {
             <div
               tabIndex={0}
               role="button"
-              className="btn border-none bg-transparent xl:hidden"
+              className="btn border-none bg-transparent shadow-none xl:hidden"
             >
               <BiMenu size={33}></BiMenu>
             </div>
@@ -156,29 +203,6 @@ const Navbar = () => {
                 <BsMoon size={24}></BsMoon>
               </label>
             </div>
-          </ul>
-        </div>
-
-        <div className="dropdown dropdown-end">
-          <div
-            tabIndex={0}
-            role="button"
-            className="btn bg-transparent border-none avatar"
-          >
-            <div className="ring-primary ring-offset-base-100 rounded-full w-13 ring-2 ring-offset-2">
-              <img src="https://img.daisyui.com/images/profile/demo/spiderperson@192.webp" />
-            </div>
-          </div>
-          <ul
-            tabIndex="-1"
-            className="menu dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow gap-2"
-          >
-            <li className="btn">User Information</li>
-            <li>
-              <button className="btn rounded-full btn-primary text-secondary">
-                Log Out
-              </button>
-            </li>
           </ul>
         </div>
       </div>
