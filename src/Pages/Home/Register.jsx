@@ -9,6 +9,8 @@ import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
+console.log(import.meta.env.VITE_IMAGEBB_KEY);
+
 const Register = () => {
   const { githubLogin, registerUser, updateCurrentUser } = useAuth();
   const {
@@ -20,49 +22,48 @@ const Register = () => {
   console.log(errors);
 
   const onSubmit = (data) => {
-    const { name, email, photo, role, password } = data;
-
-    // Store the image in the imageBB
-    const imageFile = photo[0];
-
-    const formData = new FormData();
-    formData.append("image", imageFile);
-
-    const updateUser = {
-      displayName: name,
-      photoURL: photo,
-    };
+    const imageFile = data.photo[0];
 
     // user registration
-    registerUser(email, password)
+    registerUser(data.email, data.password)
       .then((result) => {
         console.log(result.user);
         toast.success("Registration successful");
 
         // fetch the image url from the imageBB
 
+        const formData = new FormData();
+        formData.append("image", imageFile);
+
         axios
           .post(
             `https://api.imgbb.com/1/upload?key=${
-              import.meta.env.VITE_IMAGEBB_KEY
+              import.meta.env.VITE_imgbb_api_key
             }`,
             formData
           )
           .then((res) => {
-            console.log(res.data);
-          })
-          .catch((error) => {
-            toast.error(error.message);
-          });
+            // update user profile
 
-        updateCurrentUser(updateUser)
-          .then(() => {
-            toast.success("Profile updated successfully");
+            const updateUser = {
+              displayName: data.name,
+              photoURL: res.data.data.url,
+            };
+
+            updateCurrentUser(updateUser)
+              .then(() => {
+                toast.success("Profile updated successfully");
+              })
+              .catch((error) => {
+                console.log(error.message);
+              });
           })
+          // error handling of image upload
           .catch((error) => {
-            toast.error(error.message);
+            console.log(error.message);
           });
       })
+      // error handling of user registration
       .catch((error) => {
         toast.error(error.message);
       });

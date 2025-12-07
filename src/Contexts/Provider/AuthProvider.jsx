@@ -25,7 +25,10 @@ const AuthProvider = ({ children }) => {
   };
 
   const updateCurrentUser = (profile) => {
-    return updateProfile(auth.currentUser, profile);
+    return updateProfile(auth.currentUser, {
+      displayName: profile.displayName,
+      photoURL: profile.photoURL,
+    });
   };
 
   // Github login
