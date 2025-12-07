@@ -71,7 +71,7 @@ const Register = () => {
         {/* Left Side - Blue Gradient & Text */}
         <div className="hidden md:flex flex-col justify-center items-center bg-linear-to-br from-primary to-black p-12 text-center relative overflow-hidden text-white">
           {/* Abstract Background Shapes */}
-          <div className="absolute top-0 left-0 w-full h-full opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+          <div className="absolute top-0 left-0 w-full h-full opacity-70 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
           <div className="absolute -top-10 -left-10 w-40 h-40 bg-white/10 rounded-full blur-2xl"></div>
           <div className="absolute -bottom-10 -right-10 w-60 h-60 bg-white/10 rounded-full blur-3xl"></div>
 
