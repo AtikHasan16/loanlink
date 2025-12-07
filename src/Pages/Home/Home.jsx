@@ -4,6 +4,7 @@ import AuthContext from "../../Contexts/Context/AuthContext";
 import Hero from "../../Components/Hero";
 import HowWorks from "../../Components/HowWorks";
 import HomeCard from "../../Components/HomeCard";
+import Feedback from "../../Components/Feedback";
 
 const Home = () => {
   const { message } = useContext(AuthContext);
@@ -16,6 +17,8 @@ const Home = () => {
       </section>
 
       <HomeCard></HomeCard>
+
+      <Feedback></Feedback>
 
       <section>
         <HowWorks></HowWorks>

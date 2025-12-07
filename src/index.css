@@ -27,3 +27,20 @@
     @apply btn rounded-full bg-primary text-secondary btn-lg border-none hover:bg-primary/90;
   }
 }
+
+@keyframes infinite-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-infinite-scroll {
+  animation: infinite-scroll 40s linear infinite;
+}
+
+.pause-animation:hover {
+  animation-play-state: paused;
+}
