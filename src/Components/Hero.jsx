@@ -1,4 +1,5 @@
 import React from "react";
+// eslint-disable-next-line no-unused-vars
 import { motion } from "motion/react";
 import heroImage from "../assets/hero_bank_cards.png"; // Importing the generated image
 import { Link } from "react-router";
@@ -12,19 +13,13 @@ const Hero = () => {
         <motion.div
           animate={{ y: [0, -30, 0], x: [0, 20, 0] }}
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-70 left-80 w-32 h-32 bg-primary rounded-full blur-3xl"
+          className="absolute top-70 left-80 w-22 h-22 bg-primary rounded-full blur-3xl"
         ></motion.div>
         {/* Circle 2 */}
         <motion.div
           animate={{ y: [0, 40, 0], x: [0, -30, 0] }}
           transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-20 right-20 w-64 h-64 bg-secondary rounded-full blur-3xl"
-        ></motion.div>
-        {/* Geometric Shape */}
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-base-content/5 rounded-full opacity-30"
+          className="absolute bottom-40 right-55 w-64 h-64 bg-primary rounded-full blur-3xl"
         ></motion.div>
       </div>
 
@@ -37,17 +32,15 @@ const Hero = () => {
             transition={{ duration: 0.6 }}
           >
             <span className="uppercase tracking-widest text-primary font-bold text-sm">
-              Manage Your Finance
+              Simple & Fast Financing
             </span>
             <h1 className="text-5xl md:text-7xl font-bold leading-tight mt-4 text-base-content">
-              Your banking <br />
-              <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-gray-500">
-                made easier.
-              </span>
+              Achieve Dreams <br />
+              <span className="text-primary">With Our Loans.</span>
             </h1>
             <p className="text-base-content/70 text-lg md:text-xl max-w-lg mx-auto lg:mx-0 mt-6 leading-relaxed">
-              Experience the future of financial management with our intuitive
-              platform. Secure, fast, and designed for your growth.
+              Get the financial support you need with our transparent, secure,
+              and quick loan approval process.
             </p>
 
             {/* Input & Subscribe/CTA */}
@@ -59,10 +52,10 @@ const Hero = () => {
                 Get Started
               </Link>
               <Link
-                to="/request-loan"
+                to="/all-loans"
                 className="btn bg-transparent border-none shadow-none text-primary   text-lg h-auto"
               >
-                Request Loan
+                Apply for Loan
               </Link>
             </div>
 
