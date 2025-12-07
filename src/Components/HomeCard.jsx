@@ -37,7 +37,7 @@ const dummyLoans = [
     interest: 5.0,
     maxLimit: 75000,
     image:
-      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=600",
+      "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&q=80&w=600",
   },
   {
     id: 5,
