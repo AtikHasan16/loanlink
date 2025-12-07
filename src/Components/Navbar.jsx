@@ -102,14 +102,16 @@ const Navbar = () => {
               className="btn bg-transparent shadow-none border-none avatar"
             >
               <div className="ring-primary ring-offset-base-100 rounded-full w-13 ring-2 ring-offset-2">
-                <img src="https://img.daisyui.com/images/profile/demo/spiderperson@192.webp" />
+                <img src={currentUser?.photoURL} />
               </div>
             </div>
             <ul
               tabIndex="-1"
               className="menu dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow gap-2"
             >
-              <li className="btn">User Information</li>
+              <li className="btn bg-transparent text-primary border-none shadow-none">
+                {currentUser?.displayName}
+              </li>
               <li>
                 <button
                   onClick={handleLogOut}
@@ -117,6 +119,14 @@ const Navbar = () => {
                 >
                   Log Out
                 </button>
+              </li>
+              <li>
+                <Link
+                  to={"/profile"}
+                  className="btn rounded-full btn-primary text-secondary"
+                >
+                  Profile
+                </Link>
               </li>
             </ul>
           </div>

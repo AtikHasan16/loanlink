@@ -7,6 +7,7 @@ import {
   GithubAuthProvider,
   signInWithPopup,
   signOut,
+  deleteUser,
 } from "firebase/auth";
 import { auth } from "../../Firebase/firebase.config";
 import { useEffect } from "react";
@@ -20,6 +21,10 @@ const AuthProvider = ({ children }) => {
   // Create new user with email
   const registerUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
+  };
+
+  const updateProfile = (profile) => {
+    return updateProfile(auth.currentUser, profile);
   };
 
   // Github login
@@ -47,15 +52,22 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
+  // delete user
+
+  const deleteCurrentUser = () => {
+    return deleteUser(auth.currentUser);
+  };
+
   const userInfo = {
-    message: "hello user",
     registerUser,
     loginUser,
+    updateProfile,
     loading,
     setLoading,
     githubLogin,
     currentUser,
     logOutUser,
+    deleteCurrentUser,
   };
   return <AuthContext value={userInfo}>{children}</AuthContext>;
 };

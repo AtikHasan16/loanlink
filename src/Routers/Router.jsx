@@ -10,6 +10,8 @@ import DashboardLayout from "../Layouts/DashboardLayout";
 import ManageUser from "../Pages/Dashboard/Admin/ManageUser";
 import Error from "../Pages/Error/Error";
 import GuestRoute from "./Private/GuestRoute";
+import PrivateRoute from "./Private/PrivateRoute";
+import Profile from "../Pages/Common/Profile";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +50,14 @@ const router = createBrowserRouter([
           <GuestRoute>
             <Register></Register>,
           </GuestRoute>
+        ),
+      },
+      {
+        path: "/profile",
+        element: (
+          <PrivateRoute>
+            <Profile></Profile>
+          </PrivateRoute>
         ),
       },
     ],

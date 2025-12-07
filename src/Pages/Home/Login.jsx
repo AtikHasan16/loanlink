@@ -25,17 +25,17 @@ const Login = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="bg-base-100 rounded-3xl shadow-2xl overflow-hidden max-w-5xl w-full grid grid-cols-1 md:grid-cols-2"
+        className="bg-accent rounded-3xl shadow-2xl overflow-hidden max-w-5xl w-full grid grid-cols-1 md:grid-cols-2"
       >
         {/* Left Side - Blue Gradient & Text */}
-        <div className="hidden md:flex flex-col justify-center items-center bg-linear-to-br from-primary to-secondary  p-12 text-center relative overflow-hidden">
+        <div className="hidden md:flex flex-col justify-center items-center bg-linear-to-br from-primary to-black  text-white p-12 text-center relative overflow-hidden">
           {/* Abstract Background Shapes */}
-          <div className="absolute top-0 left-0 w-full h-full opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+          <div className="absolute top-0 left-0 w-full h-full  bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
           <div className="absolute -top-10 -left-10 w-40 h-40 bg-white/10 rounded-full blur-2xl"></div>
           <div className="absolute -bottom-10 -right-10 w-60 h-60 bg-white/10 rounded-full blur-3xl"></div>
 
           <div className="z-10 relative">
-            <h1 className="text-5xl font-bold mb-4 jost">WELCOME BACK</h1>
+            <h1 className="text-5xl font-bold mb-4">WELCOME BACK</h1>
             <h2 className="text-xl font-medium tracking-widest mb-6 opacity-90 uppercase">
               To LoanLink
             </h2>
@@ -47,7 +47,7 @@ const Login = () => {
         </div>
 
         {/* Right Side - Login Form */}
-        <div className="p-10 md:p-14 flex flex-col justify-center bg-base-100">
+        <div className="p-10 md:p-14 flex flex-col justify-center ">
           <div className="mb-8 text-center md:text-left">
             <h2 className="text-3xl font-bold text-primary">Sign in</h2>
             <p className="text-base-content/60 mt-2 text-sm">
@@ -64,7 +64,7 @@ const Login = () => {
               <input
                 type="email"
                 placeholder="name@example.com"
-                className="input input-bordered text-lg w-full rounded-xl focus:border-primary focus:ring-1 focus:ring-primary bg-base-200/50 py-6"
+                className="input input-bordered text-lg w-full rounded-xl focus:border-primary focus:ring-1 focus:ring-primary py-6"
               />
             </div>
 
@@ -77,7 +77,7 @@ const Login = () => {
                 <input
                   type={showPass ? "text" : "password"}
                   placeholder="********"
-                  className="input input-bordered text-lg w-full rounded-xl focus:border-primary focus:ring-1 focus:ring-primary bg-base-200/50 pr-10 py-6"
+                  className="input input-bordered text-lg w-full rounded-xl focus:border-primary focus:ring-1 focus:ring-primary pr-10 py-6"
                 />
                 <button
                   type="button"
