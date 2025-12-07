@@ -21,3 +21,9 @@
   font-weight: 400;
   font-style: normal;
 }
+
+@layer components {
+  .btn-main {
+    @apply btn rounded-full bg-primary text-secondary btn-lg border-none hover:bg-primary/90;
+  }
+}

@@ -2,6 +2,7 @@ import React from "react";
 import { Outlet } from "react-router";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
+import Container from "../Components/Container";
 
 const HomeLayout = () => {
   return (
@@ -10,7 +11,9 @@ const HomeLayout = () => {
         <Navbar></Navbar>
       </header>
       <main className="min-h-screen mt-30">
-        <Outlet></Outlet>
+        <Container className="">
+          <Outlet></Outlet>
+        </Container>
       </main>
       <footer>
         <Footer></Footer>

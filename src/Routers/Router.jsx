@@ -8,11 +8,14 @@ import About from "../Pages/Home/About";
 import Contacts from "../Pages/Home/Contacts";
 import DashboardLayout from "../Layouts/DashboardLayout";
 import ManageUser from "../Pages/Dashboard/Admin/ManageUser";
+import Error from "../Pages/Error/Error";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeLayout></HomeLayout>,
+    errorElement: <Error></Error>,
+
     children: [
       {
         index: true,
