@@ -7,6 +7,7 @@ import { HiEyeOff } from "react-icons/hi";
 import useAuth from "../../Hooks/useAuth";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 
 const Register = () => {
   const { githubLogin, registerUser, updateCurrentUser } = useAuth();
@@ -21,10 +22,12 @@ const Register = () => {
   const onSubmit = (data) => {
     const { name, email, photo, role, password } = data;
 
-    const user = {
-      email,
-      password,
-    };
+    // Store the image in the imageBB
+    const imageFile = photo[0];
+
+    const formData = new FormData();
+    formData.append("image", imageFile);
+
     const updateUser = {
       displayName: name,
       photoURL: photo,
@@ -35,6 +38,23 @@ const Register = () => {
       .then((result) => {
         console.log(result.user);
         toast.success("Registration successful");
+
+        // fetch the image url from the imageBB
+
+        axios
+          .post(
+            `https://api.imgbb.com/1/upload?key=${
+              import.meta.env.VITE_IMAGEBB_KEY
+            }`,
+            formData
+          )
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((error) => {
+            toast.error(error.message);
+          });
+
         updateCurrentUser(updateUser)
           .then(() => {
             toast.success("Profile updated successfully");
