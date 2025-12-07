@@ -12,6 +12,7 @@ import Error from "../Pages/Error/Error";
 import GuestRoute from "./Private/GuestRoute";
 import PrivateRoute from "./Private/PrivateRoute";
 import Profile from "../Pages/Common/Profile";
+import Dashboard from "../Pages/Dashboard/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
+        element: <Dashboard></Dashboard>,
+      },
+      {
+        path: "/dashboard/manage-user",
         element: <ManageUser></ManageUser>,
       },
     ],

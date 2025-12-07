@@ -29,7 +29,7 @@ const Register = () => {
     registerUser(data.email, data.password)
       .then((result) => {
         setLoading(false);
-        console.log(result.user);
+        // console.log(result.user);
         toast.success("Registration successful");
 
         // fetch the image url from the imageBB
