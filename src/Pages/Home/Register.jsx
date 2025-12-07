@@ -9,17 +9,43 @@ import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 
 const Register = () => {
-  const { githubLogin } = useAuth();
+  const { githubLogin, registerUser, updateCurrentUser } = useAuth();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const [showPass, setShowPass] = useState(false);
-  // console.log(errors);
+  console.log(errors);
 
   const onSubmit = (data) => {
-    console.log(data);
+    const { name, email, photo, role, password } = data;
+
+    const user = {
+      email,
+      password,
+    };
+    const updateUser = {
+      displayName: name,
+      photoURL: photo,
+    };
+
+    // user registration
+    registerUser(email, password)
+      .then((result) => {
+        console.log(result.user);
+        toast.success("Registration successful");
+        updateCurrentUser(updateUser)
+          .then(() => {
+            toast.success("Profile updated successfully");
+          })
+          .catch((error) => {
+            toast.error(error.message);
+          });
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
   };
 
   const handleGithubLogin = () => {
@@ -80,8 +106,11 @@ const Register = () => {
                 type="text"
                 placeholder="John Doe"
                 className="input input-bordered text-lg w-full rounded-xl focus:border-primary focus:ring-1 focus:ring-primary  py-6"
-                {...register("name", { required: true })}
+                {...register("name", { required: "Name is required" })}
               />
+              {errors.name && (
+                <span className="text-red-500">{errors.name.message}</span>
+              )}
             </div>
 
             {/* Email Input */}
@@ -93,8 +122,11 @@ const Register = () => {
                 type="email"
                 placeholder="name@example.com"
                 className="input input-bordered text-lg w-full rounded-xl focus:border-primary focus:ring-1 focus:ring-primary  py-6"
-                {...register("email", { required: true })}
+                {...register("email", { required: "email is required" })}
               />
+              {errors.email && (
+                <span className="text-red-500">{errors.email.message}</span>
+              )}
             </div>
 
             {/* Photo Upload Input */}
@@ -106,9 +138,12 @@ const Register = () => {
                 <input
                   type="file"
                   className="file-input file-input-bordered file-input-primary w-full rounded-xl "
-                  {...register("photo", { required: true })}
+                  {...register("photo", { required: "photo is required" })}
                 />
               </div>
+              {errors.photo && (
+                <span className="text-red-500">{errors.photo.message}</span>
+              )}
             </div>
 
             {/* Role SelectionDropdown */}
@@ -118,12 +153,15 @@ const Register = () => {
               </label>
               <select
                 className="select select-bordered text-lg w-full rounded-xl focus:border-primary focus:ring-1 focus:ring-primary"
-                {...register("role", { required: true })}
+                {...register("role", { required: "role is required" })}
                 defaultValue="borrower"
               >
                 <option value="borrower">Borrower</option>
                 <option value="manager">Manager</option>
               </select>
+              {errors.role && (
+                <span className="text-red-500">{errors.role.message}</span>
+              )}
             </div>
 
             {/* Password Input */}
@@ -136,7 +174,24 @@ const Register = () => {
                   type={showPass ? "text" : "password"}
                   placeholder="********"
                   className="input input-bordered text-lg w-full rounded-xl focus:border-primary focus:ring-1 focus:ring-primary  pr-10 py-6"
-                  {...register("password", { required: true })}
+                  {...register("password", {
+                    required: "Password is required",
+                    minLength: {
+                      value: 6,
+                      message: "Password must be at least 6 characters long",
+                    },
+                    validate: {
+                      lowercase: (value) =>
+                        /^(?=.*[a-z])/.test(value) ||
+                        "Password must contain at least one lowercase letter",
+                      uppercase: (value) =>
+                        /^(?=.*[A-Z])/.test(value) ||
+                        "Password must contain at least one uppercase letter",
+                      number: (value) =>
+                        /^(?=.*\d)/.test(value) ||
+                        "Password must contain at least one number",
+                    },
+                  })}
                 />
                 <button
                   type="button"
@@ -146,6 +201,11 @@ const Register = () => {
                   {showPass ? <HiEyeOff size={24} /> : <FaEye size={24} />}
                 </button>
               </div>
+              {errors.password && (
+                <span className="text-red-500 text-sm mt-2">
+                  {errors.password.message}
+                </span>
+              )}
             </div>
 
             {/* Submit Button */}

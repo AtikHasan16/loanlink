@@ -8,6 +8,7 @@ import {
   signInWithPopup,
   signOut,
   deleteUser,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../../Firebase/firebase.config";
 import { useEffect } from "react";
@@ -23,7 +24,7 @@ const AuthProvider = ({ children }) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  const updateProfile = (profile) => {
+  const updateCurrentUser = (profile) => {
     return updateProfile(auth.currentUser, profile);
   };
 
@@ -68,6 +69,7 @@ const AuthProvider = ({ children }) => {
     currentUser,
     logOutUser,
     deleteCurrentUser,
+    updateCurrentUser,
   };
   return <AuthContext value={userInfo}>{children}</AuthContext>;
 };
