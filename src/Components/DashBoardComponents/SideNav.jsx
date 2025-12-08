@@ -1,6 +1,6 @@
 import React from "react";
 import { BiDollar, BiHome, BiMoney, BiPowerOff, BiUser } from "react-icons/bi";
-import { NavLink } from "react-router";
+import { Navigate, NavLink } from "react-router";
 import { IoAddCircleSharp, IoNewspaperOutline } from "react-icons/io5";
 import { ImProfile } from "react-icons/im";
 import ThemeToggle from "../Shared/ThemeToggle";
@@ -8,7 +8,10 @@ import { BsCashStack, BsFillBookmarkCheckFill } from "react-icons/bs";
 import { GiReceiveMoney } from "react-icons/gi";
 import { MdManageAccounts, MdOutlinePendingActions } from "react-icons/md";
 import { RiAccountPinBoxFill } from "react-icons/ri";
+import useAuth from "../../Hooks/useAuth";
+import toast from "react-hot-toast";
 const SideNav = () => {
+  const { logOutUser } = useAuth();
   const links = (
     <>
       <li>
@@ -125,6 +128,16 @@ const SideNav = () => {
     </>
   );
 
+  const handleLogOut = () => {
+    logOutUser()
+      .then(() => {
+        toast.success("Logout successfully");
+      })
+      .catch(() => {
+        toast.error("Logout failed");
+      });
+  };
+
   return (
     <div className="flex flex-col items-baseline h-screen pt-40 pb-5 w-full">
       <ul className="menu gap-4 w-full grow text-xl font-semibold">
@@ -135,6 +148,7 @@ const SideNav = () => {
         <button
           data-tip="Logout"
           className="btn btn-ghost tooltip tooltip-right"
+          onClick={handleLogOut}
         >
           <BiPowerOff size={30}></BiPowerOff>
         </button>
