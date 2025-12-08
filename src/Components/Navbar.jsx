@@ -24,7 +24,7 @@ import {} from "react-icons/fa";
 // UI Elements (Spinner, Close, Check)
 import {} from "react-icons/im"; // Good for loading states
 import { IoCall } from "react-icons/io5";
-import { BsMoon, BsQuestion, BsQuestionCircle, BsSun } from "react-icons/bs"; // Theme toggle
+import { BsQuestionCircle } from "react-icons/bs"; // Theme toggle
 
 // Socials (Footer)
 import {} from "react-icons/fa";
@@ -33,6 +33,7 @@ import useAuth from "../Hooks/useAuth";
 import Loading from "../Pages/Loading/Loading";
 import Logo from "./Shared/Logo";
 import ProfileAvatar from "./Shared/ProfileAvatar";
+import ThemeToggle from "./Shared/ThemeToggle";
 
 const Navbar = () => {
   const { currentUser, loading } = useAuth();
@@ -162,32 +163,14 @@ const Navbar = () => {
               {links}
             </ul>
           </div>
-          <div className="flex justify-center items-center">
-            <label className="toggle toggle-xl text-primary">
-              <input
-                type="checkbox"
-                value={"dark"}
-                className="theme-controller"
-              />
-              <BsSun size={24}></BsSun>
-              <BsMoon size={24}></BsMoon>
-            </label>
-          </div>
+          {/* Theme toggle */}
+          <ThemeToggle></ThemeToggle>
         </div>
         <div className="navbar-end hidden w-full xl:flex">
           <ul className="text-lg text menu menu-horizontal font-semibold  items-center gap-2">
             {links}
-            <div className="flex justify-center items-center">
-              <label className="toggle toggle-xl text-primary">
-                <input
-                  type="checkbox"
-                  value={"dark"}
-                  className="theme-controller"
-                />
-                <BsSun size={24}></BsSun>
-                <BsMoon size={24}></BsMoon>
-              </label>
-            </div>
+            {/* Theme toggle */}
+            <ThemeToggle></ThemeToggle>
           </ul>
         </div>
       </div>

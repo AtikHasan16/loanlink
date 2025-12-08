@@ -4,7 +4,7 @@ import { Link } from "react-router";
 const Logo = () => {
   return (
     <div>
-      <div className="navbar-start   w-fit">
+      <div className="navbar-start jost  w-fit">
         <Link
           to={"/"}
           className="btn border-none bg-transparent shadow-none text-3xl font-bold text-primary"

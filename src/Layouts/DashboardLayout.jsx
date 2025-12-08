@@ -6,7 +6,7 @@ import DashFooter from "../Components/DashBoardComponents/DashFooter";
 const DashboardLayout = () => {
   return (
     <>
-      <div className="drawer lg:drawer-open">
+      <div className="drawer lg:drawer-open arimo">
         <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content">
           {/* Navbar */}
@@ -23,7 +23,7 @@ const DashboardLayout = () => {
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
-          <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
+          <div className="flex min-h-full justify-center items-center flex-col bg-base-200 is-drawer-close:w-18 is-drawer-open:w-64">
             {/* Sidebar content here */}
             <SideNav></SideNav>
           </div>
