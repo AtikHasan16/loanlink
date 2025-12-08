@@ -29,22 +29,13 @@ import { BsMoon, BsQuestion, BsQuestionCircle, BsSun } from "react-icons/bs"; //
 // Socials (Footer)
 import {} from "react-icons/fa";
 import useAuth from "../Hooks/useAuth";
-import toast from "react-hot-toast";
+
 import Loading from "../Pages/Loading/Loading";
+import Logo from "./Shared/Logo";
+import ProfileAvatar from "./Shared/ProfileAvatar";
 
 const Navbar = () => {
-  const { currentUser, logOutUser, loading } = useAuth();
-
-  const handleLogOut = () => {
-    logOutUser()
-      .then(() => {
-        toast.success("Logout successfully");
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.error(error.message);
-      });
-  };
+  const { currentUser, loading } = useAuth();
 
   const links = loading ? (
     // Skeleton Loading State
@@ -122,43 +113,7 @@ const Navbar = () => {
       </li>
       <>
         {currentUser ? (
-          <div className="m-5 sm:m-0">
-            <div className="dropdown dropdown-end">
-              <div
-                tabIndex={0}
-                role="button"
-                className="btn bg-transparent shadow-none border-none avatar"
-              >
-                <div className="ring-primary ring-offset-base-100 rounded-full w-13 ring-2 ring-offset-2">
-                  <img src={currentUser?.photoURL} />
-                </div>
-              </div>
-              <ul
-                tabIndex="-1"
-                className="menu dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow gap-2"
-              >
-                <li className="btn bg-transparent text-primary border-none shadow-none">
-                  {currentUser?.displayName}
-                </li>
-                <li>
-                  <button
-                    onClick={handleLogOut}
-                    className="btn rounded-full btn-primary text-secondary"
-                  >
-                    Log Out
-                  </button>
-                </li>
-                <li>
-                  <Link
-                    to={"/profile"}
-                    className="btn rounded-full btn-primary text-secondary"
-                  >
-                    Profile
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <ProfileAvatar></ProfileAvatar>
         ) : (
           <>
             <li>
@@ -188,17 +143,8 @@ const Navbar = () => {
   return (
     <div className="">
       <div className="navbar py-3 bg-accent shadow-sm  jost fixed z-50 top-0 lg:px-10 mx-auto">
-        <div className="navbar-start   w-fit">
-          <Link
-            to={"/"}
-            className="btn border-none bg-transparent shadow-none text-3xl font-bold text-primary"
-          >
-            <div className="w-10 h-10 bg-primary rounded flex items-center justify-center">
-              <span className="text-secondary font-bold">LL</span>
-            </div>
-            LoanLink
-          </Link>
-        </div>
+        {/* Logo */}
+        <Logo></Logo>
 
         <div className="xl:hidden  w-full flex justify-end">
           <div className="dropdown dropdown-bottom dropdown-end">

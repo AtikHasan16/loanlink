@@ -6,10 +6,15 @@ import { FaGoogle, FaGithub, FaEye } from "react-icons/fa";
 import { useState } from "react";
 import { HiEyeOff } from "react-icons/hi";
 import useAuth from "../../Hooks/useAuth";
+import { useForm } from "react-hook-form";
 
 const Login = () => {
-  const { githubLogin } = useAuth();
-
+  const { githubLogin, loginUser, setLoading } = useAuth();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [showPass, setShowPass] = useState(false);
 
   const handleGithubLogin = () => {
@@ -17,6 +22,21 @@ const Login = () => {
       const user = result.user;
       console.log(user);
     });
+  };
+
+  const onSubmit = (data) => {
+    console.log(data);
+
+    loginUser(data.email, data.password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+      });
   };
 
   return (
@@ -55,7 +75,7 @@ const Login = () => {
             </p>
           </div>
 
-          <form onSubmit={(e) => e.preventDefault()}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             {/* Email Input */}
             <div className="form-control w-full mb-4">
               <label className="label">
@@ -65,6 +85,7 @@ const Login = () => {
                 type="email"
                 placeholder="name@example.com"
                 className="input input-bordered text-lg w-full rounded-xl focus:border-primary focus:ring-1 focus:ring-primary py-6"
+                {...register("email")}
               />
             </div>
 
@@ -78,6 +99,7 @@ const Login = () => {
                   type={showPass ? "text" : "password"}
                   placeholder="********"
                   className="input input-bordered text-lg w-full rounded-xl focus:border-primary focus:ring-1 focus:ring-primary pr-10 py-6"
+                  {...register("password")}
                 />
                 <button
                   type="button"
@@ -90,7 +112,10 @@ const Login = () => {
             </div>
 
             {/* Submit Button */}
-            <button className="btn-main w-full shadow-lg mt-10 shadow-primary/30">
+            <button
+              type="submit"
+              className="btn-main w-full shadow-lg mt-10 shadow-primary/30"
+            >
               Sign In
             </button>
           </form>
