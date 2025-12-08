@@ -13,6 +13,7 @@ import GuestRoute from "./Private/GuestRoute";
 import PrivateRoute from "./Private/PrivateRoute";
 import Profile from "../Pages/Common/Profile";
 import Dashboard from "../Pages/Dashboard/Dashboard";
+import AllLoans from "../Pages/Dashboard/Admin/AllLoans";
 
 const router = createBrowserRouter([
   {
@@ -75,6 +76,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/manage-user",
         element: <ManageUser></ManageUser>,
+      },
+      {
+        path: "/dashboard/all-loans",
+        element: <AllLoans></AllLoans>,
       },
     ],
   },

@@ -19,7 +19,7 @@ const ProfileAvatar = () => {
 
   return (
     <div>
-      <div className="m-5 sm:m-0">
+      <div className="">
         <div className="dropdown dropdown-end">
           <div
             tabIndex={0}

@@ -12,8 +12,13 @@ const DashboardLayout = () => {
           {/* Navbar */}
           <DashNav></DashNav>
           {/* Page content here */}
-          <div className="p-4">
-            <Outlet></Outlet>
+          <div className="">
+            <div className="mt-20 p-4 min-h-screen">
+              <Outlet></Outlet>
+            </div>
+            <footer>
+              <DashFooter></DashFooter>
+            </footer>
           </div>
         </div>
 
@@ -29,9 +34,6 @@ const DashboardLayout = () => {
           </div>
         </div>
       </div>
-      <footer>
-        <DashFooter></DashFooter>
-      </footer>
     </>
   );
 };

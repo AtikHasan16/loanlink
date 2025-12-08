@@ -29,6 +29,10 @@
   font-style: normal;
 }
 
+.active {
+  @apply text-primary;
+}
+
 @layer components {
   .btn-main {
     @apply btn rounded-full bg-primary text-secondary btn-lg border-none hover:bg-primary/90;

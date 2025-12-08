@@ -7,7 +7,7 @@ import ProfileAvatar from "../Shared/ProfileAvatar";
 const DashNav = () => {
   return (
     <div>
-      <nav className="navbar w-full pr-30 py-5 bg-accent shadow-sm fixed z-50 top-0  mx-auto">
+      <nav className="navbar w-full sm:pr-10 lg:pr-20 bg-accent shadow-sm fixed z-50 top-0  mx-auto">
         <label
           htmlFor="my-drawer-4"
           aria-label="open sidebar"
@@ -22,7 +22,9 @@ const DashNav = () => {
         <div className="navbar-end w-full">
           {/* Theme toggle */}
           <ThemeToggle></ThemeToggle>
-          <ProfileAvatar></ProfileAvatar>
+          <div className="mr-5 my-2">
+            <ProfileAvatar></ProfileAvatar>
+          </div>
         </div>
       </nav>
     </div>

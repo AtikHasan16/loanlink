@@ -1,23 +1,41 @@
 import React from "react";
-import { BiHome } from "react-icons/bi";
+import { BiHome, BiMoney, BiUser } from "react-icons/bi";
 import { NavLink } from "react-router";
-
+import { SiGoogleforms } from "react-icons/si";
 const SideNav = () => {
   const links = (
     <>
       <li>
         <NavLink
-          to="/dashboard"
-          className={({ isActive }) =>
-            isActive
-              ? " text-primary"
-              : "is-drawer-close:tooltip is-drawer-close:tooltip-right"
-          }
-          data-tip="Homepage"
+          to="/dashboard/manage-user"
+          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+          data-tip="Manage Users"
         >
           {/* Home icon */}
-          <BiHome size={30}></BiHome>
-          <span className="is-drawer-close:hidden">Home</span>
+          <BiUser size={30}></BiUser>
+          <span className="is-drawer-close:hidden">Manage Users</span>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/dashboard/all-loans"
+          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+          data-tip="All Loans"
+        >
+          {/* Home icon */}
+          <BiMoney size={30}></BiMoney>
+          <span className="is-drawer-close:hidden">All Loans</span>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/dashboard/loan-application"
+          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+          data-tip="Loan Application"
+        >
+          {/* Home icon */}
+          <SiGoogleforms size={30}></SiGoogleforms>
+          <span className="is-drawer-close:hidden">Loan Application</span>
         </NavLink>
       </li>
     </>
@@ -25,7 +43,7 @@ const SideNav = () => {
 
   return (
     <div>
-      <ul className="menu w-full grow text-xl font-semibold">
+      <ul className="menu gap-4 w-full grow text-xl font-semibold">
         {/* List item */}
         {links}
       </ul>
