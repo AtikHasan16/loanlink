@@ -11,6 +11,17 @@ import { RiAccountPinBoxFill } from "react-icons/ri";
 const SideNav = () => {
   const links = (
     <>
+      <li>
+        <NavLink
+          to="/dashboard/home"
+          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+          data-tip="Dashboard"
+        >
+          {/* User icon */}
+          <BiHome size={30}></BiHome>
+          <span className="is-drawer-close:hidden">Dashboard</span>
+        </NavLink>
+      </li>
       {/*--------------------------- Admin */}
       <li>
         <NavLink
