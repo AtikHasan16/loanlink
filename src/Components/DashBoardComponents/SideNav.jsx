@@ -1,12 +1,17 @@
 import React from "react";
 import { BiDollar, BiHome, BiMoney, BiPowerOff, BiUser } from "react-icons/bi";
 import { NavLink } from "react-router";
-import { IoNewspaperOutline } from "react-icons/io5";
+import { IoAddCircleSharp, IoNewspaperOutline } from "react-icons/io5";
 import { ImProfile } from "react-icons/im";
 import ThemeToggle from "../Shared/ThemeToggle";
+import { BsCashStack, BsFillBookmarkCheckFill } from "react-icons/bs";
+import { GiReceiveMoney } from "react-icons/gi";
+import { MdManageAccounts, MdOutlinePendingActions } from "react-icons/md";
+import { RiAccountPinBoxFill } from "react-icons/ri";
 const SideNav = () => {
   const links = (
     <>
+      {/*--------------------------- Admin */}
       <li>
         <NavLink
           to="/dashboard/manage-user"
@@ -40,6 +45,49 @@ const SideNav = () => {
           <span className="is-drawer-close:hidden">Loan Application</span>
         </NavLink>
       </li>
+
+      {/*------------------- Manager */}
+      <li>
+        <NavLink
+          to="/dashboard/manage-loan"
+          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+          data-tip="Manage Loan"
+        >
+          <MdManageAccounts size={30}></MdManageAccounts>
+          <span className="is-drawer-close:hidden">Manage Loan</span>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/dashboard/approved-loan"
+          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+          data-tip="Approved Loan"
+        >
+          <BsFillBookmarkCheckFill size={30}></BsFillBookmarkCheckFill>
+          <span className="is-drawer-close:hidden">Approved Loan</span>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/dashboard/pending-loan"
+          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+          data-tip="Pending Loan"
+        >
+          <MdOutlinePendingActions size={30}></MdOutlinePendingActions>
+          <span className="is-drawer-close:hidden">Pending Loan</span>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/dashboard/add-loan"
+          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+          data-tip="Add Loan"
+        >
+          <IoAddCircleSharp size={30}></IoAddCircleSharp>
+          <span className="is-drawer-close:hidden">Add Loan</span>
+        </NavLink>
+      </li>
+      {/*--------------------------- User */}
       <li>
         <NavLink
           to="/dashboard/my-loan"
@@ -47,10 +95,11 @@ const SideNav = () => {
           data-tip="My Loan"
         >
           {/* Newspaper icon */}
-          <BiDollar size={30}></BiDollar>
+          <GiReceiveMoney size={30}></GiReceiveMoney>
           <span className="is-drawer-close:hidden">My Loan</span>
         </NavLink>
       </li>
+      {/* Profile */}
       <li>
         <NavLink
           to="/profile"
@@ -58,7 +107,7 @@ const SideNav = () => {
           data-tip="My Profile"
         >
           {/* Profile icon */}
-          <ImProfile size={28}></ImProfile>
+          <RiAccountPinBoxFill size={30} />
           <span className="is-drawer-close:hidden">My Profile</span>
         </NavLink>
       </li>
@@ -66,7 +115,7 @@ const SideNav = () => {
   );
 
   return (
-    <div className="flex flex-col items-baseline h-screen pt-70 pb-5 w-full">
+    <div className="flex flex-col items-baseline h-screen pt-40 pb-5 w-full">
       <ul className="menu gap-4 w-full grow text-xl font-semibold">
         {/* List item */}
         {links}
@@ -78,9 +127,8 @@ const SideNav = () => {
         >
           <BiPowerOff size={30}></BiPowerOff>
         </button>
-        <div >
-
-        <ThemeToggle></ThemeToggle>
+        <div>
+          <ThemeToggle></ThemeToggle>
         </div>
       </div>
     </div>
