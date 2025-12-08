@@ -15,6 +15,11 @@ import Profile from "../Pages/Common/Profile";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import AllLoans from "../Pages/Dashboard/Admin/AllLoans";
 import MyLoan from "../Pages/Dashboard/Users/MyLoan";
+import LoanApplication from "../Pages/Dashboard/Admin/LoanApplication";
+import AddLoan from "../Pages/Dashboard/Manager/AddLoan";
+import ApprovedLoan from "../Pages/Dashboard/Manager/ApprovedLoan";
+import PendingLoan from "../Pages/Dashboard/Manager/PendingLoan";
+import ManageLoan from "../Pages/Dashboard/Manager/ManageLoan";
 
 const router = createBrowserRouter([
   {
@@ -74,6 +79,7 @@ const router = createBrowserRouter([
         index: true,
         element: <Dashboard></Dashboard>,
       },
+      // admin
       {
         path: "/dashboard/manage-user",
         element: <ManageUser></ManageUser>,
@@ -82,6 +88,29 @@ const router = createBrowserRouter([
         path: "/dashboard/all-loans",
         element: <AllLoans></AllLoans>,
       },
+
+      {
+        path: "/dashboard/loan-application",
+        element: <LoanApplication></LoanApplication>,
+      },
+      // Manager
+      {
+        path: "/dashboard/add-loan",
+        element: <AddLoan></AddLoan>,
+      },
+      {
+        path: "/dashboard/approved-loan",
+        element: <ApprovedLoan></ApprovedLoan>,
+      },
+      {
+        path: "/dashboard/pending-loan",
+        element: <PendingLoan></PendingLoan>,
+      },
+      {
+        path: "/dashboard/manage-loan",
+        element: <ManageLoan></ManageLoan>,
+      },
+      // User
       {
         path: "/dashboard/my-loan",
         element: <MyLoan></MyLoan>,
