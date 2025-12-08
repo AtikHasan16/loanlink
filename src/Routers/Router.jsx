@@ -14,6 +14,7 @@ import PrivateRoute from "./Private/PrivateRoute";
 import Profile from "../Pages/Common/Profile";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import AllLoans from "../Pages/Dashboard/Admin/AllLoans";
+import MyLoan from "../Pages/Dashboard/Users/MyLoan";
 
 const router = createBrowserRouter([
   {
@@ -80,6 +81,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/all-loans",
         element: <AllLoans></AllLoans>,
+      },
+      {
+        path: "/dashboard/my-loan",
+        element: <MyLoan></MyLoan>,
       },
     ],
   },

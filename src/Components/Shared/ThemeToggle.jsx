@@ -23,15 +23,15 @@ const ThemeToggle = () => {
   return (
     <div>
       <div className="">
-        <label className="toggle toggle-xl text-primary">
+        <label className="toggle toggle-lg  text-primary">
           <input
             type="checkbox"
             checked={theme === "dark"}
             onChange={handleThemeChange}
             className="theme-controller"
           />
-          <BsSun size={24}></BsSun>
-          <BsMoon size={24}></BsMoon>
+          <BsSun size={20}></BsSun>
+          <BsMoon size={20}></BsMoon>
         </label>
       </div>
     </div>
