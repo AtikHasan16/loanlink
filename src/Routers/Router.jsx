@@ -20,7 +20,7 @@ import AddLoan from "../Pages/Dashboard/Manager/AddLoan";
 import ApprovedLoan from "../Pages/Dashboard/Manager/ApprovedLoan";
 import PendingLoan from "../Pages/Dashboard/Manager/PendingLoan";
 import ManageLoan from "../Pages/Dashboard/Manager/ManageLoan";
-
+import LoanDetails from "../Pages/Home/LoanDetails";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -44,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <Contacts></Contacts>,
+      },
+      {
+        path: "/loan-details",
+        element: <LoanDetails></LoanDetails>,
       },
       {
         path: "/login",

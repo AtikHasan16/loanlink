@@ -58,7 +58,7 @@ const LoanCard = ({ loan }) => {
         </div>
 
         {/* Action Button */}
-        <Link to={`/loan-details/${title}`} className="mt-auto">
+        <Link to={`/loan-details`} className="mt-auto">
           <button className="w-full btn btn-lg rounded-xl bg-base-100 border-2 border-primary/20 hover:border-primary hover:bg-primary hover:text-white  transition-all duration-300 flex items-center justify-between group/btn px-6">
             <span className="font-bold">View Details</span>
             <FaArrowRight className="transform group-hover/btn:translate-x-1 transition-transform" />
