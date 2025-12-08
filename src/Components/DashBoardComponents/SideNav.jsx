@@ -1,7 +1,7 @@
 import React from "react";
 import { BiHome, BiMoney, BiUser } from "react-icons/bi";
 import { NavLink } from "react-router";
-import { SiGoogleforms } from "react-icons/si";
+import { IoNewspaperOutline } from "react-icons/io5";
 const SideNav = () => {
   const links = (
     <>
@@ -34,7 +34,7 @@ const SideNav = () => {
           data-tip="Loan Application"
         >
           {/* Home icon */}
-          <SiGoogleforms size={30}></SiGoogleforms>
+          <IoNewspaperOutline size={30}></IoNewspaperOutline>
           <span className="is-drawer-close:hidden">Loan Application</span>
         </NavLink>
       </li>
