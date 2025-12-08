@@ -1,5 +1,4 @@
 import React from "react";
-// eslint-disable-next-line no-unused-vars
 import { motion } from "motion/react";
 import heroImage from "../assets/hero_bank_cards.png"; // Importing the generated image
 import { Link } from "react-router";

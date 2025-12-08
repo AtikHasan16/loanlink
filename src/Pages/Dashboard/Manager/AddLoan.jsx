@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { BsCloudUpload } from "react-icons/bs";
 import { FaPaperPlane } from "react-icons/fa";
-// eslint-disable-next-line no-unused-vars
+
 import { motion } from "motion/react";
 
 const AddLoan = () => {
@@ -29,7 +29,7 @@ const AddLoan = () => {
 
   const onSubmit = async (data) => {
     console.log(data);
-
+    toast.success("Loan added successfully");
     reset();
     // Add current date to the data
   };
