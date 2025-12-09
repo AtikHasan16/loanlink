@@ -4,21 +4,7 @@ import { FaCheckCircle, FaPercentage, FaDollarSign } from "react-icons/fa";
 import { BiCategory } from "react-icons/bi";
 
 const LoanDetails = () => {
-  // TODO: Fetch loan data based on ID from URL params
-  // const { id } = useParams();
-  // const [loanData, setLoanData] = useState(null);
-
-  // Dummy data for demonstration
-  const loanData = {
-    image: "https://placehold.co/600x400/3B82F6/FFFFFF/png?text=Loan+Image",
-    title: "Home Improvement Loan",
-    description:
-      "Transform your house into your dream home with our flexible home improvement loan. Whether you're renovating your kitchen, adding a new room, or upgrading your entire property, we provide competitive rates and convenient repayment options tailored to your needs.",
-    category: "Home Loan",
-    interestRate: 5.5,
-    maxLimit: 50000,
-    emiPlans: ["6 months", "12 months", "24 months", "36 months"],
-  };
+  
 
   // TODO: Implement apply functionality
   const handleApply = () => {
