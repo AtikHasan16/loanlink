@@ -21,6 +21,7 @@ import ApprovedLoan from "../Pages/Dashboard/Manager/ApprovedLoan";
 import PendingLoan from "../Pages/Dashboard/Manager/PendingLoan";
 import ManageLoan from "../Pages/Dashboard/Manager/ManageLoan";
 import LoanDetails from "../Pages/Home/LoanDetails";
+import LoanForm from "../Pages/Home/LoanForm";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: "/loan-details",
         element: <LoanDetails></LoanDetails>,
+      },
+      {
+        path: "/loan-form",
+        element: <LoanForm></LoanForm>,
       },
       {
         path: "/login",

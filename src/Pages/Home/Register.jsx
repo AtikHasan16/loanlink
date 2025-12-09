@@ -9,7 +9,6 @@ import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
-console.log(import.meta.env.VITE_IMAGEBB_KEY);
 
 const Register = () => {
   const { githubLogin, registerUser, updateCurrentUser, setLoading } =

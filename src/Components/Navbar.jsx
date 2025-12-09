@@ -147,7 +147,7 @@ const Navbar = () => {
         {/* Logo */}
         <Logo></Logo>
 
-        <div className="xl:hidden  w-full flex justify-end">
+        <div className="xl:hidden  w-full flex justify-end items-center gap-2">
           <div className="dropdown dropdown-bottom dropdown-end">
             <div
               tabIndex={0}

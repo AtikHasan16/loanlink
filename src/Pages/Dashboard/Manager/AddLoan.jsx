@@ -5,8 +5,11 @@ import { BsCloudUpload } from "react-icons/bs";
 import { FaPaperPlane } from "react-icons/fa";
 
 import { motion } from "motion/react";
+import useAxios from "../../../Hooks/useAxios";
+import axios from "axios";
 
 const AddLoan = () => {
+  const axiosLoan = useAxios();
   const {
     register,
     handleSubmit,
@@ -15,7 +18,7 @@ const AddLoan = () => {
   } = useForm();
 
   const [imagePreview, setImagePreview] = useState(null);
-
+  // Image upload
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -26,11 +29,34 @@ const AddLoan = () => {
       reader.readAsDataURL(file);
     }
   };
-
+  // Form submit
   const onSubmit = async (data) => {
-    console.log(data);
-    toast.success("Loan added successfully");
-    reset();
+    // console.log(data);
+    const imageFile = data.image[0];
+    const formData = new FormData();
+    formData.append("image", imageFile);
+    // Image upload
+    axios
+      .post(
+        `https://api.imgbb.com/1/upload?key=${
+          import.meta.env.VITE_imgbb_api_key
+        }`,
+        formData
+      )
+      .then((res) => {
+        console.log(res.data.data.url);
+
+        const loanData = {
+          ...data,
+          image: res.data.data.url,
+        };
+
+        axiosLoan.post("/loans", loanData).then(() => {
+          toast.success("Loan added successfully");
+        });
+      });
+
+    // reset();
     // Add current date to the data
   };
 
@@ -48,7 +74,7 @@ const AddLoan = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-12 jost"
         >
           <span className="text-primary font-bold tracking-widest uppercase text-sm">
             Loan Management

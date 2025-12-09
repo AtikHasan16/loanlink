@@ -61,7 +61,7 @@ const LoanDetails = () => {
               initial={{ x: -50, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="absolute -bottom-6 -right-6 bg-secondary text-white px-6 py-3 rounded-full shadow-lg font-bold text-lg"
+              className="absolute -bottom-6 -right-6 bg-secondary text-primary px-6 py-3 rounded-full shadow-lg font-bold text-lg"
             >
               Featured Loan
             </motion.div>
