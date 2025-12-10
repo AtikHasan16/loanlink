@@ -17,7 +17,7 @@ const LoanDetails = () => {
     },
   });
 
-  console.log(id, loanData);
+  // console.log(id, loanData);
 
   return (
     <div className="min-h-screen py-20 flex items-center justify-center jost">

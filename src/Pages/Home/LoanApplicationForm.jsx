@@ -124,7 +124,7 @@ const LoanApplicationForm = () => {
                 <input
                   type="text"
                   className="input input-bordered w-full rounded-xl bg-base-200"
-                  value="5.5"
+                  defaultValue={location.state?.interestRate || "6.5"}
                   readOnly
                 />
               </div>
