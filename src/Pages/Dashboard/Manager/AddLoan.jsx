@@ -5,11 +5,12 @@ import { BsCloudUpload } from "react-icons/bs";
 import { FaPaperPlane } from "react-icons/fa";
 
 import { motion } from "motion/react";
-import useAxios from "../../../Hooks/useAxios";
+
 import axios from "axios";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const AddLoan = () => {
-  const axiosLoan = useAxios();
+  const axiosSecure = useAxiosSecure();
   const {
     register,
     handleSubmit,
@@ -51,7 +52,7 @@ const AddLoan = () => {
           image: res.data.data.url,
         };
 
-        axiosLoan.post("/loans", loanData).then(() => {
+        axiosSecure.post("/loans", loanData).then(() => {
           toast.success("Loan added successfully");
         });
       });

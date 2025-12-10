@@ -47,7 +47,7 @@ const router = createBrowserRouter([
         element: <Contacts></Contacts>,
       },
       {
-        path: "/loan-details",
+        path: "/loan-details/:id",
         element: <LoanDetails></LoanDetails>,
       },
       {

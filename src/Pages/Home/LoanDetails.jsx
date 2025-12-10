@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "motion/react";
 import { FaCheckCircle, FaPercentage, FaDollarSign } from "react-icons/fa";
 import { BiCategory } from "react-icons/bi";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { useParams } from "react-router";
+import { useQuery } from "@tanstack/react-query";
 
 const LoanDetails = () => {
-  
+  const { id } = useParams();
+  const axiosSecure = useAxiosSecure();
+  const { data: loanData = [] } = useQuery({
+    queryKey: ["loanData", id],
+    queryFn: async () => {
+      const response = await axiosSecure.get(`/loans/all-loans/${id}`);
+      return response.data;
+    },
+  });
+
+  console.log(id, loanData);
 
   // TODO: Implement apply functionality
   const handleApply = () => {
@@ -37,7 +50,7 @@ const LoanDetails = () => {
             >
               <img
                 src={loanData.image}
-                alt={loanData.title}
+                alt={loanData.loanTitle}
                 className="w-full h-auto object-cover"
               />
             </motion.div>
@@ -60,7 +73,7 @@ const LoanDetails = () => {
           <div className="lg:hidden mb-8">
             <img
               src={loanData.image}
-              alt={loanData.title}
+              alt={loanData.loanTitle}
               className="w-full h-auto object-cover rounded-2xl shadow-lg"
             />
           </div>
@@ -73,7 +86,7 @@ const LoanDetails = () => {
             className="mb-6"
           >
             <h1 className="text-4xl font-bold text-primary mb-2">
-              {loanData.title}
+              {loanData.loanTitle}
             </h1>
             <div className="flex items-center gap-2 text-base-content/60">
               <BiCategory className="text-xl" />
@@ -119,15 +132,13 @@ const LoanDetails = () => {
             <div className="bg-base-100 p-5 rounded-2xl border border-base-300 hover:border-primary/50 transition-colors">
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center">
-                  <FaDollarSign className="text-secondary text-lg" />
+                  <FaDollarSign className=" text-lg" />
                 </div>
                 <h3 className="font-bold text-base-content/70 text-sm">
                   Max Limit
                 </h3>
               </div>
-              <p className="text-3xl font-bold text-secondary">
-                ${loanData.maxLimit.toLocaleString()}
-              </p>
+              <p className="text-3xl font-bold">${loanData.maxLoanLimit}</p>
             </div>
           </motion.div>
 
@@ -142,16 +153,7 @@ const LoanDetails = () => {
               <FaCheckCircle className="text-primary" />
               Available EMI Plans
             </h3>
-            <div className="grid grid-cols-2 gap-3">
-              {loanData.emiPlans.map((plan, index) => (
-                <div
-                  key={index}
-                  className="bg-base-100 px-4 py-3 rounded-xl border border-base-300 text-center font-semibold text-base-content/80 hover:border-primary hover:text-primary transition-all"
-                >
-                  {plan}
-                </div>
-              ))}
-            </div>
+            <div className="grid grid-cols-2 gap-3">{loanData?.emiPlans}</div>
           </motion.div>
 
           {/* Apply Button */}

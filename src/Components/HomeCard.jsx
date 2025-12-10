@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import LoanCard from "./LoanCard";
 import { Link } from "react-router";
-import useAxios from "../Hooks/useAxios";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
 
 const HomeCard = () => {
-  const axios = useAxios();
+  const axiosSecure = useAxiosSecure();
   const [loans, setLoans] = useState([]);
+  console.log(loans);
+
   useEffect(() => {
-    axios.get("/loans/home").then((res) => {
+    axiosSecure.get("/loans/home").then((res) => {
       setLoans(res.data);
     });
   }, []);
@@ -28,7 +30,7 @@ const HomeCard = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {loans.map((loan) => (
-          <div key={loan.id} className="h-full">
+          <div key={loan._id} className="h-full">
             <LoanCard loan={loan} />
           </div>
         ))}

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import useAxios from "../../Hooks/useAxios";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import LoanCard from "../../Components/LoanCard";
 import { motion } from "motion/react";
 
 const Loans = () => {
-  const axios = useAxios();
+  const axios = useAxiosSecure();
   const [loans, setLoans] = useState([]);
   console.log(loans);
   useEffect(() => {
@@ -61,7 +61,7 @@ const Loans = () => {
       <section className="relative   container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {loans.map((loan) => (
-            <LoanCard loan={loan} />
+            <LoanCard loan={loan} key={loan._id}/>
           ))}
         </div>
       </section>

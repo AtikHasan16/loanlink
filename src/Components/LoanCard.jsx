@@ -12,6 +12,7 @@ const LoanCard = ({ loan }) => {
     interestRate,
     duration,
   } = loan;
+ 
 
   return (
     <div className="group bg-accent  rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col h-full ">
