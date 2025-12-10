@@ -6,7 +6,7 @@ import useAxiosSecure from "../Hooks/useAxiosSecure";
 const HomeCard = () => {
   const axiosSecure = useAxiosSecure();
   const [loans, setLoans] = useState([]);
-  console.log(loans);
+  // console.log(loans);
 
   useEffect(() => {
     axiosSecure.get("/loans/home").then((res) => {

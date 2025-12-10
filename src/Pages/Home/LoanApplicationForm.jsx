@@ -4,13 +4,13 @@ import useAuth from "../../Hooks/useAuth";
 import Loading from "../Loading/Loading";
 import { useLocation } from "react-router";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import toast from "react-hot-toast";
 
 const LoanApplicationForm = () => {
   const { currentUser, loading } = useAuth();
   const axiosSecure = useAxiosSecure();
   const location = useLocation();
   const today = new Date().toLocaleDateString();
-  console.log(location);
 
   const {
     register,
@@ -43,7 +43,18 @@ const LoanApplicationForm = () => {
       applicationFee: "unpaid",
     };
 
-    reset();
+    axiosSecure
+      .post("/loanApplication", LoanApplicationData)
+      .then((res) => {
+        if (res.data.insertedId) {
+          toast.success("Loan application submitted successfully!");
+          reset();
+        }
+      })
+      .catch((error) => {
+        console.error("Error submitting application:", error);
+        toast.error("Failed to submit loan application. Please try again.");
+      });
   };
 
   return (
