@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../Hooks/useAuth";
@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 const MyLoan = () => {
   const { currentUser, loading } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const [selectedLoan, setSelectedLoan] = useState(null);
 
   const { data: myLoan = [] } = useQuery({
     queryKey: ["userEmail", currentUser?.email],
@@ -19,7 +20,7 @@ const MyLoan = () => {
       return response.data;
     },
   });
-  console.log(myLoan);
+  // console.log(myLoan);
 
   if (loading) {
     return <Loading></Loading>;
@@ -33,6 +34,11 @@ const MyLoan = () => {
     });
   };
 
+  const handleViewDetails = (loan) => {
+    setSelectedLoan(loan);
+    document.getElementById("my_loan_details_modal").showModal();
+  };
+
   return (
     <div className="min-h-screen relative overflow-hidden py-10 rounded-3xl">
       {/* Background Shapes */}
@@ -41,7 +47,7 @@ const MyLoan = () => {
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/10 rounded-full blur-[100px]"></div>
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-2 md:px-6 relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -129,6 +135,7 @@ const MyLoan = () => {
                         <div className="flex justify-center gap-3">
                           {/* View Button */}
                           <button
+                            onClick={() => handleViewDetails(loan)}
                             className="btn bg-primary rounded-full text-white gap-2"
                             title="View Details"
                           >
@@ -163,6 +170,185 @@ const MyLoan = () => {
           </div>
         </motion.div>
       </div>
+
+      {/* Modal for Viewing Loan Details */}
+      <dialog id="my_loan_details_modal" className="modal">
+        <div className="modal-box max-w-4xl bg-base-100">
+          <form method="dialog">
+            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+              ✕
+            </button>
+          </form>
+          <h3 className="font-bold text-2xl mb-6 text-primary">
+            My Loan Application Details
+          </h3>
+
+          {selectedLoan && (
+            <div className="space-y-6">
+              {/* Personal Information */}
+              <div className="bg-base-200/50 p-6 rounded-2xl">
+                <h4 className="font-bold text-lg mb-4 text-base-content">
+                  Personal Information
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-sm text-base-content/60">Full Name</p>
+                    <p className="font-semibold">
+                      {selectedLoan.firstName} {selectedLoan.lastName}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-base-content/60">Email</p>
+                    <p className="font-semibold">{selectedLoan.userEmail}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-base-content/60">
+                      Contact Number
+                    </p>
+                    <p className="font-semibold">
+                      {selectedLoan.contactNumber}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-base-content/60">National ID</p>
+                    <p className="font-semibold">{selectedLoan.nationalId}</p>
+                  </div>
+                  <div className="md:col-span-2">
+                    <p className="text-sm text-base-content/60">Address</p>
+                    <p className="font-semibold">{selectedLoan.address}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Loan Details */}
+              <div className="bg-base-200/50 p-6 rounded-2xl">
+                <h4 className="font-bold text-lg mb-4 text-base-content">
+                  Loan Details
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-sm text-base-content/60">Loan Title</p>
+                    <p className="font-semibold">{selectedLoan.loanTitle}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-base-content/60">Loan Amount</p>
+                    <p className="font-semibold text-primary">
+                      ${selectedLoan.loanAmount}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-base-content/60">
+                      Interest Rate
+                    </p>
+                    <p className="font-semibold">
+                      {selectedLoan.interestRate}%
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-base-content/60">
+                      Application Fee
+                    </p>
+                    <p className="font-semibold">
+                      ${selectedLoan.applicationFee}
+                    </p>
+                  </div>
+                  <div className="md:col-span-2">
+                    <p className="text-sm text-base-content/60">Reason</p>
+                    <p className="font-semibold">{selectedLoan.reason}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Financial Information */}
+              <div className="bg-base-200/50 p-6 rounded-2xl">
+                <h4 className="font-bold text-lg mb-4 text-base-content">
+                  Financial Information
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-sm text-base-content/60">
+                      Monthly Income
+                    </p>
+                    <p className="font-semibold">
+                      ${selectedLoan.monthlyIncome}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-base-content/60">
+                      Income Source
+                    </p>
+                    <p className="font-semibold">{selectedLoan.incomeSource}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Additional Information */}
+              {selectedLoan.extraNotes && (
+                <div className="bg-base-200/50 p-6 rounded-2xl">
+                  <h4 className="font-bold text-lg mb-4 text-base-content">
+                    Additional Notes
+                  </h4>
+                  <p className="text-base-content/80 whitespace-pre-wrap">
+                    {selectedLoan.extraNotes}
+                  </p>
+                </div>
+              )}
+
+              {/* Application Information */}
+              <div className="bg-base-200/50 p-6 rounded-2xl">
+                <h4 className="font-bold text-lg mb-4 text-base-content">
+                  Application Information
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-sm text-base-content/60">
+                      Application Date
+                    </p>
+                    <p className="font-semibold">
+                      {selectedLoan.applicationDate || "N/A"}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-base-content/60">
+                      Payment Status
+                    </p>
+                    <p className="font-semibold">
+                      <span
+                        className={`badge ${
+                          selectedLoan.paymentStatus === "paid"
+                            ? "badge-success"
+                            : "badge-warning"
+                        } text-white`}
+                      >
+                        {selectedLoan.paymentStatus}
+                      </span>
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-base-content/60">Status</p>
+                    <p className="font-semibold">
+                      <span
+                        className={`badge ${
+                          selectedLoan.status === "Approved"
+                            ? "badge-success"
+                            : selectedLoan.status === "Rejected"
+                            ? "badge-error"
+                            : "badge-warning"
+                        } text-white`}
+                      >
+                        {selectedLoan.status}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+        <form method="dialog" className="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
     </div>
   );
 };
