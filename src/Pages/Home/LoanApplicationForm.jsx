@@ -23,11 +23,10 @@ const LoanApplicationForm = () => {
     return <Loading></Loading>;
   }
   const onSubmit = (data) => {
-    console.log(data);
     const LoanApplicationData = {
       userEmail: currentUser?.email,
-      loanTitle: data.loanTitle,
-      interestRate: data.interestRate,
+      loanTitle: location.state?.loanTitle,
+      interestRate: location.state?.interestRate,
       firstName: data.firstName,
       lastName: data.lastName,
       contactNumber: data.contactNumber,
