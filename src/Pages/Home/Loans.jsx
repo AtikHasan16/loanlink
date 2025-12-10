@@ -6,7 +6,7 @@ import { motion } from "motion/react";
 const Loans = () => {
   const axios = useAxiosSecure();
   const [loans, setLoans] = useState([]);
-  console.log(loans);
+  // console.log(loans);
   useEffect(() => {
     axios.get("/loans").then((res) => {
       setLoans(res.data);
@@ -58,10 +58,10 @@ const Loans = () => {
       </motion.section>
 
       {/* Loans Grid */}
-      <section className="relative   container mx-auto px-6">
+      <section className="relative pb-15  container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {loans.map((loan) => (
-            <LoanCard loan={loan} key={loan._id}/>
+            <LoanCard loan={loan} key={loan._id} />
           ))}
         </div>
       </section>

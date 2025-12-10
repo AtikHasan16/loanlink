@@ -45,16 +45,16 @@ const Hero = () => {
             {/* Input & Subscribe/CTA */}
             <div className="mt-8 flex flex-col sm:flex-row gap-4 items-center justify-center lg:justify-start">
               <Link
-                to="/loan-form"
+                to="/all-loans"
                 className="btn-main text-lg px-8 py-3 h-auto"
               >
-                Apply Now
+                Explore Now
               </Link>
               <Link
-                to="/all-loans"
+                to="/contact"
                 className="btn bg-transparent border-none shadow-none text-primary   text-lg h-auto"
               >
-                View All Loans
+                Get Support Now
               </Link>
             </div>
 
