@@ -38,7 +38,7 @@ const LoanApplicationForm = () => {
       address: data.address,
       extraNotes: data.extraNotes,
       applicationDate: today,
-      status: "Pending",
+      status: "pending",
       paymentStatus: "unpaid",
       applicationFee: 10,
     };

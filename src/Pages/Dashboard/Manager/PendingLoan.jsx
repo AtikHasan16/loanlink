@@ -12,7 +12,7 @@ const PendingLoan = () => {
   const { data: pendingLoans = [], isLoading } = useQuery({
     queryKey: ["loans", "pending"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/loanApplication?status=Pending");
+      const res = await axiosSecure.get("/loanApplication?status=pending");
       return res.data;
     },
   });

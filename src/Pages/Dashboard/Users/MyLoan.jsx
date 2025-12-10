@@ -155,7 +155,7 @@ const MyLoan = () => {
                           <button
                             onClick={() => handleCancelLoan(loan._id)}
                             className="btn bg-rose-500 rounded-full text-white gap-2"
-                            disabled={loan.status !== "Pending"}
+                            disabled={loan.status !== "pending"}
                             title="Cancel Application"
                           >
                             <FaTimesCircle /> Cancel
