@@ -136,7 +136,7 @@ const MyLoan = () => {
                           {/* View Button */}
                           <button
                             onClick={() => handleViewDetails(loan)}
-                            className="btn bg-primary rounded-full text-white gap-2"
+                            className="btn bg-primary text-secondary rounded-full gap-2"
                             title="View Details"
                           >
                             <FaEye /> View
@@ -144,8 +144,12 @@ const MyLoan = () => {
 
                           {/* Pay Button - Only enabled if Approved */}
                           <button
-                            className="btn bg-green-600 rounded-full text-white gap-2"
-                            disabled={loan.status !== "Approved"}
+                            className={`btn ${
+                              loan.status === "approved"
+                                ? "bg-green-600"
+                                : "bg-gray-400"
+                            } rounded-full text-white gap-2`}
+                            disabled={loan.status !== "approved"}
                             title="Pay Loan"
                           >
                             <FaMoneyBillWave /> Pay

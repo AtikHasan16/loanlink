@@ -139,7 +139,7 @@ const PendingLoan = () => {
                           {/* View Button */}
                           <button
                             onClick={() => handleViewDetails(loan)}
-                            className="btn bg-primary rounded-full text-white gap-2"
+                            className="btn bg-primary rounded-full text-secondary gap-2"
                             title="View Details"
                           >
                             <FaEye /> View
