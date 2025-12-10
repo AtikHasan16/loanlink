@@ -39,7 +39,8 @@ const LoanApplicationForm = () => {
       extraNotes: data.extraNotes,
       applicationDate: today,
       status: "Pending",
-      applicationFee: "unpaid",
+      paymentStatus: "unpaid",
+      applicationFee: 10,
     };
 
     axiosSecure

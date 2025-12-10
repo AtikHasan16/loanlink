@@ -17,8 +17,6 @@ const PendingLoan = () => {
     },
   });
 
-
-
   if (isLoading) {
     return <Loading></Loading>;
   }
@@ -232,10 +230,10 @@ const PendingLoan = () => {
                   </div>
                   <div>
                     <p className="text-sm text-base-content/60">
-                      Application Fee
+                      Payment Status
                     </p>
                     <p className="font-semibold">
-                      ${selectedLoan.applicationFee}
+                      {selectedLoan.paymentStatus}
                     </p>
                   </div>
                   <div className="md:col-span-2">
