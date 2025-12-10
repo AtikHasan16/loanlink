@@ -106,7 +106,7 @@ const MyLoan = () => {
                           {loan.loanTitle || "General Loan"}
                         </div>
                         <div className="text-sm text-base-content/60">
-                          {loan.date || "N/A"}
+                          {loan.applicationDate || "N/A"}
                         </div>
                       </td>
                       <td className="font-bold text-primary text-lg">

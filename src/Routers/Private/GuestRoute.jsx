@@ -4,7 +4,10 @@ import { Navigate } from "react-router";
 import Loading from "../../Pages/Loading/Loading";
 
 const GuestRoute = ({ children }) => {
+
   const { currentUser, loading } = useAuth();
+  
+
   if (loading) {
     return <Loading></Loading>;
   }
