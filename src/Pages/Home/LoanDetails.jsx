@@ -3,7 +3,7 @@ import { motion } from "motion/react";
 import { FaCheckCircle, FaPercentage, FaDollarSign } from "react-icons/fa";
 import { BiCategory } from "react-icons/bi";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 
 const LoanDetails = () => {
@@ -18,12 +18,6 @@ const LoanDetails = () => {
   });
 
   console.log(id, loanData);
-
-  // TODO: Implement apply functionality
-  const handleApply = () => {
-    // Navigate to application form or open modal
-    console.log("Apply for loan:", loanData.title);
-  };
 
   return (
     <div className="min-h-screen py-20 flex items-center justify-center jost">
@@ -162,12 +156,13 @@ const LoanDetails = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}
           >
-            <button
-              onClick={handleApply}
+            <Link
+              to={"/loan-form"}
+              state={loanData}
               className="btn-main w-full shadow-lg shadow-primary/30 text-lg"
             >
               Apply Now
-            </button>
+            </Link>
             <p className="text-center text-sm text-base-content/50 mt-3">
               Quick approval • Flexible terms • No hidden fees
             </p>
