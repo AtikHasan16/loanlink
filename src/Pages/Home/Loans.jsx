@@ -62,7 +62,7 @@ const Loans = () => {
       <section className="relative pb-15  container mx-auto px-6">
         {loans.length === 0 ? (
           <div className="flex justify-center items-center h-full">
-            <p className="text-7xl pb-40 font-bold text-primary/10">
+            <p className="text-7xl pt-40 font-bold text-primary/10">
               No loans available
             </p>
           </div>
