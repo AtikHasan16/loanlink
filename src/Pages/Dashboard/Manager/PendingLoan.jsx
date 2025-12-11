@@ -4,12 +4,17 @@ import { useQuery } from "@tanstack/react-query";
 import { motion } from "motion/react";
 import { FaEye, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import Loading from "../../Loading/Loading";
+import toast from "react-hot-toast";
 
 const PendingLoan = () => {
   const axiosSecure = useAxiosSecure();
   const [selectedLoan, setSelectedLoan] = useState(null);
 
-  const { data: pendingLoans = [], isLoading } = useQuery({
+  const {
+    data: pendingLoans = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["loans", "pending"],
     queryFn: async () => {
       const res = await axiosSecure.get("/loanApplication?status=pending");
@@ -21,12 +26,25 @@ const PendingLoan = () => {
     return <Loading></Loading>;
   }
 
-  const handleApprove = (id) => {
+  const handleApprove = async (id) => {
     // TODO: Implement approve logic
+    try {
+      const res = await axiosSecure.patch(`/loanApplication/${id}`);
+      console.log(res.data);
+
+      if (res.data.modifiedCount) {
+        toast.success("Application status updated successfully");
+        refetch();
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.code);
+    }
   };
 
   const handleReject = (id) => {
     // TODO: Implement reject logic
+    console.log(id);
   };
 
   const handleViewDetails = (loan) => {

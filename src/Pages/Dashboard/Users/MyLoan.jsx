@@ -121,14 +121,14 @@ const MyLoan = () => {
                       <td>
                         <div
                           className={`badge ${
-                            loan.status === "Approved"
-                              ? "badge-success"
-                              : loan.status === "Rejected"
+                            loan.status === "approved"
+                              ? "badge-success "
+                              : loan.status === "rejected"
                               ? "badge-error"
                               : "badge-warning"
-                          } gap-2 text-white px-4 py-3 font-medium`}
+                          } gap-2 text-black px-4 py-3 font-medium`}
                         >
-                          {loan.status || "Pending"}
+                          {loan.status || "pending"}
                         </div>
                       </td>
                       <td>

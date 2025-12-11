@@ -21,10 +21,6 @@ const ApprovedLoan = () => {
     return <Loading></Loading>;
   }
 
-  const handleApprove = (id) => {
-    // TODO: Implement approve logic
-  };
-
   const handleReject = (id) => {
     // TODO: Implement reject logic
   };
@@ -118,6 +114,16 @@ const ApprovedLoan = () => {
                       </td>
                       <td>
                         <div className="flex justify-center gap-3">
+                          {/* reject button */}
+
+                          <button
+                            onClick={() => handleReject(_id)}
+                            className="btn bg-rose-500 rounded-full text-white gap-2"
+                            title="Reject application"
+                          >
+                            <FaTimesCircle /> Reject
+                          </button>
+
                           {/* View Button */}
                           <button
                             onClick={() => handleViewDetails(loan)}
