@@ -1,19 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import LoanCard from "./LoanCard";
 import { Link } from "react-router";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import Loading from "../Pages/Loading/Loading";
 
 const HomeCard = () => {
   const axiosSecure = useAxiosSecure();
-  const [loans, setLoans] = useState([]);
-  // console.log(loans);
-
-  useEffect(() => {
-    axiosSecure.get("/loans/home").then((res) => {
-      setLoans(res.data);
-    });
-  }, []);
-
+  const { data: loans = [], isLoading } = useQuery({
+    queryKey: ["loans", "home"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/loans/home");
+      return res.data;
+    },
+  });
+if (isLoading) {
+  return <Loading></Loading>
+}
   return (
     <section className="py-24 container mx-auto px-6 jost">
       <div className="text-center mb-16">
