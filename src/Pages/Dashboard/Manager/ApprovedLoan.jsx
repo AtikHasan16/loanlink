@@ -26,21 +26,6 @@ const ApprovedLoan = () => {
     return <Loading></Loading>;
   }
 
-  const handleReject = async (id) => {
-    try {
-      const res = await axiosSecure.patch(`/loanApplication/${id}`, {
-        currentStatus: "rejected",
-      });
-      if (res.data.modifiedCount) {
-        toast.success("Application status updated successfully");
-        refetch();
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error(error.message);
-    }
-  };
-
   const handleViewDetails = (loan) => {
     setSelectedLoan(loan);
     document.getElementById("approved_loan_details_modal").showModal();
@@ -92,6 +77,7 @@ const ApprovedLoan = () => {
                   <th className="py-4">User Info</th>
                   <th className="py-4">Amount</th>
                   <th className="py-4">Approved Date</th>
+                  <th className="py-4">Status</th>
                   <th className="py-4 text-center rounded-r-xl">Actions</th>
                 </tr>
               </thead>
@@ -126,20 +112,11 @@ const ApprovedLoan = () => {
                         ${loan.loanAmount}
                       </td>
                       <td className="text-base-content/80">
-                        {loan.applicationDate || "N/A"}
+                        {loan.approvedAt || "N/A"}
                       </td>
+                      <td>{loan.status}</td>
                       <td>
                         <div className="flex justify-center gap-3">
-                          {/* reject button */}
-
-                          <button
-                            onClick={() => handleReject(loan._id)}
-                            className="btn bg-rose-500 rounded-full text-white gap-2"
-                            title="Reject application"
-                          >
-                            <FaTimesCircle /> Reject
-                          </button>
-
                           {/* View Button */}
                           <button
                             onClick={() => handleViewDetails(loan)}

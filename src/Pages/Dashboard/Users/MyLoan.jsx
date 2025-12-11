@@ -38,20 +38,21 @@ const MyLoan = () => {
       text: "You won't be able to revert this!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, cancel it!",
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure
-          .delete(`/loanApplication/${id}`)
+          .patch(`/loanApplication/${id}`, {
+            currentStatus: "cancelled",
+          })
           .then((res) => {
-            if (res.data.deletedCount) {
-              toast.success("Loan Application Cancelled");
+            if (res.data.modifiedCount) {
               refetch();
               Swal.fire({
-                title: "Deleted!",
-                text: "Your file has been deleted.",
+                title: "Cancelled!",
+                text: "Your Loan Application has been Cancelled.",
                 icon: "success",
               });
             }
@@ -130,6 +131,7 @@ const MyLoan = () => {
                   <th className="py-4">Loan Info</th>
                   <th className="py-4">Amount</th>
                   <th className="py-4 text-center">Status</th>
+                  <th className="py-4 text-center">Payment status</th>
                   <th className="py-4 text-center rounded-r-xl">Actions</th>
                 </tr>
               </thead>
@@ -175,8 +177,20 @@ const MyLoan = () => {
                         >
                           {loan.status || "pending"}
                         </div>
+                      </td>
+                      <td className="text-center">
+                        <p
+                          className={`badge text-white ${
+                            loan.paymentStatus === "paid"
+                              ? "badge-success"
+                              : "badge-error"
+                          }`}
+                        >
+                          {loan.paymentStatus}
+                        </p>
                         <p className="text-gray-400 text-sm">
                           {loan.status === "approved" &&
+                            loan.paymentStatus === "unpaid" &&
                             "Pay you processing fee"}
                         </p>
                       </td>
@@ -400,6 +414,14 @@ const MyLoan = () => {
                         {selectedLoan.status}
                       </span>
                     </p>
+                  </div>
+                  {/* if application status is approved and payment status is not paid */}
+                  <div>
+                    <p className="text-sm text-base-content/60">
+                      Approved Date
+                    </p>
+                    {selectedLoan?.status === "approved" &&
+                      selectedLoan?.approvedAt}
                   </div>
                 </div>
               </div>
