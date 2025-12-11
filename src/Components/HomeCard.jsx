@@ -28,13 +28,21 @@ const HomeCard = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {loans.map((loan) => (
-          <div key={loan._id} className="h-full">
-            <LoanCard loan={loan} />
-          </div>
-        ))}
-      </div>
+      {loans.length === 0 ? (
+        <div className="flex justify-center items-center h-full">
+          <p className="text-3xl py-10 font-bold text-primary/10">
+            No loans available
+          </p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {loans.map((loan) => (
+            <div key={loan._id} className="h-full">
+              <LoanCard loan={loan} />
+            </div>
+          ))}
+        </div>
+      )}
 
       <div className="mt-16 text-center">
         <Link
