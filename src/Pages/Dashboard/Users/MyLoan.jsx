@@ -3,15 +3,21 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../Hooks/useAuth";
 import { motion } from "motion/react";
-import { FaEye, FaMoneyBillWave, FaTimesCircle } from "react-icons/fa";
+import {
+  FaEye,
+  FaMoneyBillWave,
+  FaPlusCircle,
+  FaTimesCircle,
+} from "react-icons/fa";
 import Loading from "../../Loading/Loading";
 import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 const MyLoan = () => {
   const { currentUser, loading } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [selectedLoan, setSelectedLoan] = useState(null);
 
-  const { data: myLoan = [] } = useQuery({
+  const { data: myLoan = [], refetch } = useQuery({
     queryKey: ["userEmail", currentUser?.email],
     queryFn: async () => {
       const response = await axiosSecure.get(
@@ -25,13 +31,52 @@ const MyLoan = () => {
   if (loading) {
     return <Loading></Loading>;
   }
-
+  // cancel loan application
   const handleCancelLoan = (id) => {
-    axiosSecure.delete(`/loanApplication/${id}`).then((res) => {
-      if (res.data.deletedCount) {
-        toast.success("Loan Application Cancelled");
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure
+          .delete(`/loanApplication/${id}`)
+          .then((res) => {
+            if (res.data.deletedCount) {
+              toast.success("Loan Application Cancelled");
+              refetch();
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success",
+              });
+            }
+          })
+          .catch((err) => {
+            toast.error(err?.message);
+          });
       }
     });
+  };
+  // apply loan application again
+
+  const handleApplyLoan = async (id) => {
+    try {
+      const res = await axiosSecure.patch(`/loanApplication/${id}`, {
+        currentStatus: "pending",
+      });
+      if (res.data.modifiedCount) {
+        console.log(res.data);
+        toast.success("Loan Application Re-Submitted");
+        refetch();
+      }
+    } catch (error) {
+      toast.error(error?.message);
+    }
   };
 
   const handleViewDetails = (loan) => {
@@ -84,7 +129,7 @@ const MyLoan = () => {
                   <th className="py-4 rounded-l-xl">Loan ID</th>
                   <th className="py-4">Loan Info</th>
                   <th className="py-4">Amount</th>
-                  <th className="py-4">Status</th>
+                  <th className="py-4 text-center">Status</th>
                   <th className="py-4 text-center rounded-r-xl">Actions</th>
                 </tr>
               </thead>
@@ -118,9 +163,9 @@ const MyLoan = () => {
                       <td className="font-bold text-primary text-lg">
                         ${loan.loanAmount}
                       </td>
-                      <td>
+                      <td className="text-center">
                         <div
-                          className={`badge ${
+                          className={`badge  ${
                             loan.status === "approved"
                               ? "badge-success "
                               : loan.status === "rejected"
@@ -130,6 +175,10 @@ const MyLoan = () => {
                         >
                           {loan.status || "pending"}
                         </div>
+                        <p className="text-gray-400 text-sm">
+                          {loan.status === "approved" &&
+                            "Pay you processing fee"}
+                        </p>
                       </td>
                       <td>
                         <div className="flex justify-center gap-3">
@@ -159,10 +208,18 @@ const MyLoan = () => {
                           <button
                             onClick={() => handleCancelLoan(loan._id)}
                             className="btn bg-rose-500 rounded-full text-white gap-2"
-                            disabled={loan.status !== "pending"}
+                            disabled={loan.status === "pending"}
                             title="Cancel Application"
                           >
                             <FaTimesCircle /> Cancel
+                          </button>
+                          <button
+                            onClick={() => handleApplyLoan(loan._id)}
+                            className="btn bg-accent rounded-full text-white gap-2"
+                            disabled={loan.status === "approved"}
+                            title="Apply Application"
+                          >
+                            <FaPlusCircle /> Apply again
                           </button>
                         </div>
                       </td>
