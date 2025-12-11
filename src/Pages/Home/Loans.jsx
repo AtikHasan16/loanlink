@@ -13,7 +13,6 @@ const Loans = () => {
       return res.data;
     },
   });
-  
 
   return (
     <div className="min-h-screen relative overflow-hidden jost rounded-4xl">
@@ -61,11 +60,19 @@ const Loans = () => {
 
       {/* Loans Grid */}
       <section className="relative pb-15  container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {loans.map((loan) => (
-            <LoanCard loan={loan} key={loan._id} />
-          ))}
-        </div>
+        {loans.length === 0 ? (
+          <div className="flex justify-center items-center h-full">
+            <p className="text-2xl font-bold text-primary">
+              No loans available
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {loans.map((loan) => (
+              <LoanCard loan={loan} key={loan._id} />
+            ))}
+          </div>
+        )}
       </section>
     </div>
   );
