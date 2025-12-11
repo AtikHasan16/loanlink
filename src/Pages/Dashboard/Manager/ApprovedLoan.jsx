@@ -4,12 +4,17 @@ import { useQuery } from "@tanstack/react-query";
 import { motion } from "motion/react";
 import { FaEye, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import Loading from "../../Loading/Loading";
+import toast from "react-hot-toast";
 
 const ApprovedLoan = () => {
   const axiosSecure = useAxiosSecure();
   const [selectedLoan, setSelectedLoan] = useState(null);
 
-  const { data: approvedLoans = [], isLoading } = useQuery({
+  const {
+    data: approvedLoans = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["loans", "approved"],
     queryFn: async () => {
       const res = await axiosSecure.get("/loanApplication?status=approved");
@@ -21,8 +26,19 @@ const ApprovedLoan = () => {
     return <Loading></Loading>;
   }
 
-  const handleReject = (id) => {
-    // TODO: Implement reject logic
+  const handleReject = async (id) => {
+    try {
+      const res = await axiosSecure.patch(`/loanApplication/${id}`, {
+        currentStatus: "rejected",
+      });
+      if (res.data.modifiedCount) {
+        toast.success("Application status updated successfully");
+        refetch();
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
   };
 
   const handleViewDetails = (loan) => {
@@ -117,7 +133,7 @@ const ApprovedLoan = () => {
                           {/* reject button */}
 
                           <button
-                            onClick={() => handleReject(_id)}
+                            onClick={() => handleReject(loan._id)}
                             className="btn bg-rose-500 rounded-full text-white gap-2"
                             title="Reject application"
                           >

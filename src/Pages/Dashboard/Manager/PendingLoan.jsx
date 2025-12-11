@@ -29,7 +29,9 @@ const PendingLoan = () => {
   const handleApprove = async (id) => {
     // TODO: Implement approve logic
     try {
-      const res = await axiosSecure.patch(`/loanApplication/${id}`);
+      const res = await axiosSecure.patch(`/loanApplication/${id}`, {
+        currentStatus: "approved",
+      });
       console.log(res.data);
 
       if (res.data.modifiedCount) {
@@ -38,13 +40,23 @@ const PendingLoan = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error(error.code);
+      toast.error(error.message);
     }
   };
 
-  const handleReject = (id) => {
-    // TODO: Implement reject logic
-    console.log(id);
+  const handleReject = async (id) => {
+    try {
+      const res = await axiosSecure.patch(`/loanApplication/${id}`, {
+        currentStatus: "rejected",
+      });
+      if (res.data.modifiedCount) {
+        toast.success("Application status updated successfully");
+        refetch();
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
   };
 
   const handleViewDetails = (loan) => {

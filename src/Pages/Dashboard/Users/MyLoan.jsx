@@ -105,7 +105,7 @@ const MyLoan = () => {
                       className="hover:bg-base-200/50 transition-colors border-b border-base-200"
                     >
                       <td className="font-mono text-sm opacity-70">
-                        {index + 1}
+                        {loan._id.slice(-6)}
                       </td>
                       <td>
                         <div className="font-bold text-lg text-base-content">
