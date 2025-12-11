@@ -2,16 +2,18 @@ import React, { useState, useEffect } from "react";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import LoanCard from "../../Components/LoanCard";
 import { motion } from "motion/react";
+import { useQuery } from "@tanstack/react-query";
 
 const Loans = () => {
-  const axios = useAxiosSecure();
-  const [loans, setLoans] = useState([]);
-  // console.log(loans);
-  useEffect(() => {
-    axios.get("/loans").then((res) => {
-      setLoans(res.data);
-    });
-  }, []);
+  const axiosSecure = useAxiosSecure();
+  const { data: loans = [] } = useQuery({
+    queryKey: ["loans"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/loans");
+      return res.data;
+    },
+  });
+  
 
   return (
     <div className="min-h-screen relative overflow-hidden jost rounded-4xl">
