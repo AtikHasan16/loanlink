@@ -9,13 +9,15 @@ const PaymentSuccess = () => {
   const axiosSecure = useAxiosSecure();
   const sessionId = searchParams.get("session_id");
   const [paymentInfo, setPaymentInfo] = useState({});
-  console.log(paymentInfo);
+  console.log(paymentInfo.transactionId);
   useEffect(() => {
     if (sessionId) {
       axiosSecure
         .patch(`/payment-success?session_id=${sessionId}`)
         .then((res) => {
-          setPaymentInfo(res.data);
+          setPaymentInfo({
+            transactionId: res.data.transactionId,
+          });
         })
         .catch((err) => {
           console.log(err);
@@ -96,13 +98,13 @@ const PaymentSuccess = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8 }}
-          className="bg-base-200/50 p-4 rounded-xl mb-8 border border-base-200"
+          className="bg-accent p-4 rounded-xl mb-8 border border-base-200"
         >
           <p className="text-base-content/50 uppercase tracking-widest text-xs font-bold mb-1">
             Transaction ID
           </p>
           <p className="font-mono text-lg font-semibold text-primary">
-            {"paymentId"}
+            {paymentInfo?.transactionId.slice(-24)}
           </p>
         </motion.div>
 
