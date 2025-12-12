@@ -85,6 +85,26 @@ const MyLoan = () => {
     document.getElementById("my_loan_details_modal").showModal();
   };
 
+  const handlePayLoan = async (loan) => {
+    const paymentInfo = {
+      loanId: loan._id,
+      loanTitle: loan.loanTitle,
+      amount: loan.applicationFee,
+      customerEmail: loan.userEmail,
+      paymentDate: new Date().toLocaleString(),
+    };
+    console.log(paymentInfo);
+    try {
+      const res = await axiosSecure.post(
+        "/create-checkout-session",
+        paymentInfo
+      );
+      console.log(res.data);
+      window.location.href = res.data.url;
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="min-h-screen relative overflow-hidden py-10 rounded-3xl">
       {/* Background Shapes */}
@@ -207,6 +227,7 @@ const MyLoan = () => {
 
                           {/* Pay Button - Only enabled if Approved */}
                           <button
+                            onClick={() => handlePayLoan(loan)}
                             className={`btn ${
                               loan.status === "approved"
                                 ? "bg-green-600"
