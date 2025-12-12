@@ -110,6 +110,7 @@ const PendingLoan = () => {
                   <th className="py-4">User Info</th>
                   <th className="py-4">Amount</th>
                   <th className="py-4">Date</th>
+                  <th className="py-4 text-center">Payment Status</th>
                   <th className="py-4 text-center rounded-r-xl">Actions</th>
                 </tr>
               </thead>
@@ -130,7 +131,7 @@ const PendingLoan = () => {
                       className="hover:bg-base-200/50 transition-colors border-b border-base-200"
                     >
                       <td className="font-mono text-sm opacity-70">
-                        {index + 1}
+                        {loan._id.slice(-6)}
                       </td>
                       <td>
                         <div className="font-bold text-lg text-base-content">
@@ -145,6 +146,17 @@ const PendingLoan = () => {
                       </td>
                       <td className="text-base-content/80">
                         {loan.applicationDate || "N/A"}
+                      </td>
+                      <td className="text-center">
+                        <span
+                          className={`badge badge-${
+                            loan.paymentStatus === "paid"
+                              ? "success"
+                              : "warning"
+                          }`}
+                        >
+                          {loan.paymentStatus}
+                        </span>
                       </td>
                       <td>
                         <div className="flex justify-center gap-3">

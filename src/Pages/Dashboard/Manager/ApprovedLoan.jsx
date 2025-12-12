@@ -77,6 +77,7 @@ const ApprovedLoan = () => {
                   <th className="py-4">User Info</th>
                   <th className="py-4">Amount</th>
                   <th className="py-4">Approved Date</th>
+                  <th className="py-4 text-center">Payment Status</th>
                   <th className="py-4">Status</th>
                   <th className="py-4 text-center rounded-r-xl">Actions</th>
                 </tr>
@@ -113,6 +114,17 @@ const ApprovedLoan = () => {
                       </td>
                       <td className="text-base-content/80">
                         {loan.approvedAt || "N/A"}
+                      </td>
+                      <td className="text-center">
+                        <span
+                          className={`badge badge-${
+                            loan.paymentStatus === "paid"
+                              ? "success"
+                              : "warning"
+                          }`}
+                        >
+                          {loan.paymentStatus}
+                        </span>
                       </td>
                       <td>{loan.status}</td>
                       <td>
