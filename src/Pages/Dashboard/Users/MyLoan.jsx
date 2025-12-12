@@ -100,7 +100,7 @@ const MyLoan = () => {
         paymentInfo
       );
       console.log(res.data);
-      window.open(res.data.url, "_blank");
+      window.open(res.data.url);
     } catch (error) {
       console.log(error);
     }
@@ -229,11 +229,17 @@ const MyLoan = () => {
                           <button
                             onClick={() => handlePayLoan(loan)}
                             className={`btn ${
-                              loan.status === "approved"
-                                ? "bg-green-600"
-                                : "bg-gray-400"
+                              loan.status !== "approved" ||
+                              loan.paymentStatus === "paid"
+                                ? "bg-gray-400"
+                                : "bg-green-600"
                             } rounded-full text-white gap-2`}
-                            disabled={loan.status !== "approved"}
+                            disabled={
+                              loan.status !== "approved" ||
+                              loan.paymentStatus === "paid"
+                                ? true
+                                : false
+                            }
                             title="Pay Loan"
                           >
                             <FaMoneyBillWave /> Pay

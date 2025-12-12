@@ -1,13 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router";
 import { motion } from "motion/react";
 import { FaCheck, FaHome, FaArrowRight } from "react-icons/fa";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const PaymentSuccess = () => {
   const [searchParams] = useSearchParams();
-  const paymentId =
-    searchParams.get("payment_intent") ||
-    "TXN" + Math.floor(Math.random() * 1000000);
+  const axiosSecure = useAxiosSecure();
+  const sessionId = searchParams.get("session_id");
+  const [paymentInfo, setPaymentInfo] = useState({});
+  console.log(paymentInfo);
+  useEffect(() => {
+    if (sessionId) {
+      axiosSecure
+        .patch(`/payment-success?session_id=${sessionId}`)
+        .then((res) => {
+          setPaymentInfo(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, []);
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden rounded-4xl">
@@ -88,7 +102,7 @@ const PaymentSuccess = () => {
             Transaction ID
           </p>
           <p className="font-mono text-lg font-semibold text-primary">
-            {paymentId}
+            {"paymentId"}
           </p>
         </motion.div>
 
