@@ -3,30 +3,43 @@ import { Link, useSearchParams } from "react-router";
 import { motion } from "motion/react";
 import { FaCheck, FaHome, FaArrowRight } from "react-icons/fa";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import Loading from "../Loading/Loading";
 
 const PaymentSuccess = () => {
   const [searchParams] = useSearchParams();
   const axiosSecure = useAxiosSecure();
   const sessionId = searchParams.get("session_id");
   const [paymentInfo, setPaymentInfo] = useState({});
-  console.log(paymentInfo.transactionId);
+  const [loading, setLoading] = useState(true);
+  const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
-    if (sessionId) {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (sessionId && mounted) {
       axiosSecure
         .patch(`/payment-success?session_id=${sessionId}`)
         .then((res) => {
+          console.log(res.data);
           setPaymentInfo({
             transactionId: res.data.transactionId,
           });
+          setLoading(false);
         })
         .catch((err) => {
           console.log(err);
+          setLoading(false);
         });
     }
-  }, []);
+  }, [sessionId, axiosSecure, mounted]);
 
+  if (loading) {
+    return <Loading></Loading>;
+  }
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden rounded-4xl">
+    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden rounded-4xl arimo">
       {/* Background Blobs */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
         <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-success/10 rounded-full blur-[100px]"></div>
@@ -104,7 +117,7 @@ const PaymentSuccess = () => {
             Transaction ID
           </p>
           <p className="font-mono text-lg font-semibold text-primary">
-            {paymentInfo?.transactionId.slice(-24)}
+            {paymentInfo?.transactionId?.slice(-24)}
           </p>
         </motion.div>
 

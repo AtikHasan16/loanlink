@@ -100,7 +100,7 @@ const MyLoan = () => {
         paymentInfo
       );
       console.log(res.data);
-      window.open(res.data.url);
+      window.location.assign(res.data.url);
     } catch (error) {
       console.log(error);
     }
@@ -166,7 +166,7 @@ const MyLoan = () => {
                     </td>
                   </tr>
                 ) : (
-                  myLoan.map((loan, index) => (
+                  myLoan.map((loan) => (
                     <tr
                       key={loan._id}
                       className="hover:bg-base-200/50 transition-colors border-b border-base-200"
