@@ -100,7 +100,7 @@ const MyLoan = () => {
         paymentInfo
       );
       console.log(res.data);
-      window.location.href = res.data.url;
+      window.open(res.data.url, "_blank");
     } catch (error) {
       console.log(error);
     }

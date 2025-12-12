@@ -22,6 +22,7 @@ import PendingLoan from "../Pages/Dashboard/Manager/PendingLoan";
 import ManageLoan from "../Pages/Dashboard/Manager/ManageLoan";
 import LoanDetails from "../Pages/Home/LoanDetails";
 import LoanForm from "../Pages/Home/LoanApplicationForm";
+import PaymentSuccess from "../Pages/Dashboard/PaymentSuccess";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -128,6 +129,12 @@ const router = createBrowserRouter([
         path: "/dashboard/my-loan",
         element: <MyLoan></MyLoan>,
       },
+      // Payment
+      {
+        path: "/dashboard/payment-success",
+        element: <PaymentSuccess></PaymentSuccess>,
+      },
+      
     ],
   },
 ]);
