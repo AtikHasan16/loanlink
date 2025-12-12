@@ -8,6 +8,7 @@ import {
   FaMoneyBillWave,
   FaPlusCircle,
   FaTimesCircle,
+  FaFileInvoiceDollar,
 } from "react-icons/fa";
 import Loading from "../../Loading/Loading";
 import toast from "react-hot-toast";
@@ -16,6 +17,7 @@ const MyLoan = () => {
   const { currentUser, loading } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [selectedLoan, setSelectedLoan] = useState(null);
+  const [selectedPayment, setSelectedPayment] = useState(null);
 
   const { data: myLoan = [], refetch } = useQuery({
     queryKey: ["userEmail", currentUser?.email],
@@ -83,6 +85,20 @@ const MyLoan = () => {
   const handleViewDetails = (loan) => {
     setSelectedLoan(loan);
     document.getElementById("my_loan_details_modal").showModal();
+  };
+
+  const handleViewPaymentDetails = (loan) => {
+    axiosSecure
+      .get(`/payment-info?transactionId=${loan.transactionId}`)
+      .then((res) => {
+        console.log(res.data);
+        setSelectedPayment(res.data);
+        document.getElementById("payment_details_modal").showModal();
+      })
+      .catch((err) => {
+        toast.error(err?.message);
+        console.log(err);
+      });
   };
 
   const handlePayLoan = async (loan) => {
@@ -199,15 +215,19 @@ const MyLoan = () => {
                         </div>
                       </td>
                       <td className="text-center">
-                        <p
+                        <div
+                          onClick={() =>
+                            loan.paymentStatus === "paid" &&
+                            handleViewPaymentDetails(loan)
+                          }
                           className={`badge text-white ${
                             loan.paymentStatus === "paid"
-                              ? "badge-success"
+                              ? "badge-success cursor-pointer hover:scale-105 transition-transform"
                               : "badge-error"
                           }`}
                         >
                           {loan.paymentStatus}
-                        </p>
+                        </div>
                         <p className="text-gray-400 text-sm">
                           {loan.status === "approved" &&
                             loan.paymentStatus === "unpaid" &&
@@ -225,7 +245,7 @@ const MyLoan = () => {
                             <FaEye /> View
                           </button>
 
-                          {/* Pay Button - Only enabled if Approved */}
+                          {/* Pay Button - Only enabled if Approved and Unpaid */}
                           <button
                             onClick={() => handlePayLoan(loan)}
                             className={`btn ${
@@ -237,8 +257,6 @@ const MyLoan = () => {
                             disabled={
                               loan.status !== "approved" ||
                               loan.paymentStatus === "paid"
-                                ? true
-                                : false
                             }
                             title="Pay Loan"
                           >
@@ -458,6 +476,65 @@ const MyLoan = () => {
         <form method="dialog" className="modal-backdrop">
           <button>close</button>
         </form>
+      </dialog>
+
+      {/* Modal for Payment Details */}
+      <dialog id="payment_details_modal" className="modal">
+        <div className="modal-box bg-base-100">
+          <form method="dialog">
+            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+              ✕
+            </button>
+          </form>
+          <h3 className="font-bold text-2xl mb-6 text-success flex items-center gap-2">
+            <FaFileInvoiceDollar /> Payment Receipt
+          </h3>
+
+          {selectedPayment && (
+            <div className="space-y-4">
+              <div className="bg-base-200/50 p-4 rounded-xl">
+                <p className="text-sm text-base-content/60">Transaction ID</p>
+                <p className="font-mono font-bold break-all text-sm">
+                  {selectedPayment.transactionId}
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-base-200/50 p-4 rounded-xl">
+                  <p className="text-sm text-base-content/60">Amount Paid</p>
+                  <p className="font-bold text-xl text-primary">
+                    ${selectedPayment.amount}{" "}
+                    <span className="text-sm uppercase">
+                      {selectedPayment.currency}
+                    </span>
+                  </p>
+                </div>
+                <div className="bg-base-200/50 p-4 rounded-xl">
+                  <p className="text-sm text-base-content/60">Payment Date</p>
+                  <p className="font-bold text-sm">{selectedPayment.paidAt}</p>
+                </div>
+              </div>
+
+              <div className="bg-base-200/50 p-4 rounded-xl">
+                <p className="text-sm text-base-content/60">Loan Title</p>
+                <p className="font-bold">{selectedPayment.loanTitle}</p>
+                <p className="text-xs text-base-content/40 mt-1">
+                  Loan ID: {selectedPayment.loanId}
+                </p>
+              </div>
+
+              <div className="bg-base-200/50 p-4 rounded-xl">
+                <p className="text-sm text-base-content/60">Customer Email</p>
+                <p className="font-bold">{selectedPayment.customerEmail}</p>
+              </div>
+            </div>
+          )}
+          <div className="modal-action">
+            <form method="dialog">
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
       </dialog>
     </div>
   );
