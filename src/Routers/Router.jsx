@@ -23,6 +23,7 @@ import ManageLoan from "../Pages/Dashboard/Manager/ManageLoan";
 import LoanDetails from "../Pages/Home/LoanDetails";
 import LoanForm from "../Pages/Home/LoanApplicationForm";
 import PaymentSuccess from "../Pages/Dashboard/PaymentSuccess";
+import PaymentFailed from "../Pages/Dashboard/PaymentFailed";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -134,7 +135,10 @@ const router = createBrowserRouter([
         path: "/dashboard/payment-success",
         element: <PaymentSuccess></PaymentSuccess>,
       },
-      
+      {
+        path: "/dashboard/payment-failed",
+        element: <PaymentFailed></PaymentFailed>,
+      },
     ],
   },
 ]);

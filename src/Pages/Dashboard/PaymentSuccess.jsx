@@ -84,7 +84,7 @@ const PaymentSuccess = () => {
           transition={{ delay: 0.8 }}
           className="bg-base-200/50 p-4 rounded-xl mb-8 border border-base-200"
         >
-          <p className="text-sm text-base-content/50 uppercase tracking-widest text-xs font-bold mb-1">
+          <p className="text-base-content/50 uppercase tracking-widest text-xs font-bold mb-1">
             Transaction ID
           </p>
           <p className="font-mono text-lg font-semibold text-primary">
