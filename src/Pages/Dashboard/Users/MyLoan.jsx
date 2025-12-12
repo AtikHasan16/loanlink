@@ -256,7 +256,7 @@ const MyLoan = () => {
                           </button>
                           <button
                             onClick={() => handleApplyLoan(loan._id)}
-                            className="btn bg-accent rounded-full text-white gap-2"
+                            className="btn bg-primary text-secondary rounded-full disabled:bg-gray-400 gap-2"
                             disabled={loan.status === "approved"}
                             title="Apply Application"
                           >

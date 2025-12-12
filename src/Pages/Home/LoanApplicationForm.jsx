@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../Hooks/useAuth";
 import Loading from "../Loading/Loading";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 
@@ -11,7 +11,7 @@ const LoanApplicationForm = () => {
   const axiosSecure = useAxiosSecure();
   const location = useLocation();
   const today = new Date().toLocaleDateString();
-
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -49,6 +49,7 @@ const LoanApplicationForm = () => {
         if (res.data.insertedId) {
           toast.success("Loan application submitted successfully!");
           reset();
+          navigate("/dashboard/my-loan");
         }
       })
       .catch((error) => {

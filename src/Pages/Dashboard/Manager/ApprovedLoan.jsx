@@ -126,7 +126,11 @@ const ApprovedLoan = () => {
                           {loan.paymentStatus}
                         </span>
                       </td>
-                      <td>{loan.status}</td>
+                      <td>
+                        <span className="badge badge-success">
+                          {loan.status}
+                        </span>
+                      </td>
                       <td>
                         <div className="flex justify-center gap-3">
                           {/* View Button */}
