@@ -12,6 +12,8 @@ const LoanApplication = () => {
   const [selectedLoan, setSelectedLoan] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
+  const [filterStatus, setFilterStatus] = useState("all");
+
   const { data: loanApplications = [], isLoading } = useQuery({
     queryKey: ["loanApplications-admin"],
     queryFn: async () => {
@@ -32,15 +34,21 @@ const LoanApplication = () => {
     return <Loading />;
   }
 
-  // Filter loans based on search
-  const filteredLoans = loanApplications.filter(
-    (loan) =>
+  // Filter loans based on search and status
+  const filteredLoans = loanApplications.filter((loan) => {
+    const matchesSearch =
       loan.loanTitle?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       loan.userEmail?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       (loan.firstName + " " + loan.lastName)
         .toLowerCase()
-        .includes(searchTerm.toLowerCase())
-  );
+        .includes(searchTerm.toLowerCase());
+
+    const matchesStatus =
+      filterStatus === "all" ||
+      loan.status?.toLowerCase() === filterStatus.toLowerCase();
+
+    return matchesSearch && matchesStatus;
+  });
 
   return (
     <div className="min-h-screen relative overflow-hidden py-10 rounded-3xl">
@@ -69,22 +77,34 @@ const LoanApplication = () => {
           </p>
         </motion.div>
 
-        {/* Search Bar */}
+        {/* Search and Filter */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="max-w-md mx-auto mb-10"
+          className="max-w-2xl mx-auto mb-10 flex flex-col sm:flex-row gap-4"
         >
-          <div className="relative">
+          <div className="relative flex-1">
             <input
               type="text"
               placeholder="Search by User or Loan Title..."
-              className="input input-bordered w-full pl-12 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+              className="input input-bordered w-full pl-12 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
               onChange={(e) => setSearchTerm(e.target.value)}
             />
             <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
           </div>
+
+          <select
+            className="select select-bordered rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/50 w-full sm:w-48 capitalize"
+            value={filterStatus}
+            onChange={(e) => setFilterStatus(e.target.value)}
+          >
+            <option value="all">All Status</option>
+            <option value="pending">Pending</option>
+            <option value="approved">Approved</option>
+            <option value="rejected">Rejected</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
         </motion.div>
 
         {/* Table Card */}

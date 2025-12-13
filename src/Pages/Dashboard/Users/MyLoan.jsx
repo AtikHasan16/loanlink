@@ -109,7 +109,7 @@ const MyLoan = () => {
       customerEmail: loan.userEmail,
       paymentDate: new Date().toLocaleString(),
     };
-    console.log(paymentInfo);
+    // console.log(paymentInfo);
     try {
       const res = await axiosSecure.post(
         "/create-checkout-session",
@@ -220,18 +220,19 @@ const MyLoan = () => {
                             loan.paymentStatus === "paid" &&
                             handleViewPaymentDetails(loan)
                           }
-                          className={`badge text-secondary rounded-full ${
-                            loan.paymentStatus === "paid"
-                              ? "badge-success cursor-pointer hover:scale-105 transition-transform"
-                              : "badge-error"
-                          }`}
                         >
-                          <span className=" rounded-full">
+                          <p
+                            className={`badge text-secondary rounded-full ${
+                              loan.paymentStatus === "paid"
+                                ? "badge-success cursor-pointer hover:scale-105 transition-transform"
+                                : "badge-error"
+                            }`}
+                          >
                             {loan.paymentStatus}
-                          </span>
-                          <span>
-                            {loan.paymentStatus === "paid" && "|| view details"}
-                          </span>
+                          </p>
+                          <p className="text-gray-400 text-sm cursor-pointer">
+                            {loan.paymentStatus === "paid" && "View Details"}
+                          </p>
                         </div>
                         <p className="text-gray-400 text-sm">
                           {loan.status === "approved" &&
