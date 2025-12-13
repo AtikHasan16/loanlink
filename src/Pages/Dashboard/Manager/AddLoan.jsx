@@ -32,7 +32,6 @@ const AddLoan = () => {
   };
   // Form submit
   const onSubmit = async (data) => {
-    // console.log(data);
     const imageFile = data.image[0];
     const formData = new FormData();
     formData.append("image", imageFile);
@@ -349,6 +348,20 @@ const AddLoan = () => {
                   </label>
                 )}
               </div>
+            </div>
+
+            {/* Show on Home Toggle */}
+            <div className="form-control">
+              <label className="label cursor-pointer justify-start gap-4">
+                <span className="label-text font-medium text-base-content/80">
+                  Show on Home Page
+                </span>
+                <input
+                  type="checkbox"
+                  className="toggle toggle-primary"
+                  {...register("showOnHome")}
+                />
+              </label>
             </div>
 
             {/* Submit Button */}
