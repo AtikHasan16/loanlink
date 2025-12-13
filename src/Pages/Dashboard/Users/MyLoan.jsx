@@ -176,7 +176,7 @@ const MyLoan = () => {
                   <tr>
                     <td
                       colSpan="5"
-                      className="text-center py-10 text-gray-500 text-lg"
+                      className="text-center py-10 text-gray-300 text-3xl font-bold"
                     >
                       You have no loan applications yet.
                     </td>
@@ -185,7 +185,7 @@ const MyLoan = () => {
                   myLoan.map((loan) => (
                     <tr
                       key={loan._id}
-                      className="hover:bg-base-200/50 transition-colors border-b border-base-200"
+                      className="hover:bg-primary/10 transition-colors border-b border-base-200"
                     >
                       <td className="font-mono text-sm opacity-70">
                         {loan._id.slice(-6)}
@@ -220,13 +220,18 @@ const MyLoan = () => {
                             loan.paymentStatus === "paid" &&
                             handleViewPaymentDetails(loan)
                           }
-                          className={`badge text-white ${
+                          className={`badge text-secondary rounded-full ${
                             loan.paymentStatus === "paid"
                               ? "badge-success cursor-pointer hover:scale-105 transition-transform"
                               : "badge-error"
                           }`}
                         >
-                          {loan.paymentStatus}
+                          <span className=" rounded-full">
+                            {loan.paymentStatus}
+                          </span>
+                          <span>
+                            {loan.paymentStatus === "paid" && "|| view details"}
+                          </span>
                         </div>
                         <p className="text-gray-400 text-sm">
                           {loan.status === "approved" &&
@@ -306,7 +311,7 @@ const MyLoan = () => {
           {selectedLoan && (
             <div className="space-y-6">
               {/* Personal Information */}
-              <div className="bg-base-200/50 p-6 rounded-2xl">
+              <div className="bg-primary/10 p-6 rounded-2xl">
                 <h4 className="font-bold text-lg mb-4 text-base-content">
                   Personal Information
                 </h4>
@@ -341,7 +346,7 @@ const MyLoan = () => {
               </div>
 
               {/* Loan Details */}
-              <div className="bg-base-200/50 p-6 rounded-2xl">
+              <div className="bg-primary/10 p-6 rounded-2xl">
                 <h4 className="font-bold text-lg mb-4 text-base-content">
                   Loan Details
                 </h4>
@@ -380,7 +385,7 @@ const MyLoan = () => {
               </div>
 
               {/* Financial Information */}
-              <div className="bg-base-200/50 p-6 rounded-2xl">
+              <div className="bg-primary/10 p-6 rounded-2xl">
                 <h4 className="font-bold text-lg mb-4 text-base-content">
                   Financial Information
                 </h4>
@@ -404,7 +409,7 @@ const MyLoan = () => {
 
               {/* Additional Information */}
               {selectedLoan.extraNotes && (
-                <div className="bg-base-200/50 p-6 rounded-2xl">
+                <div className="bg-primary/10 p-6 rounded-2xl">
                   <h4 className="font-bold text-lg mb-4 text-base-content">
                     Additional Notes
                   </h4>
@@ -415,7 +420,7 @@ const MyLoan = () => {
               )}
 
               {/* Application Information */}
-              <div className="bg-base-200/50 p-6 rounded-2xl">
+              <div className="bg-primary/10 p-6 rounded-2xl">
                 <h4 className="font-bold text-lg mb-4 text-base-content">
                   Application Information
                 </h4>
@@ -438,7 +443,7 @@ const MyLoan = () => {
                           selectedLoan.paymentStatus === "paid"
                             ? "badge-success"
                             : "badge-warning"
-                        } text-white`}
+                        } text-secondary`}
                       >
                         {selectedLoan.paymentStatus}
                       </span>
@@ -480,19 +485,19 @@ const MyLoan = () => {
 
       {/* Modal for Payment Details */}
       <dialog id="payment_details_modal" className="modal">
-        <div className="modal-box bg-base-100">
+        <div className="modal-box bg-accent">
           <form method="dialog">
             <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
               ✕
             </button>
           </form>
-          <h3 className="font-bold text-2xl mb-6 text-success flex items-center gap-2">
-            <FaFileInvoiceDollar /> Payment Receipt
+          <h3 className="font-bold text-2xl mb-6 text-primary flex items-center gap-2">
+            <FaFileInvoiceDollar /> Payment Details
           </h3>
 
           {selectedPayment && (
             <div className="space-y-4">
-              <div className="bg-base-200/50 p-4 rounded-xl">
+              <div className="bg-primary/10 p-4 rounded-xl">
                 <p className="text-sm text-base-content/60">Transaction ID</p>
                 <p className="font-mono font-bold break-all text-sm">
                   {selectedPayment.transactionId}
@@ -500,7 +505,7 @@ const MyLoan = () => {
               </div>
 
               <div className="grid grid-cols-2 gap-4">
-                <div className="bg-base-200/50 p-4 rounded-xl">
+                <div className="bg-primary/10 p-4 rounded-xl">
                   <p className="text-sm text-base-content/60">Amount Paid</p>
                   <p className="font-bold text-xl text-primary">
                     ${selectedPayment.amount}{" "}
@@ -509,13 +514,13 @@ const MyLoan = () => {
                     </span>
                   </p>
                 </div>
-                <div className="bg-base-200/50 p-4 rounded-xl">
+                <div className="bg-primary/10 p-4 rounded-xl">
                   <p className="text-sm text-base-content/60">Payment Date</p>
                   <p className="font-bold text-sm">{selectedPayment.paidAt}</p>
                 </div>
               </div>
 
-              <div className="bg-base-200/50 p-4 rounded-xl">
+              <div className="bg-primary/10 p-4 rounded-xl">
                 <p className="text-sm text-base-content/60">Loan Title</p>
                 <p className="font-bold">{selectedPayment.loanTitle}</p>
                 <p className="text-xs text-base-content/40 mt-1">
@@ -523,7 +528,7 @@ const MyLoan = () => {
                 </p>
               </div>
 
-              <div className="bg-base-200/50 p-4 rounded-xl">
+              <div className="bg-primary/10 p-4 rounded-xl">
                 <p className="text-sm text-base-content/60">Customer Email</p>
                 <p className="font-bold">{selectedPayment.customerEmail}</p>
               </div>

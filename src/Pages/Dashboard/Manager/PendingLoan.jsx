@@ -119,7 +119,7 @@ const PendingLoan = () => {
                   <tr>
                     <td
                       colSpan="5"
-                      className="text-center py-10 text-gray-500 text-lg"
+                      className="text-center py-10 text-gray-300 text-3xl font-bold"
                     >
                       No pending loan applications.
                     </td>
