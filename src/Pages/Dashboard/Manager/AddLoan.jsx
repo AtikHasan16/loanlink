@@ -8,8 +8,10 @@ import { motion } from "motion/react";
 
 import axios from "axios";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import useAuth from "../../../Hooks/useAuth";
 
 const AddLoan = () => {
+  const { currentUser } = useAuth();
   const axiosSecure = useAxiosSecure();
   const {
     register,
@@ -44,11 +46,14 @@ const AddLoan = () => {
         formData
       )
       .then((res) => {
-        console.log(res.data.data.url);
+        // console.log(res.data.data.url);
 
         const loanData = {
           ...data,
           image: res.data.data.url,
+          managerEmail: currentUser.email,
+          createdBy: currentUser.displayName,
+          createdAt: new Date().toLocaleString(),
         };
 
         axiosSecure.post("/loans", loanData).then(() => {

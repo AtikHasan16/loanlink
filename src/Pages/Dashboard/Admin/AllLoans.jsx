@@ -16,7 +16,7 @@ const AllLoans = () => {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["all-loans"],
+    queryKey: ["all-loans", "admin"],
     queryFn: async () => {
       const res = await axiosSecure.get("/loans");
       return res.data;
@@ -63,7 +63,7 @@ const AllLoans = () => {
       });
       if (res.data.modifiedCount > 0) {
         refetch();
-        toast.success("Visibility updated successfully");
+        toast.success("Loan Will Show On Home");
       }
     } catch (error) {
       console.error(error);
@@ -186,14 +186,13 @@ const AllLoans = () => {
                       </div>
                     </td>
                     <td>
-                      <div className="font-bold text-secondary">
-                        {loan.interestRate}%
-                      </div>
+                      <div className="font-bold">{loan.interestRate}%</div>
                     </td>
                     <td>
-                      <div className="text-sm">
+                      <div className="">
                         {/* Assuming loan object has user details or just email */}
-                        {loan.userEmail || "Admin"}
+                        <p className="badge badge-outline badge-primary font-medium p-3">{loan.createdBy}</p>
+                        <p>{loan.managerEmail}</p>
                       </div>
                     </td>
                     <td className="text-center">
