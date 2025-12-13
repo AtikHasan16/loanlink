@@ -23,7 +23,7 @@ const LoanApplication = () => {
       return res.data;
     },
   });
-  console.log(loanApplications);
+  // console.log(loanApplications);
 
   const handleViewDetails = (loan) => {
     setSelectedLoan(loan);

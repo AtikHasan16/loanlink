@@ -63,7 +63,7 @@ const AllLoans = () => {
       });
       if (res.data.modifiedCount > 0) {
         refetch();
-        toast.success("Loan Will Show On Home");
+        toast.success("Visibility updated successfully");
       }
     } catch (error) {
       console.error(error);
