@@ -1,6 +1,6 @@
 import React from "react";
 import { BiDollar, BiHome, BiMoney, BiPowerOff, BiUser } from "react-icons/bi";
-import { Navigate, NavLink } from "react-router";
+import { Link, Navigate, NavLink } from "react-router";
 import { IoAddCircleSharp, IoNewspaperOutline } from "react-icons/io5";
 import { ImProfile } from "react-icons/im";
 import ThemeToggle from "../Shared/ThemeToggle";
@@ -15,15 +15,15 @@ const SideNav = () => {
   const links = (
     <>
       <li>
-        <NavLink
-          to="/dashboard/home"
+        <Link
+          to="/dashboard"
           className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
           data-tip="Dashboard"
         >
           {/* User icon */}
           <BiHome size={30}></BiHome>
           <span className="is-drawer-close:hidden">Dashboard</span>
-        </NavLink>
+        </Link>
       </li>
       {/*--------------------------- Admin */}
       <li>

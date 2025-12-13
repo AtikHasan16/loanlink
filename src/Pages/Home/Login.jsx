@@ -7,6 +7,7 @@ import { useState } from "react";
 import { HiEyeOff } from "react-icons/hi";
 import useAuth from "../../Hooks/useAuth";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const { githubLogin, loginUser, setLoading } = useAuth();
@@ -29,10 +30,11 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         setLoading(false);
+        toast.success("Login successful");
       })
       .catch((error) => {
-        console.log(error);
         setLoading(false);
+        toast.error(error.message);
       });
   };
 

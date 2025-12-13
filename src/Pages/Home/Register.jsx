@@ -8,11 +8,12 @@ import useAuth from "../../Hooks/useAuth";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const Register = () => {
   const { githubLogin, registerUser, updateCurrentUser, setLoading } =
     useAuth();
+  const axiosSecure = useAxiosSecure();
   const {
     register,
     handleSubmit,
@@ -23,6 +24,8 @@ const Register = () => {
 
   const onSubmit = (data) => {
     const imageFile = data.photo[0];
+    const status = data.role === "manager" ? "pending" : "active";
+    console.log(data);
 
     // user registration
     registerUser(data.email, data.password)
@@ -55,6 +58,28 @@ const Register = () => {
               .then(() => {
                 setLoading(false);
                 toast.success("Profile updated successfully");
+
+                // save user info to the database
+                const userInfo = {
+                  email: data.email,
+                  name: data.name,
+                  photoURL: res.data.data.url,
+                  requestedRole: data.role,
+                  role: "user",
+                  status: status,
+                  createdAt: new Date().toLocaleString(),
+                };
+
+                axiosSecure
+                  .post("/users", userInfo)
+                  .then((res) => {
+                    setLoading(false);
+                    console.log(res);
+                  })
+                  .catch((error) => {
+                    setLoading(false);
+                    console.log(error);
+                  });
               })
               .catch((error) => {
                 setLoading(false);
