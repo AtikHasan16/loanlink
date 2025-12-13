@@ -11,9 +11,7 @@ const LoanApplication = () => {
   const { currentUser } = useAuth();
   const [selectedLoan, setSelectedLoan] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-
   const [filterStatus, setFilterStatus] = useState("all");
-
   const { data: loanApplications = [], isLoading } = useQuery({
     queryKey: ["loanApplications-admin"],
     queryFn: async () => {
