@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "motion/react";
-import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
+import { FaEdit, FaTrash, FaEye, FaSearch } from "react-icons/fa";
 import Swal from "sweetalert2";
 import Loading from "../../Loading/Loading";
 import toast from "react-hot-toast";
@@ -80,24 +80,30 @@ const AllLoans = () => {
   if (isLoading) return <Loading />;
 
   return (
-    <div className="min-h-screen p-8 relative overflow-hidden">
+    <div className="min-h-screen relative overflow-hidden py-10 rounded-3xl">
       {/* Background Shapes */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] -z-10"></div>
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-secondary/5 rounded-full blur-[100px] -z-10"></div>
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/10 rounded-full blur-[100px]"></div>
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/10 rounded-full blur-[100px]"></div>
+      </div>
 
-      <div className="container mx-auto">
+      <div className="container mx-auto px-2 md:px-6 relative z-10">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-10 flex flex-col md:flex-row justify-between items-center gap-6"
+          transition={{ duration: 0.6 }}
+          className="mb-12 flex flex-col md:flex-row justify-between items-center gap-6"
         >
-          <div>
-            <h1 className="text-4xl font-bold jost text-base-content">
+          <div className="text-center md:text-left jost md:pl-6">
+            <span className="text-primary font-bold tracking-widest uppercase text-sm block mb-2">
+              Admin Dashboard
+            </span>
+            <h1 className="text-4xl md:text-5xl font-bold text-base-content">
               All Loans
             </h1>
-            <p className="text-base-content/60 mt-2">
-              Manage all loan products in the system
+            <p className="text-base-content/60 mt-2 text-lg">
+              Manage and oversee all loan products
             </p>
           </div>
 
@@ -106,128 +112,128 @@ const AllLoans = () => {
             <input
               type="text"
               placeholder="Search by title or category..."
-              className="input input-bordered w-full pl-12 rounded-xl focus:border-primary focus:ring-1 focus:ring-primary bg-base-100/50 backdrop-blur-sm shadow-sm"
+              className="input  w-full pl-12 rounded-xl shadow-sm h-12"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
             {/* Search Icon */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 absolute left-4 top-1/2 -translate-y-1/2 text-base-content/40"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
+            <FaSearch className="absolute top-4 left-4  text-base-content/40" />
           </div>
         </motion.div>
 
-        {/* Table */}
+        {/* Table Card */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="overflow-x-auto bg-base-100/50 backdrop-blur-md rounded-2xl shadow-xl border border-base-200"
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="bg-base-100 p-8 md:p-10 rounded-[2.5rem] shadow-2xl border border-base-200 relative overflow-hidden"
         >
-          <table className="table w-full">
-            {/* Head */}
-            <thead className="bg-base-200/50 text-base-content font-bold text-sm uppercase tracking-wider">
-              <tr>
-                <th className="py-6 pl-8">Loan Info</th>
-                <th>Category</th>
-                <th>Interest</th>
-                <th>Created By</th>
-                <th className="text-center">Show on Home</th>
-                <th className="text-right pr-8">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredLoans.length === 0 ? (
+          {/* Decorative Background */}
+          <div className="absolute top-0 right-0 w-40 h-40 bg-linear-to-bl from-primary/20 to-transparent rounded-bl-full -mr-10 -mt-10 pointer-events-none"></div>
+
+          <div className="overflow-x-auto relative z-10">
+            <table className="table w-full">
+              {/* Head */}
+              <thead className="bg-primary/5 text-primary text-lg font-bold">
                 <tr>
-                  <td
-                    colSpan="6"
-                    className="text-center py-20 text-base-content/40 text-lg font-medium"
-                  >
-                    No loans found matching your search.
-                  </td>
+                  <th className="py-4 rounded-l-xl pl-8">Loan Info</th>
+                  <th className="py-4">Category</th>
+                  <th className="py-4">Interest</th>
+                  <th className="py-4">Created By</th>
+                  <th className="py-4 text-center">Show on Home</th>
+                  <th className="py-4 text-center rounded-r-xl pr-8">
+                    Actions
+                  </th>
                 </tr>
-              ) : (
-                filteredLoans.map((loan) => (
-                  <tr
-                    key={loan._id}
-                    className="hover:bg-base-200/30 transition-colors border-b border-base-200 last:border-none"
-                  >
-                    <td className="pl-8 py-4">
-                      <div className="flex items-center gap-4">
-                        <div className="avatar">
-                          <div className="mask mask-squircle w-12 h-12 bg-base-300">
-                            <img src={loan.image} alt={loan.loanTitle} />
-                          </div>
-                        </div>
-                        <div>
-                          <div className="font-bold text-lg">
-                            {loan.loanTitle}
-                          </div>
-                          <div className="text-sm opacity-60">
-                            Max: ${loan.maxLoanLimit}
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div className="badge badge-outline badge-primary font-medium p-3">
-                        {loan.category}
-                      </div>
-                    </td>
-                    <td>
-                      <div className="font-bold">{loan.interestRate}%</div>
-                    </td>
-                    <td>
-                      <div className="">
-                        {/* Assuming loan object has user details or just email */}
-                        <p className="badge badge-outline badge-primary font-medium p-3">{loan.createdBy}</p>
-                        <p>{loan.managerEmail}</p>
-                      </div>
-                    </td>
-                    <td className="text-center">
-                      <input
-                        type="checkbox"
-                        className="toggle toggle-success"
-                        checked={loan.showOnHome}
-                        onChange={() =>
-                          handleShowOnHome(loan._id, loan.showOnHome)
-                        }
-                      />
-                    </td>
-                    <td className="text-right pr-8">
-                      <div className="flex justify-end gap-2">
-                        <button
-                          onClick={() => handleUpdate(loan)}
-                          className="btn btn-ghost btn-sm btn-circle text-primary hover:bg-primary/10 tooltip tooltip-left"
-                          data-tip="Update"
-                        >
-                          <FaEdit size={18} />
-                        </button>
-                        <button
-                          onClick={() => handleDelete(loan._id)}
-                          className="btn btn-ghost btn-sm btn-circle text-error hover:bg-error/10 tooltip tooltip-left"
-                          data-tip="Delete"
-                        >
-                          <FaTrash size={18} />
-                        </button>
-                      </div>
+              </thead>
+              <tbody className="text-base">
+                {filteredLoans.length === 0 ? (
+                  <tr>
+                    <td
+                      colSpan="6"
+                      className="text-center py-20 text-base-content/40 text-lg font-medium"
+                    >
+                      No loans found matching your search.
                     </td>
                   </tr>
-                ))
-              )}
-            </tbody>
-          </table>
+                ) : (
+                  filteredLoans.map((loan) => (
+                    <tr
+                      key={loan._id}
+                      className="hover:bg-primary/10 transition-colors border-b border-base-200 last:border-none"
+                    >
+                      <td className="pl-8 py-4">
+                        <div className="flex items-center gap-4">
+                          <div className="avatar">
+                            <div className="mask mask-squircle w-12 h-12 bg-base-300">
+                              <img src={loan.image} alt={loan.loanTitle} />
+                            </div>
+                          </div>
+                          <div>
+                            <div className="font-bold text-lg text-base-content">
+                              {loan.loanTitle}
+                            </div>
+                            <div className="text-sm opacity-60">
+                              Max: ${loan.maxLoanLimit}
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div className="badge badge-outline badge-primary font-medium p-3">
+                          {loan.category}
+                        </div>
+                      </td>
+                      <td>
+                        <div className="font-bold text-base-content">
+                          {loan.interestRate}%
+                        </div>
+                      </td>
+                      <td>
+                        <div className="">
+                          {/* Assuming loan object has user details or just email */}
+                          <p className="badge badge-outline badge-primary font-medium p-3">
+                            {loan.createdBy}
+                          </p>
+                          <p className="text-xs text-base-content/60 mt-1">
+                            {loan.managerEmail}
+                          </p>
+                        </div>
+                      </td>
+                      <td className="text-center">
+                        <input
+                          type="checkbox"
+                          className="toggle toggle-success"
+                          checked={loan.showOnHome}
+                          onChange={() =>
+                            handleShowOnHome(loan._id, loan.showOnHome)
+                          }
+                        />
+                      </td>
+                      <td className="text-right pr-8">
+                        <div className="flex justify-end gap-2">
+                          <button
+                            onClick={() => handleUpdate(loan)}
+                            className="btn btn-ghost btn-sm btn-circle text-primary hover:bg-primary/10 tooltip tooltip-left"
+                            data-tip="Update"
+                          >
+                            <FaEdit size={18} />
+                          </button>
+                          <button
+                            onClick={() => handleDelete(loan._id)}
+                            className="btn btn-ghost btn-sm btn-circle text-error hover:bg-error/10 tooltip tooltip-left"
+                            data-tip="Delete"
+                          >
+                            <FaTrash size={18} />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
         </motion.div>
       </div>
     </div>
