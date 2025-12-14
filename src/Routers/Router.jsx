@@ -25,6 +25,7 @@ import LoanForm from "../Pages/Home/LoanApplicationForm";
 import PaymentSuccess from "../Pages/Dashboard/PaymentSuccess";
 import PaymentFailed from "../Pages/Dashboard/PaymentFailed";
 import EditLoan from "../Pages/Dashboard/Admin/EditLoan";
+import UpdateUser from "../Pages/Dashboard/Admin/updateUser";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -112,6 +113,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/edit-loan/:id",
         element: <EditLoan></EditLoan>,
+      },
+      {
+        path: "/dashboard/update-user/:id",
+        element: <UpdateUser></UpdateUser>,
       },
       // Manager
       {

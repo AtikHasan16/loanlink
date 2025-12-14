@@ -9,9 +9,9 @@ import {
 } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import { Link } from "react-router";
 
 const ManageUser = () => {
-  const [searchQuery, setSearchQuery] = useState("");
   const axiosSecure = useAxiosSecure();
   const { data: userData = [] } = useQuery({
     queryKey: ["users"],
@@ -142,12 +142,13 @@ const ManageUser = () => {
                       <td>
                         <div className="flex justify-center gap-3">
                           {/* Update/Edit Button */}
-                          <button
+                          <Link
+                            to={`/dashboard/update-user/${user._id}`}
                             className="btn btn-circle bg-blue-500 text-white hover:bg-blue-600 border-none shadow-md"
                             title="Update Role"
                           >
                             <FaEdit />
-                          </button>
+                          </Link>
                         </div>
                       </td>
                     </tr>
