@@ -4,19 +4,64 @@ import LoanCard from "../../Components/LoanCard";
 import { motion } from "motion/react";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../Loading/Loading";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const Loans = () => {
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const limit = 6;
+
   const axiosSecure = useAxiosSecure();
-  const { data: loans = [], isLoading } = useQuery({
-    queryKey: ["loans"],
+
+  const {
+    data: loansData = {},
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["loans", page],
     queryFn: async () => {
-      const res = await axiosSecure.get("/loans");
+      const res = await axiosSecure.get(`/loans?page=${page}&limit=${limit}`);
       return res.data;
     },
+    keepPreviousData: true, // Keep showing old data while fetching new page
   });
+
+  // Handle both array response (old backend) and object response (new backend)
+  let loans = [];
+  if (Array.isArray(loansData)) {
+    // Fallback: Client-side pagination if backend is not updated yet
+    const total = loansData.length;
+    const calculatedTotalPages = Math.ceil(total / limit);
+
+    // Update total pages only if it changed to avoid infinite loop
+    if (totalPages !== calculatedTotalPages && calculatedTotalPages > 0) {
+      setTotalPages(calculatedTotalPages);
+    }
+
+    // Slice data for current page
+    const startIndex = (page - 1) * limit;
+    loans = loansData.slice(startIndex, startIndex + limit);
+  } else {
+    // Server-side pagination (New backend)
+    loans = loansData.loans || [];
+    if (loansData.totalPages && totalPages !== loansData.totalPages) {
+      setTotalPages(loansData.totalPages);
+    }
+  }
+
   if (isLoading) {
     return <Loading></Loading>;
   }
+
+  // Pagination Handlers
+  const handlePrev = () => {
+    if (page > 1) setPage(page - 1);
+  };
+
+  const handleNext = () => {
+    if (page < totalPages) setPage(page + 1);
+  };
+
   return (
     <div className="min-h-screen relative overflow-hidden jost rounded-4xl">
       {/* Background Decorative Shapes */}
@@ -70,11 +115,57 @@ const Loans = () => {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {loans.map((loan) => (
-              <LoanCard loan={loan} key={loan._id} />
-            ))}
-          </div>
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {loans.map((loan) => (
+                <LoanCard loan={loan} key={loan._id} />
+              ))}
+            </div>
+
+            {/* Pagination Controls */}
+            {totalPages > 1 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="flex justify-center items-center gap-6 mt-16 pb-10"
+              >
+                <button
+                  onClick={handlePrev}
+                  disabled={page === 1}
+                  className="btn btn-circle btn-outline border-base-content/20 hover:bg-primary hover:border-primary hover:text-white transition-all disabled:opacity-20 disabled:border-base-content/10"
+                  title="Previous Page"
+                >
+                  <FaChevronLeft />
+                </button>
+
+                <div className="join shadow-sm bg-base-100 rounded-full p-1 border border-base-content/5">
+                  {[...Array(totalPages)].map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setPage(i + 1)}
+                      className={`join-item btn ${
+                        page === i + 1
+                          ? "btn-primary rounded-full"
+                          : "btn-ghost rounded-full"
+                      } transition-all duration-300 font-medium`}
+                    >
+                      {i + 1}
+                    </button>
+                  ))}
+                </div>
+
+                <button
+                  onClick={handleNext}
+                  disabled={page === totalPages}
+                  className="btn btn-circle btn-outline border-base-content/20 hover:bg-primary hover:border-primary hover:text-white transition-all disabled:opacity-20 disabled:border-base-content/10"
+                  title="Next Page"
+                >
+                  <FaChevronRight />
+                </button>
+              </motion.div>
+            )}
+          </>
         )}
       </section>
     </div>
