@@ -6,6 +6,7 @@ import { FaEdit, FaTrash, FaEye, FaSearch } from "react-icons/fa";
 import Swal from "sweetalert2";
 import Loading from "../../Loading/Loading";
 import toast from "react-hot-toast";
+import { Link } from "react-router";
 
 const AllLoans = () => {
   const axiosSecure = useAxiosSecure();
@@ -45,19 +46,10 @@ const AllLoans = () => {
     });
   };
 
-  // Handle Update (Placeholder - implementation logic needed)
-  const handleUpdate = (loan) => {
-    // Logic for update modal or redirect
-    // For now, let's just show a toast or log
-    toast("Update functionality to be implemented", { icon: "🛠️" });
-  };
-
   // Handle 'Show on Home' Toggle
   const handleShowOnHome = async (id, currentShowOnHome) => {
     // Optimistic update could be used, but standard wait is safer for now
     try {
-      // Assuming backend supports PATCH /loans/:id with { showOnHome: boolean }
-      // This matches the pattern used elsewhere
       const res = await axiosSecure.patch(`/loans/${id}`, {
         showOnHome: !currentShowOnHome,
       });
@@ -212,13 +204,13 @@ const AllLoans = () => {
                       </td>
                       <td className="text-right pr-8">
                         <div className="flex justify-end gap-2">
-                          <button
-                            onClick={() => handleUpdate(loan)}
+                          <Link
+                            to={`/dashboard/edit-loan/${loan._id}`}
                             className="btn btn-ghost btn-sm btn-circle text-primary hover:bg-primary/10 tooltip tooltip-left"
                             data-tip="Update"
                           >
                             <FaEdit size={18} />
-                          </button>
+                          </Link>
                           <button
                             onClick={() => handleDelete(loan._id)}
                             className="btn btn-ghost btn-sm btn-circle text-error hover:bg-error/10 tooltip tooltip-left"
