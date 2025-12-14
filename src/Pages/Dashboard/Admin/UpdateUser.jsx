@@ -73,6 +73,7 @@ const UpdateUser = () => {
     try {
       const updatedData = {
         status: "active",
+        role: requestedRole,
         activatedAt: new Date().toISOString(),
       };
 
@@ -367,7 +368,7 @@ const UpdateUser = () => {
       {/* Suspend Modal */}
       {showSuspendModal && (
         <div className="modal modal-open">
-          <div className="modal-box max-w-md">
+          <div className="modal-box max-w-md  rounded-4xl">
             <h3 className="font-bold text-2xl mb-4 text-error">
               Suspend User Account
             </h3>
@@ -378,7 +379,7 @@ const UpdateUser = () => {
             <div className="space-y-4">
               {/* Suspend Reason */}
               <div className="form-control">
-                <label className="label flex flex-col justify-center">
+                <label className="label w-full">
                   <span className="label-text font-medium">
                     Reason <span className="text-error">*</span>
                   </span>
@@ -386,7 +387,7 @@ const UpdateUser = () => {
                 <input
                   type="text"
                   placeholder="e.g., Violation of terms"
-                  className="input input-bordered focus:border-primary focus:ring-2 focus:ring-primary/50"
+                  className="input input-bordered focus:border-primary focus:ring-2 focus:ring-primary/50 w-full rounded-full"
                   value={suspendReason}
                   onChange={(e) => setSuspendReason(e.target.value)}
                   required
@@ -402,7 +403,7 @@ const UpdateUser = () => {
                 </label>
                 <textarea
                   placeholder="Provide detailed explanation (optional)"
-                  className="textarea textarea-bordered h-24 focus:border-primary focus:ring-2 focus:ring-primary/50 resize-none"
+                  className="textarea textarea-bordered h-24 focus:border-primary focus:ring-2 focus:ring-primary/50 resize-none w-full rounded-2xl"
                   value={suspendFeedback}
                   onChange={(e) => setSuspendFeedback(e.target.value)}
                 />
@@ -422,7 +423,7 @@ const UpdateUser = () => {
               </button>
               <button
                 onClick={confirmSuspend}
-                className="btn bg-gradient-to-r from-red-500 to-rose-600 hover:from-red-600 hover:to-rose-700 text-white border-none shadow-lg shadow-red-500/30 px-6"
+                className="btn rounded-full bg-linear-to-r from-red-500 to-rose-600 hover:from-red-600 hover:to-rose-700 text-white border-none shadow-lg shadow-red-500/30 px-6"
               >
                 Confirm Suspend
               </button>
