@@ -17,7 +17,7 @@ const ManagerRoute = ({ children }) => {
     return <Navigate to="/login"></Navigate>;
   }
 
-  if (role !== "manager") {
+  if (role.role !== "manager") {
     return <Forbidden></Forbidden>;
   }
 

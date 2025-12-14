@@ -20,18 +20,15 @@ const Register = () => {
     formState: { errors },
   } = useForm();
   const [showPass, setShowPass] = useState(false);
-  console.log(errors);
 
   const onSubmit = (data) => {
     const imageFile = data.photo[0];
     const status = data.role === "manager" ? "pending" : "active";
-    console.log(data);
 
     // user registration
     registerUser(data.email, data.password)
       .then((result) => {
         setLoading(false);
-        // console.log(result.user);
         toast.success("Registration successful");
 
         // fetch the image url from the imageBB
@@ -64,7 +61,7 @@ const Register = () => {
                   email: data.email.toLowerCase(),
                   name: data.name,
                   photoURL: res.data.data.url,
-                  requestedRole: data.role,
+                  requestedRole: data.role === "borrower" ? "user" : "manager",
                   role: "user",
                   status: status,
                   createdAt: new Date().toLocaleString(),
@@ -72,9 +69,9 @@ const Register = () => {
 
                 axiosSecure
                   .post("/users", userInfo)
-                  .then((res) => {
+                  .then(() => {
                     setLoading(false);
-                    console.log(res);
+                    // console.log(res);
                   })
                   .catch((error) => {
                     setLoading(false);
@@ -105,6 +102,27 @@ const Register = () => {
         const user = result.user;
         console.log(user);
         toast.success("Login successful");
+        // save user info to the database
+        const userInfo = {
+          email: user.email.toLowerCase(),
+          name: user.displayName,
+          photoURL: user.photoURL,
+          requestedRole: "user",
+          role: "user",
+          status: "active",
+          createdAt: new Date().toLocaleString(),
+        };
+
+        axiosSecure
+          .post("/users", userInfo)
+          .then(() => {
+            setLoading(false);
+            // console.log(res);
+          })
+          .catch((error) => {
+            setLoading(false);
+            console.log(error);
+          });
       })
       .catch((error) => {
         setLoading(false);
