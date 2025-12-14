@@ -109,20 +109,36 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/all-loans",
-        element: <AllLoans></AllLoans>,
+        element: (
+          <AdminRoute>
+            <AllLoans></AllLoans>
+          </AdminRoute>
+        ),
       },
 
       {
         path: "/dashboard/loan-application",
-        element: <LoanApplication></LoanApplication>,
+        element: (
+          <AdminRoute>
+            <LoanApplication></LoanApplication>
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/edit-loan/:id",
-        element: <EditLoan></EditLoan>,
+        element: (
+          <AdminRoute>
+            <EditLoan></EditLoan>
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/update-user/:id",
-        element: <UpdateUser></UpdateUser>,
+        element: (
+          <AdminRoute>
+            <UpdateUser></UpdateUser>
+          </AdminRoute>
+        ),
       },
       // Manager
       {
