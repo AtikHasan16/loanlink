@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
-import { useParams, useNavigate } from "react-router";
+import { useParams, useNavigate, Link } from "react-router";
 import { useForm } from "react-hook-form";
 import { motion } from "motion/react";
 import {
@@ -11,6 +11,7 @@ import {
   FaCheckCircle,
   FaBan,
   FaSave,
+  FaArrowAltCircleLeft,
 } from "react-icons/fa";
 import toast from "react-hot-toast";
 import Loading from "../../Loading/Loading";
@@ -73,7 +74,6 @@ const UpdateUser = () => {
     try {
       const updatedData = {
         status: "active",
-        role: requestedRole,
         activatedAt: new Date().toISOString(),
       };
 
@@ -112,8 +112,6 @@ const UpdateUser = () => {
       setSuspendReason("");
       setSuspendFeedback("");
       refetch();
-      // Navigate back to manage users after a short delay
-      setTimeout(() => navigate("/dashboard/manage-user"), 1500);
     } catch (error) {
       console.error(error);
       toast.error("Failed to suspend user");
@@ -302,7 +300,7 @@ const UpdateUser = () => {
                   </label>
                   <div className="flex gap-4">
                     <select
-                      className="select select-bordered flex-1 focus:border-primary focus:ring-2 focus:ring-primary/50"
+                      className="select select-bordered flex-1 focus:border-primary focus:ring-2 focus:ring-primary/50 rounded-full h-12"
                       {...register("role", { required: "Role is required" })}
                     >
                       <option value="">Select Role</option>
@@ -312,7 +310,7 @@ const UpdateUser = () => {
                     </select>
                     <button
                       type="submit"
-                      className="btn-main py-3 px-6 shadow-lg shadow-primary/20 gap-2 group"
+                      className="btn-main px-6 shadow-lg shadow-primary/20 gap-2 group"
                     >
                       <FaSave className="group-hover:rotate-12 transition-transform" />
                       Update Role
@@ -360,6 +358,15 @@ const UpdateUser = () => {
                   </button>
                 </div>
               </div>
+            </div>
+            <div className="flex py-10  justify-center">
+              <Link
+                to="/dashboard/manage-user"
+                className="btn rounded-full bg-primary text-secondary border-none "
+              >
+                <FaArrowAltCircleLeft></FaArrowAltCircleLeft> Back to Manage
+                User
+              </Link>
             </div>
           </motion.div>
         </div>
