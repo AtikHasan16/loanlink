@@ -284,14 +284,14 @@ const Profile = () => {
           </div>
 
           {/* Actions */}
-          <div className=" flex flex-col items-center gap-4 border-t border-base-200 pt-8 w-full max-w-2xl mx-auto">
+          <div className=" flex flex-col items-center gap-4 pt-8 w-full max-w-2xl mx-auto">
             <h3 className="text-lg font-bold text-error">Danger Zone</h3>
             <p className="text-sm text-base-content/60 max-w-md">
               Once you delete your account, there is no going back. Please be
               certain.
             </p>
             {/* Logout and Delete Account */}
-            <div className="flex justify-center gap-4">
+            <div className="flex md:flex-row flex-col justify-center gap-4">
               <button
                 onClick={handleLogout}
                 className="btn btn-error btn-wide btn-outline rounded-full px-8 gap-2 mt-2 hover:bg-error hover:text-white transition-all"
