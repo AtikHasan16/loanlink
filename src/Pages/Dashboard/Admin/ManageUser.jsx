@@ -91,6 +91,8 @@ const ManageUser = () => {
                   <th className="py-4">Name</th>
                   <th className="py-4">Email</th>
                   <th className="py-4">Role</th>
+                  <th className="py-4">Requested Role</th>
+                  <th className="py-4">Status</th>
                   <th className="py-4 text-center rounded-r-xl">Actions</th>
                 </tr>
               </thead>
@@ -140,14 +142,30 @@ const ManageUser = () => {
                         </div>
                       </td>
                       <td>
+                        <div className="badge badge-error">
+                          {user.requestedRole}
+                        </div>
+                      </td>
+                      <td>
+                        <div
+                          className={`badge ${
+                            user.status === "active"
+                              ? "badge-success"
+                              : "badge-error"
+                          }`}
+                        >
+                          {user.status}
+                        </div>
+                      </td>
+                      <td>
                         <div className="flex justify-center gap-3">
                           {/* Update/Edit Button */}
                           <Link
                             to={`/dashboard/update-user/${user._id}`}
-                            className="btn btn-circle bg-blue-500 text-white hover:bg-blue-600 border-none shadow-md"
+                            className="btn rounded-full bg-blue-500 text-white hover:bg-blue-600 border-none shadow-md"
                             title="Update Role"
                           >
-                            <FaEdit />
+                            <FaEdit /> Update
                           </Link>
                         </div>
                       </td>
