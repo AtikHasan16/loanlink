@@ -6,9 +6,9 @@ LoanLink is a comprehensive web-based platform designed to bridge the gap betwee
 
 ## 🔗 Live Links
 
-- **🌐 Live Website**: [Coming Soon - Add Your Firebase/Vercel Link]
-- **📂 Server Repository**: [Add Your Server GitHub Link](https://github.com/yourusername/server-loanlink)
-- **📂 Client Repository**: [Add Your Client GitHub Link](https://github.com/yourusername/client-loanlink)
+- **🌐 Live Website**: [Visit Now](https://loanlink-app.netlify.app/)
+- **📂 Server Repository**: [Server GitHub Link](https://github.com/AtikHasan16/server-loanlink)
+- **📂 Client Repository**: [Client GitHub Link](https://github.com/AtikHasan16/loanlink.git)
 
 ---
 
