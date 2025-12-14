@@ -25,7 +25,8 @@ import LoanForm from "../Pages/Home/LoanApplicationForm";
 import PaymentSuccess from "../Pages/Dashboard/PaymentSuccess";
 import PaymentFailed from "../Pages/Dashboard/PaymentFailed";
 import EditLoan from "../Pages/Dashboard/Admin/EditLoan";
-import UpdateUser from "../Pages/Dashboard/Admin/updateUser";
+import UpdateUser from "../Pages/Dashboard/Admin/UpdateUser";
+
 const router = createBrowserRouter([
   {
     path: "/",
