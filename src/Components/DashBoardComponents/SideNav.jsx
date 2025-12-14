@@ -10,8 +10,11 @@ import { MdManageAccounts, MdOutlinePendingActions } from "react-icons/md";
 import { RiAccountPinBoxFill } from "react-icons/ri";
 import useAuth from "../../Hooks/useAuth";
 import toast from "react-hot-toast";
+import useRole from "../../Hooks/useRole";
 const SideNav = () => {
   const { logOutUser } = useAuth();
+  const { role, isLoading } = useRole();
+
   const links = (
     <>
       <li>
@@ -26,81 +29,89 @@ const SideNav = () => {
         </Link>
       </li>
       {/*--------------------------- Admin */}
-      <li>
-        <NavLink
-          to="/dashboard/manage-user"
-          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-          data-tip="Manage Users"
-        >
-          {/* User icon */}
-          <BiUser size={30}></BiUser>
-          <span className="is-drawer-close:hidden">Manage Users</span>
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/dashboard/all-loans"
-          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-          data-tip="All Loans"
-        >
-          {/* Money icon */}
-          <BiMoney size={30}></BiMoney>
-          <span className="is-drawer-close:hidden">All Loans</span>
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/dashboard/loan-application"
-          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-          data-tip="Loan Application"
-        >
-          {/* Newspaper icon */}
-          <IoNewspaperOutline size={30}></IoNewspaperOutline>
-          <span className="is-drawer-close:hidden">Loan Application</span>
-        </NavLink>
-      </li>
+      {role.role === "admin" && (
+        <>
+          <li>
+            <NavLink
+              to="/dashboard/manage-user"
+              className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+              data-tip="Manage Users"
+            >
+              {/* User icon */}
+              <BiUser size={30}></BiUser>
+              <span className="is-drawer-close:hidden">Manage Users</span>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/dashboard/all-loans"
+              className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+              data-tip="All Loans"
+            >
+              {/* Money icon */}
+              <BiMoney size={30}></BiMoney>
+              <span className="is-drawer-close:hidden">All Loans</span>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/dashboard/loan-application"
+              className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+              data-tip="Loan Application"
+            >
+              {/* Newspaper icon */}
+              <IoNewspaperOutline size={30}></IoNewspaperOutline>
+              <span className="is-drawer-close:hidden">Loan Application</span>
+            </NavLink>
+          </li>
+        </>
+      )}
 
       {/*------------------- Manager */}
-      <li>
-        <NavLink
-          to="/dashboard/manage-loan"
-          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-          data-tip="Manage Loan"
-        >
-          <MdManageAccounts size={30}></MdManageAccounts>
-          <span className="is-drawer-close:hidden">Manage Loan</span>
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/dashboard/approved-loan"
-          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-          data-tip="Approved Loan"
-        >
-          <BsFillBookmarkCheckFill size={30}></BsFillBookmarkCheckFill>
-          <span className="is-drawer-close:hidden">Approved Loan</span>
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/dashboard/pending-loan"
-          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-          data-tip="Pending Loan"
-        >
-          <MdOutlinePendingActions size={30}></MdOutlinePendingActions>
-          <span className="is-drawer-close:hidden">Pending Loan</span>
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/dashboard/add-loan"
-          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-          data-tip="Add Loan"
-        >
-          <IoAddCircleSharp size={30}></IoAddCircleSharp>
-          <span className="is-drawer-close:hidden">Add Loan</span>
-        </NavLink>
-      </li>
+      {role.role === "manager" && (
+        <>
+          <li>
+            <NavLink
+              to="/dashboard/manage-loan"
+              className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+              data-tip="Manage Loan"
+            >
+              <MdManageAccounts size={30}></MdManageAccounts>
+              <span className="is-drawer-close:hidden">Manage Loan</span>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/dashboard/approved-loan"
+              className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+              data-tip="Approved Loan"
+            >
+              <BsFillBookmarkCheckFill size={30}></BsFillBookmarkCheckFill>
+              <span className="is-drawer-close:hidden">Approved Loan</span>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/dashboard/pending-loan"
+              className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+              data-tip="Pending Loan"
+            >
+              <MdOutlinePendingActions size={30}></MdOutlinePendingActions>
+              <span className="is-drawer-close:hidden">Pending Loan</span>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/dashboard/add-loan"
+              className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+              data-tip="Add Loan"
+            >
+              <IoAddCircleSharp size={30}></IoAddCircleSharp>
+              <span className="is-drawer-close:hidden">Add Loan</span>
+            </NavLink>
+          </li>
+        </>
+      )}
       {/*--------------------------- User */}
       <li>
         <NavLink
@@ -139,8 +150,8 @@ const SideNav = () => {
   };
 
   return (
-    <div className="flex flex-col items-baseline h-screen pt-40 pb-5 w-full">
-      <ul className="menu gap-4 w-full grow text-xl font-semibold">
+    <div className="flex flex-col items-baseline h-screen pb-5 w-full">
+      <ul className="menu gap-4 w-full grow text-xl font-semibold flex flex-col h-full justify-center">
         {/* List item */}
         {links}
       </ul>
