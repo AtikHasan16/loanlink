@@ -22,6 +22,8 @@ import Loading from "../Loading/Loading";
 
 const Profile = () => {
   const { currentUser, logOutUser, deleteCurrentUser, setLoading } = useAuth();
+  console.log(currentUser.email);
+
   const axiosSecure = useAxiosSecure();
   const { data: userData, isLoading } = useQuery({
     queryKey: ["user", currentUser?.email],
@@ -205,8 +207,8 @@ const Profile = () => {
             {/* Requested Role Badge (if exists) */}
             {userData?.requestedRole && (
               <div className="badge badge-lg badge-error px-4 py-3">
-                <VscGitPullRequestGoToChanges />{" "}
-                Requested : {userData?.requestedRole}
+                <VscGitPullRequestGoToChanges /> Requested :{" "}
+                {userData?.requestedRole}
               </div>
             )}
           </div>
