@@ -3,6 +3,7 @@ import useAuth from "../../Hooks/useAuth";
 import useRole from "../../Hooks/useRole";
 import Loading from "../../Pages/Loading/Loading";
 import Forbidden from "../../Pages/Forbidden";
+import { Navigate } from "react-router";
 
 const ManagerRoute = ({ children }) => {
   const { currentUser, loading } = useAuth();
@@ -11,6 +12,11 @@ const ManagerRoute = ({ children }) => {
   if (loading || roleLoading) {
     return <Loading></Loading>;
   }
+
+  if (!currentUser) {
+    return <Navigate to="/login"></Navigate>;
+  }
+
   if (role !== "manager") {
     return <Forbidden></Forbidden>;
   }

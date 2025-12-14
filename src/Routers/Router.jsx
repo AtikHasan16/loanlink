@@ -27,6 +27,7 @@ import PaymentFailed from "../Pages/Dashboard/PaymentFailed";
 import EditLoan from "../Pages/Dashboard/Admin/EditLoan";
 import UpdateUser from "../Pages/Dashboard/Admin/UpdateUser";
 import AdminRoute from "./Private/AdminRoute";
+import ManagerRoute from "./Private/ManagerRoute";
 
 const router = createBrowserRouter([
   {
@@ -143,19 +144,35 @@ const router = createBrowserRouter([
       // Manager
       {
         path: "/dashboard/add-loan",
-        element: <AddLoan></AddLoan>,
+        element: (
+          <ManagerRoute>
+            <AddLoan></AddLoan>
+          </ManagerRoute>
+        ),
       },
       {
         path: "/dashboard/approved-loan",
-        element: <ApprovedLoan></ApprovedLoan>,
+        element: (
+          <ManagerRoute>
+            <ApprovedLoan></ApprovedLoan>
+          </ManagerRoute>
+        ),
       },
       {
         path: "/dashboard/pending-loan",
-        element: <PendingLoan></PendingLoan>,
+        element: (
+          <ManagerRoute>
+            <PendingLoan></PendingLoan>
+          </ManagerRoute>
+        ),
       },
       {
         path: "/dashboard/manage-loan",
-        element: <ManageLoan></ManageLoan>,
+        element: (
+          <ManagerRoute>
+            <ManageLoan></ManageLoan>
+          </ManagerRoute>
+        ),
       },
       // User
       {

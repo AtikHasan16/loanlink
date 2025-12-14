@@ -11,6 +11,9 @@ const AdminRoute = ({ children }) => {
   if (loading || roleLoading) {
     return <Loading></Loading>;
   }
+  if (!currentUser) {
+    return <Navigate to="/login"></Navigate>;
+  }
   if (role !== "admin") {
     return <Forbidden></Forbidden>;
   }
