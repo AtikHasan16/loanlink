@@ -289,11 +289,10 @@ const Register = () => {
               </button>
             </div>
           </div>
-
           <div className="text-center mt-8 text-base-content/70">
             Already have an account?{" "}
             <Link
-              to="/auth/login"
+              to="/login"
               className="text-primary font-bold hover:underline"
             >
               Sign In
