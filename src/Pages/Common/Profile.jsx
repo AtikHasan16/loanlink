@@ -13,6 +13,7 @@ import {
   FaCalendarAlt,
   FaCheckCircle,
   FaBan,
+  FaSignOutAlt,
 } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
@@ -51,6 +52,39 @@ const Profile = () => {
           })
           .catch((error) => {
             setLoading(false);
+            Swal.fire({
+              title: "Error!",
+              text: error.message,
+              icon: "error",
+            });
+          });
+      }
+    });
+  };
+
+  // Handle logout
+  const handleLogout = () => {
+    Swal.fire({
+      title: "Logout?",
+      text: "Are you sure you want to log out?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#6c757d",
+      confirmButtonText: "Yes, logout",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logOutUser()
+          .then(() => {
+            Swal.fire({
+              title: "Logged Out!",
+              text: "You have been successfully logged out.",
+              icon: "success",
+              timer: 1500,
+              showConfirmButton: false,
+            });
+          })
+          .catch((error) => {
             Swal.fire({
               title: "Error!",
               text: error.message,
@@ -248,19 +282,29 @@ const Profile = () => {
           </div>
 
           {/* Actions */}
-          <div className="mt-12 flex flex-col items-center gap-4 border-t border-base-200 pt-8 w-full max-w-2xl mx-auto">
+          <div className=" flex flex-col items-center gap-4 border-t border-base-200 pt-8 w-full max-w-2xl mx-auto">
             <h3 className="text-lg font-bold text-error">Danger Zone</h3>
             <p className="text-sm text-base-content/60 max-w-md">
               Once you delete your account, there is no going back. Please be
               certain.
             </p>
-            <button
-              onClick={handleDeleteAccount}
-              className="btn btn-error btn-outline rounded-full px-8 gap-2 mt-2 hover:bg-error hover:text-white transition-all"
-            >
-              <FaTrashAlt />
-              Delete Account
-            </button>
+            {/* Logout and Delete Account */}
+            <div className="flex justify-center gap-4">
+              <button
+                onClick={handleLogout}
+                className="btn btn-error btn-wide btn-outline rounded-full px-8 gap-2 mt-2 hover:bg-error hover:text-white transition-all"
+              >
+                <FaSignOutAlt />
+                Logout
+              </button>
+              <button
+                onClick={handleDeleteAccount}
+                className="btn btn-error btn-wide btn-outline rounded-full px-8 gap-2 mt-2 hover:bg-error hover:text-white transition-all"
+              >
+                <FaTrashAlt />
+                Delete Account
+              </button>
+            </div>
           </div>
         </div>
       </motion.div>
