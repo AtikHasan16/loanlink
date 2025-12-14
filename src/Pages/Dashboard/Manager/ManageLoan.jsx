@@ -6,6 +6,7 @@ import { FaEdit, FaTrash, FaSearch } from "react-icons/fa";
 import Loading from "../../Loading/Loading";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+import { Link } from "react-router";
 
 const ManageLoan = () => {
   const axiosSecure = useAxiosSecure();
@@ -54,11 +55,6 @@ const ManageLoan = () => {
         }
       }
     });
-  };
-
-  // Placeholder for update - normally would navigate to an edit page or open a modal
-  const handleUpdate = (id) => {
-    toast("Update functionality coming soon!", { icon: "🛠️" });
   };
 
   if (isLoading) {
@@ -179,13 +175,13 @@ const ManageLoan = () => {
                       <td>
                         <div className="flex justify-center gap-3">
                           {/* Update Button */}
-                          <button
-                            onClick={() => handleUpdate(loan._id)}
+                          <Link
+                            to={`/dashboard/edit-loan/${loan._id}`}
                             className="btn btn-circle bg-blue-500 text-white hover:bg-blue-600 border-none shadow-md"
                             title="Update"
                           >
                             <FaEdit />
-                          </button>
+                          </Link>
 
                           {/* Delete Button */}
                           <button
@@ -210,41 +206,3 @@ const ManageLoan = () => {
 };
 
 export default ManageLoan;
-
-/*
-================================================================================
-BACKEND LOGIC FOR SEARCH & FILTERING (Node.js / Express / MongoDB)
-================================================================================
-
-// Define the route in your Express app
-app.get('/loans', async (req, res) => {
-    try {
-        const { search } = req.query;
-        let query = {};
-
-        // If a search term is provided, filter by title or category
-        if (search) {
-            query = {
-                $or: [
-                    // 'i' flag for case-insensitive search
-                    { title: { $regex: search, $options: 'i' } },
-                    { category: { $regex: search, $options: 'i' } }
-                ]
-            };
-        }
-
-        // Fetch loans matching the query
-        const result = await loansCollection.find(query).toArray();
-        res.send(result);
-
-    } catch (error) {
-        console.error("Error fetching loans:", error);
-        res.status(500).send({ message: "Failed to fetch loans" });
-    }
-});
-
-// USAGE FROM FRONTEND:
-// const res = await axiosSecure.get(`/loans?search=${searchQuery}`);
-
-================================================================================
-*/
