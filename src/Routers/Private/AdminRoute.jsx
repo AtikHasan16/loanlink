@@ -3,12 +3,14 @@ import useAuth from "../../Hooks/useAuth";
 import useRole from "../../Hooks/useRole";
 import Loading from "../../Pages/Loading/Loading";
 import Forbidden from "../../Pages/Forbidden";
+import { Navigate } from "react-router";
 
 const AdminRoute = ({ children }) => {
   const { currentUser, loading } = useAuth();
-  const { role, roleLoading } = useRole();
+  const { role, isLoading } = useRole();
 
-  if (loading || roleLoading) {
+//   console.log(loading, isLoading);
+  if (loading || isLoading) {
     return <Loading></Loading>;
   }
   if (!currentUser) {
