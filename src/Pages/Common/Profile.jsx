@@ -138,12 +138,12 @@ const Profile = () => {
   }
 
   return (
-    <div className="min-h-screen px-4 flex justify-center items-start bg-base-100 jost">
+    <div className="min-h-screen px-4  flex justify-center items-start bg-base-100 jost">
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
-        className="max-w-4xl w-full bg-accent shadow-2xl rounded-3xl overflow-hidden border border-base-200"
+        className="max-w-4xl w-full bg-accent shadow-2xl rounded-3xl overflow-hidden border border-base-200 mt-10"
       >
         {/* Header / Banner */}
         <div className="h-48 bg-linear-180 from-primary to-black relative ">
