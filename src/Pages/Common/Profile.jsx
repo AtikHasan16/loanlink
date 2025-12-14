@@ -3,6 +3,7 @@ import React from "react";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import { motion } from "motion/react";
+import { VscGitPullRequestGoToChanges } from "react-icons/vsc";
 import {
   FaUser,
   FaEnvelope,
@@ -203,10 +204,9 @@ const Profile = () => {
 
             {/* Requested Role Badge (if exists) */}
             {userData?.requestedRole && (
-              <div className="badge badge-lg badge-ghost px-4 py-3">
-                Requested:{" "}
-                {userData?.requestedRole?.charAt(0).toUpperCase() +
-                  userData?.requestedRole?.slice(1)}
+              <div className="badge badge-lg badge-error px-4 py-3">
+                <VscGitPullRequestGoToChanges />{" "}
+                Requested : {userData?.requestedRole}
               </div>
             )}
           </div>
