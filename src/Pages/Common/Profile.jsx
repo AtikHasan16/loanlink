@@ -3,21 +3,32 @@ import React from "react";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import { motion } from "motion/react";
-import { FaUser, FaEnvelope, FaShieldAlt, FaTrashAlt } from "react-icons/fa";
+import {
+  FaUser,
+  FaEnvelope,
+  FaShieldAlt,
+  FaTrashAlt,
+  FaUserShield,
+  FaUserTie,
+  FaCalendarAlt,
+  FaCheckCircle,
+  FaBan,
+} from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import Loading from "../Loading/Loading";
 
 const Profile = () => {
-  const { currentUser, deleteCurrentUser, setLoading } = useAuth();
+  const { currentUser, logOutUser, deleteCurrentUser, setLoading } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const { data: userData } = useQuery({
+  const { data: userData, isLoading } = useQuery({
     queryKey: ["user", currentUser?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/users?email=${currentUser?.email}`);
       return res.data;
     },
   });
-  console.log(userData);
+
   const handleDeleteAccount = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -50,8 +61,47 @@ const Profile = () => {
     });
   };
 
+  // Get role badge color and icon
+  const getRoleBadgeColor = (role) => {
+    switch (role) {
+      case "admin":
+        return "badge-error";
+      case "manager":
+        return "badge-warning";
+      default:
+        return "badge-info";
+    }
+  };
+
+  const getRoleIcon = (role) => {
+    switch (role) {
+      case "admin":
+        return <FaUserShield className="inline mr-1" />;
+      case "manager":
+        return <FaUserTie className="inline mr-1" />;
+      default:
+        return <FaUser className="inline mr-1" />;
+    }
+  };
+
+  // Get status badge color
+  const getStatusBadgeColor = (status) => {
+    switch (status) {
+      case "active":
+        return "badge-success";
+      case "suspended":
+        return "badge-error";
+      default:
+        return "badge-warning";
+    }
+  };
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
-    <div className="min-h-screen   px-4 flex justify-center items-start bg-base-100 jost">
+    <div className="min-h-screen px-4 flex justify-center items-start bg-base-100 jost">
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -68,6 +118,7 @@ const Profile = () => {
               <div className="w-32 rounded-full ring ring-primary ring-offset-primary  ring-offset-4 shadow-xl">
                 <img
                   src={
+                    userData?.photoURL ||
                     currentUser?.photoURL ||
                     "https://img.daisyui.com/images/profile/demo/spiderperson@192.webp"
                   }
@@ -82,13 +133,48 @@ const Profile = () => {
         {/* Profile Content */}
         <div className="pt-20 pb-12 px-8 text-center">
           <h1 className="text-3xl font-bold text-base-content">
-            {currentUser?.displayName || "User Name"}
+            {userData?.name || currentUser?.displayName || "User Name"}
           </h1>
           <p className="text-base-content/60 font-medium mt-1">
-            {currentUser?.email || "user@example.com"}
+            {userData?.email || currentUser?.email || "user@example.com"}
           </p>
-          <div className="badge badge-primary badge-outline mt-3 px-4 py-1.5 uppercase font-bold tracking-wider text-xs">
-            {currentUser?.role || "Member"}
+
+          {/* Badges Row */}
+          <div className="flex justify-center gap-3 mt-4 flex-wrap">
+            {/* Role Badge */}
+            <div
+              className={`badge badge-lg ${getRoleBadgeColor(
+                userData?.role
+              )} px-4 py-3`}
+            >
+              {getRoleIcon(userData?.role)}
+              {userData?.role?.charAt(0).toUpperCase() +
+                userData?.role?.slice(1)}
+            </div>
+
+            {/* Status Badge */}
+            <div
+              className={`badge badge-lg ${getStatusBadgeColor(
+                userData?.status
+              )} px-4 py-3`}
+            >
+              {userData?.status === "active" ? (
+                <FaCheckCircle className="inline mr-1" />
+              ) : (
+                <FaBan className="inline mr-1" />
+              )}
+              {userData?.status?.charAt(0).toUpperCase() +
+                userData?.status?.slice(1)}
+            </div>
+
+            {/* Requested Role Badge (if exists) */}
+            {userData?.requestedRole && (
+              <div className="badge badge-lg badge-ghost px-4 py-3">
+                Requested:{" "}
+                {userData?.requestedRole?.charAt(0).toUpperCase() +
+                  userData?.requestedRole?.slice(1)}
+              </div>
+            )}
           </div>
 
           {/* Details Grid */}
@@ -103,7 +189,7 @@ const Profile = () => {
                   Full Name
                 </p>
                 <p className="font-semibold text-lg">
-                  {currentUser?.displayName || "N/A"}
+                  {userData?.name || currentUser?.displayName || "N/A"}
                 </p>
               </div>
             </div>
@@ -118,23 +204,44 @@ const Profile = () => {
                   Email Address
                 </p>
                 <p className="font-semibold text-lg truncate">
-                  {currentUser?.email || "N/A"}
+                  {userData?.email || currentUser?.email || "N/A"}
                 </p>
               </div>
             </div>
 
-            {/* Account Status / Role Placeholder */}
-            {/* Only showing if we had a role, otherwise just a placeholder or ID */}
+            {/* Account Role */}
             <div className="p-4 rounded-2xl bg-base-200/50 hover:bg-base-200 transition-colors flex items-center gap-4">
               <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
                 <FaShieldAlt size={20} />
               </div>
               <div>
                 <p className="text-xs uppercase font-bold text-base-content/50 tracking-wider">
-                  Account ID
+                  Account Role
                 </p>
-                <p className="font-semibold text-sm truncate w-48">
-                  {currentUser?.uid.slice(0, 18) || "N/A"}
+                <p className="font-semibold text-lg">
+                  {userData?.role?.charAt(0).toUpperCase() +
+                    userData?.role?.slice(1) || "N/A"}
+                </p>
+              </div>
+            </div>
+
+            {/* Member Since */}
+            <div className="p-4 rounded-2xl bg-base-200/50 hover:bg-base-200 transition-colors flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                <FaCalendarAlt size={20} />
+              </div>
+              <div>
+                <p className="text-xs uppercase font-bold text-base-content/50 tracking-wider">
+                  Member Since
+                </p>
+                <p className="font-semibold text-base">
+                  {userData?.createdAt
+                    ? new Date(userData.createdAt).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      })
+                    : "N/A"}
                 </p>
               </div>
             </div>
