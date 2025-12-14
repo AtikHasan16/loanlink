@@ -23,23 +23,25 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { motion } from "motion/react";
+import Loading from "../../Loading/Loading";
 
 const ManagerDashboard = () => {
   const axiosSecure = useAxiosSecure();
   const { currentUser } = useAuth();
 
-  // Fetch Loan Applications
-  const { data: applications = [] } = useQuery({
-    queryKey: ["manager-applications"],
+  const { data: applications = [], isLoading } = useQuery({
+    queryKey: ["application", currentUser.email],
     queryFn: async () => {
-      const res = await axiosSecure.get("/loanApplication");
+      const res = await axiosSecure.get(`/loanApplications`);
       return res.data;
     },
-    enabled: !!currentUser?.email,
   });
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
 
   // --- Statistics Calculation ---
-  const totalApplications = applications.length;
+  const totalApplications = applications?.length;
 
   const pendingApps = applications.filter(
     (app) => app.status === "pending"
