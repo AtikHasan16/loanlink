@@ -33,9 +33,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeLayout></HomeLayout>,
-
     errorElement: <Error></Error>,
-
     children: [
       {
         index: true,
@@ -55,11 +53,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/loan-details/:id",
-        element: <LoanDetails></LoanDetails>,
+        element: (
+          <PrivateRoute>
+            <LoanDetails></LoanDetails>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/loan-form",
-        element: <LoanForm></LoanForm>,
+        element: (
+          <PrivateRoute>
+            <LoanForm></LoanForm>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/login",
@@ -94,6 +100,7 @@ const router = createBrowserRouter([
         <DashboardLayout></DashboardLayout>
       </PrivateRoute>
     ),
+    errorElement: <Error></Error>,
     children: [
       {
         index: true,
