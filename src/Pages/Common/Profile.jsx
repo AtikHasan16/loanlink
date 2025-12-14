@@ -4,10 +4,20 @@ import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import { motion } from "motion/react";
 import { FaUser, FaEnvelope, FaShieldAlt, FaTrashAlt } from "react-icons/fa";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const Profile = () => {
   const { currentUser, deleteCurrentUser, setLoading } = useAuth();
-
+  const axiosSecure = useAxiosSecure();
+  const { data: userData } = useQuery({
+    queryKey: ["user", currentUser?.email],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/users?email=${currentUser?.email}`);
+      return res.data;
+    },
+  });
+  console.log(userData);
   const handleDeleteAccount = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -78,7 +88,7 @@ const Profile = () => {
             {currentUser?.email || "user@example.com"}
           </p>
           <div className="badge badge-primary badge-outline mt-3 px-4 py-1.5 uppercase font-bold tracking-wider text-xs">
-            Member
+            {currentUser?.role || "Member"}
           </div>
 
           {/* Details Grid */}
@@ -100,7 +110,7 @@ const Profile = () => {
 
             {/* Email */}
             <div className="p-4 rounded-2xl bg-base-200/50 hover:bg-base-200 transition-colors flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary ">
                 <FaEnvelope size={20} />
               </div>
               <div>
@@ -116,7 +126,7 @@ const Profile = () => {
             {/* Account Status / Role Placeholder */}
             {/* Only showing if we had a role, otherwise just a placeholder or ID */}
             <div className="p-4 rounded-2xl bg-base-200/50 hover:bg-base-200 transition-colors flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center text-accent">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
                 <FaShieldAlt size={20} />
               </div>
               <div>
@@ -124,7 +134,7 @@ const Profile = () => {
                   Account ID
                 </p>
                 <p className="font-semibold text-sm truncate w-48">
-                  {currentUser?.uid || "N/A"}
+                  {currentUser?.uid.slice(0, 18) || "N/A"}
                 </p>
               </div>
             </div>

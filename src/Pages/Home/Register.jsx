@@ -61,7 +61,7 @@ const Register = () => {
 
                 // save user info to the database
                 const userInfo = {
-                  email: data.email,
+                  email: data.email.toLowerCase(),
                   name: data.name,
                   photoURL: res.data.data.url,
                   requestedRole: data.role,
