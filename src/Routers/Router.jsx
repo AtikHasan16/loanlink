@@ -26,6 +26,7 @@ import PaymentSuccess from "../Pages/Dashboard/PaymentSuccess";
 import PaymentFailed from "../Pages/Dashboard/PaymentFailed";
 import EditLoan from "../Pages/Dashboard/Admin/EditLoan";
 import UpdateUser from "../Pages/Dashboard/Admin/UpdateUser";
+import AdminRoute from "./Private/AdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -100,7 +101,11 @@ const router = createBrowserRouter([
       // admin
       {
         path: "/dashboard/manage-user",
-        element: <ManageUser></ManageUser>,
+        element: (
+          <AdminRoute>
+            <ManageUser></ManageUser>
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/all-loans",
