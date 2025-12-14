@@ -15,7 +15,7 @@ const ApprovedLoan = () => {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["loans", "approved"],
+    queryKey: ["loans", "manager"],
     queryFn: async () => {
       const res = await axiosSecure.get("/loanApplication?status=approved");
       return res.data;

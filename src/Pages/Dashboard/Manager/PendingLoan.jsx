@@ -15,7 +15,7 @@ const PendingLoan = () => {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["loans", "pending"],
+    queryKey: ["loans", "manager"],
     queryFn: async () => {
       const res = await axiosSecure.get("/loanApplication?status=pending");
       return res.data;

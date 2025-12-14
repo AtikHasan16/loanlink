@@ -7,9 +7,11 @@ import Swal from "sweetalert2";
 import Loading from "../../Loading/Loading";
 import toast from "react-hot-toast";
 import { Link } from "react-router";
+import useAuth from "../../../Hooks/useAuth";
 
 const AllLoans = () => {
   const axiosSecure = useAxiosSecure();
+  const { currentUser } = useAuth();
   const [searchTerm, setSearchTerm] = useState("");
 
   const {
@@ -17,7 +19,7 @@ const AllLoans = () => {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["all-loans", "admin"],
+    queryKey: ["all-loans", currentUser?.email],
     queryFn: async () => {
       const res = await axiosSecure.get("/loans");
       return res.data;

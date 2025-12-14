@@ -10,11 +10,13 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { Link } from "react-router";
+import useAuth from "../../../Hooks/useAuth";
 
 const ManageUser = () => {
+  const { currentUser } = useAuth();
   const axiosSecure = useAxiosSecure();
   const { data: userData = [] } = useQuery({
-    queryKey: ["users"],
+    queryKey: ["users", currentUser?.email],
     queryFn: async () => {
       const res = await axiosSecure.get("/users");
       return res.data;

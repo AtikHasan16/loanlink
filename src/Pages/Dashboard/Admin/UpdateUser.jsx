@@ -57,7 +57,7 @@ const UpdateUser = () => {
     try {
       const updatedData = {
         role: data.role,
-        updatedAt: new Date().toISOString(),
+        updatedAt: new Date().toLocaleString(),
       };
 
       await axiosSecure.patch(`/users/${id}`, updatedData);
@@ -74,7 +74,7 @@ const UpdateUser = () => {
     try {
       const updatedData = {
         status: "active",
-        activatedAt: new Date().toISOString(),
+        activatedAt: new Date().toLocaleString(),
       };
 
       await axiosSecure.patch(`/users/${id}`, updatedData);
@@ -101,7 +101,7 @@ const UpdateUser = () => {
     try {
       const updatedData = {
         status: "suspended",
-        rejectedAt: new Date().toISOString(),
+        rejectedAt: new Date().toLocaleString(),
         suspendReason,
         suspendFeedback,
       };

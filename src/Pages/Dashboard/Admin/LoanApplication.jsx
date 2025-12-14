@@ -13,7 +13,7 @@ const LoanApplication = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
   const { data: loanApplications = [], isLoading } = useQuery({
-    queryKey: ["loanApplications-admin"],
+    queryKey: ["loanApplication", currentUser?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(
         `/loanApplication?email=${currentUser?.email}`
