@@ -113,29 +113,34 @@ const SideNav = () => {
         </>
       )}
       {/*--------------------------- User */}
-      <li>
-        <NavLink
-          to="/dashboard/my-loan"
-          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-          data-tip="My Loan"
-        >
-          {/* Newspaper icon */}
-          <GiReceiveMoney size={30}></GiReceiveMoney>
-          <span className="is-drawer-close:hidden">My Loan</span>
-        </NavLink>
-      </li>
-      {/* Profile */}
-      <li>
-        <NavLink
-          to="/profile"
-          className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-          data-tip="My Profile"
-        >
-          {/* Profile icon */}
-          <RiAccountPinBoxFill size={30} />
-          <span className="is-drawer-close:hidden">My Profile</span>
-        </NavLink>
-      </li>
+      {role.role === "user" && (
+        <>
+          <li>
+            <NavLink
+              to="/dashboard/my-loan"
+              className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+              data-tip="My Loan"
+            >
+              {/* Newspaper icon */}
+              <GiReceiveMoney size={30}></GiReceiveMoney>
+              <span className="is-drawer-close:hidden">My Loan</span>
+            </NavLink>
+          </li>
+          {/* Profile */}
+
+          <li>
+            <NavLink
+              to="/profile"
+              className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+              data-tip="My Profile"
+            >
+              {/* Profile icon */}
+              <RiAccountPinBoxFill size={30} />
+              <span className="is-drawer-close:hidden">My Profile</span>
+            </NavLink>
+          </li>
+        </>
+      )}
     </>
   );
 
