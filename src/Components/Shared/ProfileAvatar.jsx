@@ -19,23 +19,19 @@ const ProfileAvatar = () => {
 
   return (
     <div>
-      <div className="">
-        <div className="dropdown dropdown-end">
-          <div
-            tabIndex={0}
-            role="button"
-            className="btn bg-transparent shadow-none border-none avatar"
-          >
+      <div>
+        <div className="dropdown dropdown-end rounded-full">
+          <div tabIndex={0} role="button" className="avatar">
             <div className="ring-primary ring-offset-base-100 rounded-full w-13 ring-2 ring-offset-2">
               <img src={currentUser?.photoURL} />
             </div>
           </div>
           <ul
             tabIndex="-1"
-            className="menu dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow gap-2"
+            className="menu dropdown-content  bg-accent rounded-box z-1 mt-3 w-52 p-2 shadow gap-2"
           >
-            <li className="btn bg-transparent text-primary border-none shadow-none">
-              {currentUser?.displayName}
+            <li className="text-primary text-xl text-center">
+              <Link to={"/profile"}>{currentUser?.displayName}</Link>
             </li>
             <li>
               <button

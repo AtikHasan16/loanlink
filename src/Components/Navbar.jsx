@@ -112,32 +112,6 @@ const Navbar = () => {
           Contact Us
         </NavLink>
       </li>
-      <>
-        {currentUser ? (
-          <ProfileAvatar></ProfileAvatar>
-        ) : (
-          <>
-            <li>
-              <Link
-                to={"/register"}
-                className="btn bg-primary text-secondary rounded-full btn-lg"
-              >
-                Register
-                <BiUserPlus></BiUserPlus>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to={"/login"}
-                className="btn rounded-full bg-primary text-secondary  btn-lg"
-              >
-                Login
-                <BiLogIn></BiLogIn>
-              </Link>
-            </li>
-          </>
-        )}
-      </>
     </>
   );
 
@@ -160,6 +134,39 @@ const Navbar = () => {
               tabIndex="-1"
               className="menu dropdown-content bg-accent rounded-box z-1 mt-3 w-52 p-2 shadow text-lg  font-semibold"
             >
+              <div className={`py-2`}>
+                {currentUser ? (
+                  <li className="">
+                    <ProfileAvatar></ProfileAvatar>{" "}
+                    <Link to={"/profile"}>
+                      <span className="flex justify-center items-center">
+                        Profile
+                      </span>
+                    </Link>
+                  </li>
+                ) : (
+                  <div>
+                    <li>
+                      <Link
+                        to={"/register"}
+                        className="btn bg-primary text-secondary rounded-full btn-lg"
+                      >
+                        Register
+                        <BiUserPlus></BiUserPlus>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to={"/login"}
+                        className="btn rounded-full bg-primary text-secondary  btn-lg"
+                      >
+                        Login
+                        <BiLogIn></BiLogIn>
+                      </Link>
+                    </li>
+                  </div>
+                )}
+              </div>
               {links}
             </ul>
           </div>
@@ -169,6 +176,34 @@ const Navbar = () => {
         <div className="navbar-end hidden w-full xl:flex">
           <ul className="text-lg text menu menu-horizontal font-semibold  items-center gap-2">
             {links}
+            <div>
+              {currentUser ? (
+                <li>
+                  <ProfileAvatar></ProfileAvatar>
+                </li>
+              ) : (
+                <div className="flex gap-2">
+                  <li>
+                    <Link
+                      to={"/register"}
+                      className="btn bg-primary text-secondary rounded-full btn-lg"
+                    >
+                      Register
+                      <BiUserPlus></BiUserPlus>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to={"/login"}
+                      className="btn rounded-full bg-primary text-secondary  btn-lg"
+                    >
+                      Login
+                      <BiLogIn></BiLogIn>
+                    </Link>
+                  </li>
+                </div>
+              )}
+            </div>
             {/* Theme toggle */}
             <ThemeToggle></ThemeToggle>
           </ul>
