@@ -23,6 +23,23 @@ const ManageUser = () => {
     },
   });
 
+  // Search and Filter State
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterRole, setFilterRole] = useState("all");
+  const [filterStatus, setFilterStatus] = useState("all");
+
+  // Filtering Logic
+  const filteredUsers = userData.filter((user) => {
+    const matchesSearch =
+      user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.email.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesRole = filterRole === "all" || user.role === filterRole;
+    const matchesStatus =
+      filterStatus === "all" || user.status === filterStatus;
+
+    return matchesSearch && matchesRole && matchesStatus;
+  });
+
   // Get role badge color
   const getRoleBadgeColor = (role) => {
     switch (role) {
@@ -74,6 +91,76 @@ const ManageUser = () => {
           </p>
         </motion.div>
 
+        {/* User Statistics & Filter Bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="bg-base-100 p-6 rounded-4xl shadow-xl mb-8 border border-primary/20 relative overflow-hidden"
+        >
+          {/* Decorative Gradient Background */}
+          <div className="absolute top-0 left-0 w-full h-full bg-linear-to-r from-primary/5 via-transparent to-secondary/5 pointer-events-none"></div>
+
+          <div className="relative z-10 flex flex-col md:flex-row gap-6 items-end justify-between">
+            {/* Search Input */}
+            <div className="w-full md:w-1/2">
+              <label className="label">
+                <span className="label-text font-bold text-primary pl-1">
+                  Search Users
+                </span>
+              </label>
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Search by name or email..."
+                  className="input input-bordered input-primary w-full pl-12 rounded-full shadow-sm bg-base-100/50 backdrop-blur-sm focus:shadow-md transition-all font-medium"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <FaSearch className="absolute left-5 top-1/2 transform -translate-y-1/2 text-primary" />
+              </div>
+            </div>
+
+            {/* Filters */}
+            <div className="flex gap-4 w-full md:w-auto overflow-x-auto ">
+              <div className="flex-1">
+                <label className="label">
+                  <span className="label-text font-bold text-primary pl-1">
+                    Filter Role
+                  </span>
+                </label>
+                <select
+                  className="select select-primary rounded-full shadow-sm w-full bg-base-100/50 focus:shadow-md font-medium"
+                  value={filterRole}
+                  onChange={(e) => setFilterRole(e.target.value)}
+                >
+                  <option value="all">All Roles</option>
+                  <option value="user">User</option>
+                  <option value="manager">Manager</option>
+                  <option value="admin">Admin</option>
+                </select>
+              </div>
+
+              <div className="flex-1">
+                <label className="label">
+                  <span className="label-text font-bold text-primary pl-1">
+                    Filter Status
+                  </span>
+                </label>
+                <select
+                  className="select select-primary rounded-full shadow-sm w-full bg-base-100/50 focus:shadow-md font-medium"
+                  value={filterStatus}
+                  onChange={(e) => setFilterStatus(e.target.value)}
+                >
+                  <option value="all">All Status</option>
+                  <option value="active">Active</option>
+                  <option value="suspended">Suspended</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
         {/* Table Card */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -99,19 +186,19 @@ const ManageUser = () => {
                 </tr>
               </thead>
               <tbody className="text-base">
-                {userData.length === 0 ? (
+                {filteredUsers.length === 0 ? (
                   <tr>
                     <td
-                      colSpan="5"
-                      className="text-center py-10 text-gray-500 text-lg"
+                      colSpan="7"
+                      className="text-center py-10 text-base-content/50 text-xl font-medium"
                     >
                       {userData.length === 0
-                        ? "No users found."
-                        : "No users match your search."}
+                        ? "No users found in the database."
+                        : "No users match your search criteria."}
                     </td>
                   </tr>
                 ) : (
-                  userData.map((user) => (
+                  filteredUsers.map((user) => (
                     <tr
                       key={user._id}
                       className="hover:bg-base-200/50 transition-colors border-b border-base-200"
