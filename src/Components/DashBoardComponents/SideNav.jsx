@@ -15,7 +15,35 @@ const SideNav = () => {
   const { logOutUser } = useAuth();
   const { role, isLoading } = useRole();
 
-  const links = (
+  const links = isLoading ? (
+    <>
+      <li>
+        <div className="flex items-center gap-4 p-2">
+          <div className="skeleton h-8 w-8 rounded-xl shrink-0"></div>
+        </div>
+      </li>
+      <li>
+        <div className="flex items-center gap-4 p-2">
+          <div className="skeleton h-8 w-8 rounded-xl shrink-0"></div>
+        </div>
+      </li>
+      <li>
+        <div className="flex items-center gap-4 p-2">
+          <div className="skeleton h-8 w-8 rounded-xl shrink-0"></div>
+        </div>
+      </li>
+      <li>
+        <div className="flex items-center gap-4 p-2">
+          <div className="skeleton h-8 w-8 rounded-xl shrink-0"></div>
+        </div>
+      </li>
+      <li>
+        <div className="flex items-center gap-4 p-2">
+          <div className="skeleton h-8 w-8 rounded-xl shrink-0"></div>
+        </div>
+      </li>
+    </>
+  ) : (
     <>
       <li>
         <Link
