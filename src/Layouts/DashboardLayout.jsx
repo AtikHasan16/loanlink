@@ -28,7 +28,7 @@ const DashboardLayout = () => {
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
-          <div className="flex min-h-full justify-center items-center flex-col bg-base-200 is-drawer-close:w-18 is-drawer-open:w-64">
+          <div className="flex min-h-full justify-center items-center flex-col  bg-accent  is-drawer-close:w-18 is-drawer-open:w-64">
             {/* Sidebar content here */}
             <SideNav></SideNav>
           </div>
