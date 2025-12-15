@@ -5,7 +5,7 @@ import Logo from "../Shared/Logo";
 const DashNav = () => {
   return (
     <div>
-      <nav className="navbar  w-full py-5 bg-accent border-b-2 border-gray-200 fixed z-50 top-0  mx-auto">
+      <nav className="navbar  w-full py-5 bg-accent border-b-2 border-gray-200 dark:border-accent fixed z-50 top-0  mx-auto">
         <label
           htmlFor="my-drawer-4"
           aria-label="open sidebar"
