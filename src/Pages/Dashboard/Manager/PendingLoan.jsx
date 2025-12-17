@@ -32,7 +32,7 @@ const PendingLoan = () => {
       const res = await axiosSecure.patch(`/loanApplication/${id}`, {
         currentStatus: "approved",
       });
-      console.log(res.data);
+      // console.log(res.data);
 
       if (res.data.modifiedCount) {
         toast.success("Application status updated successfully");

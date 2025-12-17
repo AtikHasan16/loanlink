@@ -73,7 +73,7 @@ const MyLoan = () => {
         currentStatus: "pending",
       });
       if (res.data.modifiedCount) {
-        console.log(res.data);
+        // console.log(res.data);
         toast.success("Loan Application Re-Submitted");
         refetch();
       }
@@ -91,7 +91,7 @@ const MyLoan = () => {
     axiosSecure
       .get(`/payment-info?transactionId=${loan.transactionId}`)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setSelectedPayment(res.data);
         document.getElementById("payment_details_modal").showModal();
       })
@@ -115,7 +115,7 @@ const MyLoan = () => {
         "/create-checkout-session",
         paymentInfo
       );
-      console.log(res.data);
+      // console.log(res.data);
       window.location.assign(res.data.url);
     } catch (error) {
       console.log(error);

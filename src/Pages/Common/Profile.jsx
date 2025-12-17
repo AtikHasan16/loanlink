@@ -22,7 +22,7 @@ import Loading from "../Loading/Loading";
 
 const Profile = () => {
   const { currentUser, logOutUser, deleteCurrentUser, setLoading } = useAuth();
-  console.log(currentUser.email);
+  // console.log(currentUser.email);
 
   const axiosSecure = useAxiosSecure();
   const { data: userData, isLoading } = useQuery({

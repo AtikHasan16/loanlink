@@ -38,7 +38,7 @@ const Login = () => {
         .post("/users", userInfo)
         .then((res) => {
           setLoading(false);
-          console.log(res);
+          // console.log(res);
         })
         .catch((error) => {
           setLoading(false);
