@@ -100,7 +100,7 @@ const Register = () => {
       .then((result) => {
         setLoading(false);
         const user = result.user;
-        console.log(user);
+        // console.log(user);
         toast.success("Login successful");
         // save user info to the database
         const userInfo = {
@@ -115,9 +115,9 @@ const Register = () => {
 
         axiosSecure
           .post("/users", userInfo)
-          .then(() => {
+          .then((res) => {
             setLoading(false);
-            // console.log(res);
+            console.log(res);
           })
           .catch((error) => {
             setLoading(false);

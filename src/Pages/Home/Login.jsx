@@ -21,7 +21,29 @@ const Login = () => {
   const handleGithubLogin = () => {
     githubLogin().then((result) => {
       const user = result.user;
-      console.log(user);
+      setLoading(false);
+      toast.success("Login successful");
+      // console.log(user);
+      const userInfo = {
+        email: user.email.toLowerCase(),
+        name: user.displayName,
+        photoURL: user.photoURL,
+        requestedRole: "user",
+        role: "user",
+        status: "active",
+        createdAt: new Date().toLocaleString(),
+      };
+
+      axiosSecure
+        .post("/users", userInfo)
+        .then((res) => {
+          setLoading(false);
+          console.log(res);
+        })
+        .catch((error) => {
+          setLoading(false);
+          console.log(error);
+        });
     });
   };
 
