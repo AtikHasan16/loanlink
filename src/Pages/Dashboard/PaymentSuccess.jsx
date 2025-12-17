@@ -135,7 +135,7 @@ const PaymentSuccess = () => {
             View My Loans <FaArrowRight />
           </Link>
           <Link
-            to="/dashboard/home"
+            to="/dashboard"
             className="btn btn-ghost rounded-full w-full"
           >
             <FaHome /> Back to Dashboard
