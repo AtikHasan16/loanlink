@@ -3,6 +3,9 @@
 LoanLink is a comprehensive web-based platform designed to bridge the gap between microfinance institutions and borrowers. It streamlines the entire loan lifecycle—from application and verification to approval and repayment tracking—replacing chaotic manual processes with a unified, digital solution.
 
 ---
+## Preview: 
+![loanlink banner](https://raw.githubusercontent.com/AtikHasan16/GitHub-banner/refs/heads/main/loanlink-app.netlify.app_.png)
+
 
 ## 🔗 Live Links
 
