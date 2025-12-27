@@ -356,7 +356,7 @@ This project is open source and available under the ISC License.
 
 ## 🙏 Acknowledgments
 
-- Special thanks to all contributors and testers
+- Special thanks to all supporters
 - Built with modern React and Node.js best practices
 - Inspired by real-world microfinance challenges
 
