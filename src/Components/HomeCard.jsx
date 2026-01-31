@@ -14,6 +14,8 @@ const HomeCard = () => {
       return res.data;
     },
   });
+  // console.log(isLoading);
+  
 if (isLoading) {
   return <Loading></Loading>
 }
