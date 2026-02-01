@@ -19,7 +19,7 @@ const useAxiosSecure = () => {
       (config) => {
         config.headers.authorization = `Bearer ${currentUser?.accessToken}`;
         return config;
-      }
+      },
     );
 
     const responseInterceptor = axiosSecure.interceptors.response.use(
@@ -39,7 +39,7 @@ const useAxiosSecure = () => {
         }
 
         return Promise.reject(error);
-      }
+      },
     );
 
     return () => {

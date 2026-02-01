@@ -12,7 +12,7 @@ const Loans = () => {
   const { data: loans = [], isLoading } = useQuery({
     queryKey: ["loans", "all-loans"],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/loans/all-loans`);
+      const res = await axiosSecure.get(`/all-loans`);
       return res.data;
     },
     keepPreviousData: true, // Keep showing old data while fetching new page
