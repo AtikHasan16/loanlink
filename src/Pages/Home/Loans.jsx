@@ -82,25 +82,6 @@ const Loans = () => {
                 <LoanCard loan={loan} key={loan._id} />
               ))}
             </div>
-
-            {/* Pagination Controls */}
-            {totalPages > 1 && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="flex justify-center items-center gap-6 mt-16 pb-10"
-              >
-                <button
-                  onClick={handlePrev}
-                  disabled={page === 1}
-                  className="btn btn-circle btn-outline border-base-content/20 hover:bg-primary hover:border-primary hover:text-white transition-all disabled:opacity-20 disabled:border-base-content/10"
-                  title="Previous Page"
-                >
-                  <FaChevronLeft />
-                </button>
-              </motion.div>
-            )}
           </>
         )}
       </section>
