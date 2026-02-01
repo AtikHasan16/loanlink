@@ -57,7 +57,7 @@ const Footer = () => {
                   >
                     <Icon size={18} />
                   </button>
-                )
+                ),
               )}
             </div>
           </div>
@@ -171,9 +171,14 @@ const Footer = () => {
             </Link>
           </div>
           <p className="md:ml-auto">
-            Developed with{" "}
-            <span className="text-red-500 animate-pulse">❤️</span> by MD Atik
-            Hasan
+            Developed by{" "}
+            <a
+              href="https://github.com/AtikHasan16"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              MD Atik Hasan
+            </a>
           </p>
         </div>
       </div>
