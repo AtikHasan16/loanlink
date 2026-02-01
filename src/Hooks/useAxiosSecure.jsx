@@ -4,10 +4,10 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 
-const axiosSecure = axios.create({ baseURL: "http://localhost:5000" });
-// const axiosSecure = axios.create({
-//   baseURL: "https://loanlink-server-ten.vercel.app",
-// });
+// const axiosSecure = axios.create({ baseURL: "http://localhost:5000" });
+const axiosSecure = axios.create({
+  baseURL: "https://loanlink-server-ten.vercel.app",
+});
 
 const useAxiosSecure = () => {
   const { currentUser, logOutUser } = useAuth();
