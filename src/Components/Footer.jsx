@@ -170,12 +170,13 @@ const Footer = () => {
               Contact
             </Link>
           </div>
-          <p className="md:ml-auto">
+          <p className="md:ml-auto text-shadow-blue-200 ">
             Developed by{" "}
             <a
               href="https://github.com/AtikHasan16"
               target="_blank"
               rel="noopener noreferrer"
+              className="underline font-semibold"
             >
               MD Atik Hasan
             </a>
