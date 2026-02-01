@@ -53,11 +53,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/loan-details/:id",
-        element: (
-          <PrivateRoute>
-            <LoanDetails></LoanDetails>
-          </PrivateRoute>
-        ),
+        element: <LoanDetails></LoanDetails>,
       },
       {
         path: "/loan-form",
