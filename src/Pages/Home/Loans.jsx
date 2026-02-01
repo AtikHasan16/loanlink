@@ -17,7 +17,7 @@ const Loans = () => {
     },
     keepPreviousData: true, // Keep showing old data while fetching new page
   });
-  console.log(loans);
+  // console.log(loans);
 
   if (isLoading) {
     return <Loading></Loading>;
