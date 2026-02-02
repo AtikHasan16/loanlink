@@ -3,9 +3,11 @@ import { Outlet } from "react-router";
 import DashNav from "../Components/DashBoardComponents/DashNav";
 import SideNav from "../Components/DashBoardComponents/SideNav";
 import DashFooter from "../Components/DashBoardComponents/DashFooter";
+import ScrollToTop from "../Components/utility/ScrollToTop";
 const DashboardLayout = () => {
   return (
     <>
+      <ScrollToTop></ScrollToTop>
       <div className="drawer lg:drawer-open arimo">
         <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content">
