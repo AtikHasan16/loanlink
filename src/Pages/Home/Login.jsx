@@ -10,16 +10,16 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
 const Login = () => {
-  const { githubLogin, loginUser, setLoading } = useAuth();
+  const { googleLogin, loginUser, setLoading } = useAuth();
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm();
   const [showPass, setShowPass] = useState(false);
-
-  const handleGithubLogin = () => {
-    githubLogin().then((result) => {
+  const handleGoogleLogin = () => {
+    googleLogin().then((result) => {
       const user = result.user;
       setLoading(false);
       toast.success("Login successful");
@@ -59,7 +59,21 @@ const Login = () => {
         toast.error(error.message);
       });
   };
-
+  // Admin Auto fill for testing
+  const handleAutoAdminFill = () => {
+    setValue("email", "admin@gmail.com");
+    setValue("password", "Admin123");
+  };
+  // Manager Auto fill for testing
+  const handleAutoManagerFill = () => {
+    setValue("email", "manager@gmail.com");
+    setValue("password", "Manager123");
+  };
+  // User Auto fill for testing
+  const handleAutoUserFill = () => {
+    setValue("email", "user@gmail.com");
+    setValue("password", "User123");
+  };
   return (
     <div className="py-20 flex items-center justify-center jost">
       <motion.div
@@ -118,14 +132,14 @@ const Login = () => {
               <div className="relative">
                 <input
                   type={showPass ? "text" : "password"}
-                  placeholder="********"
-                  className="input input-bordered text-lg w-full rounded-xl focus:border-primary focus:ring-1 focus:ring-primary pr-10 py-6"
+                  placeholder="password"
+                  className="input text-lg w-full rounded-xl pr-10 py-6"
                   {...register("password")}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPass(!showPass)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 hover:text-primary transition-colors"
+                  className="absolute right-3 top-3 z-10 text-base-content/60 hover:text-primary transition-colors"
                 >
                   {showPass ? <HiEyeOff size={24} /> : <FaEye size={24} />}
                 </button>
@@ -135,10 +149,35 @@ const Login = () => {
             {/* Submit Button */}
             <button
               type="submit"
-              className="btn-main w-full shadow-lg mt-10 shadow-primary/30"
+              className="btn-main w-full shadow-lg mt-4 shadow-primary/30"
             >
               Sign In
             </button>
+
+            {/* Auto input fill  */}
+            <div className="flex justify-center gap-4 my-2">
+              <button
+                onClick={handleAutoAdminFill}
+                type="button"
+                className=" btn-main btn-md mt-4 bg-rose-700 shadow-rose-700/30 shadow-lg"
+              >
+                Admin
+              </button>
+              <button
+                type="button"
+                onClick={handleAutoUserFill}
+                className="btn-main btn-md mt-4 bg-green-600 shadow-emerald-500/30 shadow-lg "
+              >
+                User
+              </button>
+              <button
+                onClick={handleAutoManagerFill}
+                type="button"
+                className=" btn-main btn-md mt-4 bg-amber-500 shadow-amber-500/30 shadow-lg"
+              >
+                Manager
+              </button>
+            </div>
           </form>
 
           {/* Social Login */}
@@ -156,11 +195,11 @@ const Login = () => {
 
             <div className="flex gap-4 justify-center mt-6">
               <button
-                onClick={handleGithubLogin}
+                onClick={handleGoogleLogin}
                 className="btn btn-outline btn-block hover:btn-primary hover:text-white rounded-full px-6 gap-2"
               >
-                <FaGithub className="text-lg" />
-                <span className="hidden sm:inline">GitHub</span>
+                <FaGoogle className="text-lg" />
+                <span className="hidden sm:inline">Google</span>
               </button>
             </div>
           </div>

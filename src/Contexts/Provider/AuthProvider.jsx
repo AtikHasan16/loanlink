@@ -4,18 +4,17 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
-  GithubAuthProvider,
   signInWithPopup,
   signOut,
   deleteUser,
   updateProfile,
+  GoogleAuthProvider,
 } from "firebase/auth";
 import { auth } from "../../Firebase/firebase.config";
 import { useEffect } from "react";
 import { useState } from "react";
 
-const githubProvider = new GithubAuthProvider();
-
+const googleProvider = new GoogleAuthProvider();
 const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -30,10 +29,10 @@ const AuthProvider = ({ children }) => {
     return updateProfile(auth.currentUser, profile);
   };
 
-  // Github login
-  const githubLogin = () => {
+  // Google login
+  const googleLogin = () => {
     setLoading(true);
-    return signInWithPopup(auth, githubProvider);
+    return signInWithPopup(auth, googleProvider);
   };
 
   //   observe user
@@ -71,7 +70,7 @@ const AuthProvider = ({ children }) => {
     updateProfile,
     loading,
     setLoading,
-    githubLogin,
+    googleLogin,
     currentUser,
     logOutUser,
     deleteCurrentUser,
