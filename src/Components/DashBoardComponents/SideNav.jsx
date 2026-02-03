@@ -19,27 +19,27 @@ const SideNav = () => {
     <>
       <li>
         <div className="flex items-center gap-4 p-2">
-          <div className="skeleton h-8 w-8 rounded-xl shrink-0"></div>
+          <div className="skeleton h-7 w-7 rounded-xl shrink-0"></div>
         </div>
       </li>
       <li>
         <div className="flex items-center gap-4 p-2">
-          <div className="skeleton h-8 w-8 rounded-xl shrink-0"></div>
+          <div className="skeleton h-7 w-7 rounded-xl shrink-0"></div>
         </div>
       </li>
       <li>
         <div className="flex items-center gap-4 p-2">
-          <div className="skeleton h-8 w-8 rounded-xl shrink-0"></div>
+          <div className="skeleton h-7 w-7 rounded-xl shrink-0"></div>
         </div>
       </li>
       <li>
         <div className="flex items-center gap-4 p-2">
-          <div className="skeleton h-8 w-8 rounded-xl shrink-0"></div>
+          <div className="skeleton h-7 w-7 rounded-xl shrink-0"></div>
         </div>
       </li>
       <li>
         <div className="flex items-center gap-4 p-2">
-          <div className="skeleton h-8 w-8 rounded-xl shrink-0"></div>
+          <div className="skeleton h-7 w-7 rounded-xl shrink-0"></div>
         </div>
       </li>
     </>
@@ -100,11 +100,11 @@ const SideNav = () => {
         <>
           <li>
             <NavLink
-              to="/dashboard/manage-loan"
+              to="/dashboard/current-loans"
               className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-              data-tip="Manage Loan"
+              data-tip="Current Loans"
             >
-              <MdManageAccounts size={30}></MdManageAccounts>
+              <BsCashStack size={30}></BsCashStack>
               <span className="is-drawer-close:hidden">Manage Loan</span>
             </NavLink>
           </li>

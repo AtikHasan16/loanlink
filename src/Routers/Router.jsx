@@ -170,7 +170,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/dashboard/manage-loan",
+        path: "/dashboard/current-loans",
         element: (
           <ManagerRoute>
             <ManageLoan></ManageLoan>

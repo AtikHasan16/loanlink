@@ -33,7 +33,7 @@ const EditLoan = () => {
   } = useQuery({
     queryKey: ["loan", id],
     queryFn: async () => {
-      const response = await axiosSecure.get(`/loans/all-loans/${id}`);
+      const response = await axiosSecure.get(`/all-loans/${id}`);
       return response.data;
     },
   });
@@ -80,7 +80,7 @@ const EditLoan = () => {
           `https://api.imgbb.com/1/upload?key=${
             import.meta.env.VITE_imgbb_api_key
           }`,
-          formData
+          formData,
         );
         imageUrl = imgbbResponse.data.data.url;
       }

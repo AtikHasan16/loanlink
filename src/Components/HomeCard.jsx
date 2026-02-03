@@ -10,15 +10,15 @@ const HomeCard = () => {
   const { data: loans = [], isLoading } = useQuery({
     queryKey: ["loans", "home"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/loans/home");
+      const res = await axiosSecure.get("/loansHome");
       return res.data;
     },
   });
   // console.log(isLoading);
-  
-if (isLoading) {
-  return <Loading></Loading>
-}
+
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
   return (
     <section className="py-24 container mx-auto px-6 jost">
       <div className="text-center mb-16">

@@ -42,7 +42,7 @@ const AdminDashboard = () => {
 
   // Fetch Loan Products Data
   const { data: loans = [] } = useQuery({
-    queryKey: ["loans-stats"],
+    queryKey: ["loans", "admin"],
     queryFn: async () => {
       const res = await axiosSecure.get("/loans");
       return res.data;
@@ -78,19 +78,19 @@ const AdminDashboard = () => {
   // 2. Financial Stats (from Applications)
   const totalFunding = applications.reduce(
     (sum, app) => sum + (parseFloat(app.loanAmount) || 0),
-    0
+    0,
   );
   const totalApplications = applications.length;
 
   // 3. Application Status Stats
   const pendingApps = applications.filter(
-    (app) => app.status === "pending"
+    (app) => app.status === "pending",
   ).length;
   const approvedApps = applications.filter(
-    (app) => app.status === "approved"
+    (app) => app.status === "approved",
   ).length;
   const rejectedApps = applications.filter(
-    (app) => app.status === "rejected"
+    (app) => app.status === "rejected",
   ).length;
 
   const statusData = [
