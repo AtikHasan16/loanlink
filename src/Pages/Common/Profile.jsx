@@ -160,6 +160,7 @@ const Profile = () => {
                     "https://img.daisyui.com/images/profile/demo/spiderperson@192.webp"
                   }
                   alt="Profile"
+                  referrerPolicy="no-referrer"
                   className="bg-base-200"
                 />
               </div>
@@ -181,7 +182,7 @@ const Profile = () => {
             {/* Role Badge */}
             <div
               className={`badge badge-lg ${getRoleBadgeColor(
-                userData?.role
+                userData?.role,
               )} px-4 py-3`}
             >
               {getRoleIcon(userData?.role)}
@@ -192,7 +193,7 @@ const Profile = () => {
             {/* Status Badge */}
             <div
               className={`badge badge-lg ${getStatusBadgeColor(
-                userData?.status
+                userData?.status,
               )} px-4 py-3`}
             >
               {userData?.status === "active" ? (

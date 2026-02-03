@@ -44,7 +44,7 @@ const MyLoan = () => {
       cancelButtonColor: "#3085d6",
       confirmButtonText: "Yes, cancel it!",
     }).then((result) => {
-      if (result.isConfirmed) {
+      if (result?.isConfirmed) {
         axiosSecure
           .patch(`/loanApplication/${id}`, {
             currentStatus: "cancelled",

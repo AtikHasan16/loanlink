@@ -11,7 +11,7 @@ import axios from "axios";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const Register = () => {
-  const { githubLogin, registerUser, updateCurrentUser, setLoading } =
+  const { googleLogin, registerUser, updateCurrentUser, setLoading } =
     useAuth();
   const axiosSecure = useAxiosSecure();
   const {
@@ -41,7 +41,7 @@ const Register = () => {
             `https://api.imgbb.com/1/upload?key=${
               import.meta.env.VITE_imgbb_api_key
             }`,
-            formData
+            formData,
           )
           .then((res) => {
             // update user profile
@@ -95,8 +95,8 @@ const Register = () => {
       });
   };
 
-  const handleGithubLogin = () => {
-    githubLogin()
+  const handleGoogleLogin = () => {
+    googleLogin()
       .then((result) => {
         setLoading(false);
         const user = result.user;
@@ -299,11 +299,11 @@ const Register = () => {
 
             <div className="flex gap-4 justify-center mt-6">
               <button
-                onClick={handleGithubLogin}
+                onClick={handleGoogleLogin}
                 className="btn btn-outline btn-block hover:btn-primary hover:text-white rounded-full px-6 gap-2"
               >
-                <FaGithub className="text-lg" />
-                <span className="hidden sm:inline">GitHub</span>
+                <FaGoogle className="text-lg" />
+                <span className="hidden sm:inline">Google</span>
               </button>
             </div>
           </div>

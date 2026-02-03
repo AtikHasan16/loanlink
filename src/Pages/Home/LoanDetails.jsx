@@ -12,7 +12,7 @@ const LoanDetails = () => {
   const { data: loanData = [] } = useQuery({
     queryKey: ["loanData", id],
     queryFn: async () => {
-      const response = await axiosSecure.get(`/loans/all-loans/${id}`);
+      const response = await axiosSecure.get(`/all-loans/${id}`);
       return response.data;
     },
   });
