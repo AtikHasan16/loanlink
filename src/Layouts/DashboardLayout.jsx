@@ -15,7 +15,7 @@ const DashboardLayout = () => {
           <DashNav></DashNav>
           {/* Page content here */}
           <div className="">
-            <div className="mt-20 p-4 min-h-screen">
+            <div className="mt-20 min-h-screen">
               <Outlet></Outlet>
             </div>
             <footer>
