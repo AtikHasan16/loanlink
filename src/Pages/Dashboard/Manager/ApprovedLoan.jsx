@@ -32,7 +32,7 @@ const ApprovedLoan = () => {
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden py-10 rounded-3xl">
+    <div className="min-h-screen relative overflow-hidden py-10">
       {/* Background Shapes */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/10 rounded-full blur-[100px]"></div>
