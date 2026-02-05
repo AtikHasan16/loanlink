@@ -10,7 +10,7 @@ const Forbidden = () => {
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
-          className="absolute top-20 left-10 w-72 h-72 bg-accent dark:bg-primary/20 rounded-full mix-blend-multiply dark:mix-blend-soft-light filter blur-3xl opacity-70"
+          className="absolute top-20 left-10 w-72 h-72 bg-primary/20 filter blur-3xl opacity-70"
           animate={{
             x: [0, 100, 0],
             y: [0, 50, 0],
@@ -22,7 +22,7 @@ const Forbidden = () => {
           }}
         />
         <motion.div
-          className="absolute top-40 right-10 w-96 h-96 bg-accent dark:bg-primary/70 rounded-full mix-blend-multiply dark:mix-blend-soft-light filter blur-3xl opacity-30"
+          className="absolute top-40 right-10 w-96 h-96 bg-primary/20 filter blur-3xl opacity-30"
           animate={{
             x: [0, -100, 0],
             y: [0, 100, 0],
@@ -34,7 +34,7 @@ const Forbidden = () => {
           }}
         />
         <motion.div
-          className="absolute -bottom-20 left-1/2 w-96 h-96 bg-blue-300 dark:bg-yellow-600/20 rounded-full mix-blend-multiply dark:mix-blend-soft-light filter blur-3xl opacity-20"
+          className="absolute -bottom-20 left-1/2 w-96 h-96 bg-primary/20 filter blur-3xl opacity-20"
           animate={{
             x: [0, 50, 0],
             y: [0, -50, 0],
@@ -102,7 +102,7 @@ const Forbidden = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.5 }}
-            className="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-4"
+            className="text-3xl md:text-4xl font-bold text-primary mb-4"
           >
             Access Forbidden
           </motion.h2>

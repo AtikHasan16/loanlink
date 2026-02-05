@@ -28,6 +28,7 @@ import EditLoan from "../Pages/Dashboard/Admin/EditLoan";
 import UpdateUser from "../Pages/Dashboard/Admin/UpdateUser";
 import AdminRoute from "./Private/AdminRoute";
 import ManagerRoute from "./Private/ManagerRoute";
+import UserRoute from "./Private/UserRoute";
 
 const router = createBrowserRouter([
   {
@@ -180,7 +181,11 @@ const router = createBrowserRouter([
       // User
       {
         path: "/dashboard/my-loan",
-        element: <MyLoan></MyLoan>,
+        element: (
+          <UserRoute>
+            <MyLoan></MyLoan>
+          </UserRoute>
+        ),
       },
       // Payment
       {
