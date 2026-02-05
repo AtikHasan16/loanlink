@@ -95,14 +95,13 @@ const Contacts = () => {
 
             {/* Map Placeholder or Visual Element */}
             <div className="h-64 w-full rounded-3xl overflow-hidden shadow-lg border border-base-200 relative bg-base-200/50 flex items-center justify-center group">
-              {/* This would be an iframe map in production */}
-              <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/city-map.png')] opacity-20"></div>
-              <div className="z-10 text-center p-6">
-                <span className="text-primary font-bold text-lg">
-                  <FaMapMarkerAlt className="inline mr-2" />
-                  View on Map
-                </span>
-              </div>
+              <iframe
+                title="Office Location"
+                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d29208.73609512345!2d90.4036352!3d23.7797376!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbd!4v1770275506001!5m2!1sen!2sbd"
+                allowFullScreen=""
+                loading="lazy"
+                className="w-full h-full"
+              ></iframe>
             </div>
           </motion.div>
 
