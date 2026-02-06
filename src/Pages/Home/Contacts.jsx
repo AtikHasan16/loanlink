@@ -10,6 +10,16 @@ import {
 } from "react-icons/fa";
 
 const Contacts = () => {
+  const sendEmail = (e) => {
+    e.preventDefault();
+    const formData = {
+      name: e.target.firstName.value + " " + e.target.lastName.value,
+      email: e.target.email.value,
+      message: e.target.message.value,
+    };
+    console.log(formData);
+  };
+
   return (
     <div className="min-h-screen jost relative overflow-hidden pt-10 pb-10 rounded-4xl">
       {/* Background Shapes */}
@@ -116,7 +126,7 @@ const Contacts = () => {
             <div className="absolute top-0 right-0 w-40 h-40 bg-linear-to-bl from-primary/20 to-transparent rounded-bl-full -mr-10 -mt-10 pointer-events-none"></div>
 
             <h3 className="text-2xl font-bold mb-6">Send us a message</h3>
-            <form className="space-y-6">
+            <form onSubmit={sendEmail} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="form-control">
                   <label className="label">
@@ -126,6 +136,7 @@ const Contacts = () => {
                   </label>
                   <input
                     type="text"
+                    name="firstName"
                     placeholder="John"
                     className="input input-bordered w-full rounded-xl focus:border-primary focus:ring-1 focus:ring-primary bg-base-200/30"
                   />
@@ -138,6 +149,7 @@ const Contacts = () => {
                   </label>
                   <input
                     type="text"
+                    name="lastName"
                     placeholder="Doe"
                     className="input input-bordered w-full rounded-xl focus:border-primary focus:ring-1 focus:ring-primary bg-base-200/30"
                   />
@@ -153,6 +165,7 @@ const Contacts = () => {
                 <input
                   type="email"
                   placeholder="john@example.com"
+                  name="email"
                   className="input input-bordered w-full rounded-xl focus:border-primary focus:ring-1 focus:ring-primary bg-base-200/30"
                 />
               </div>
@@ -166,6 +179,7 @@ const Contacts = () => {
                 <textarea
                   className="textarea textarea-bordered h-32 w-full rounded-xl focus:border-primary focus:ring-1 focus:ring-primary bg-base-200/30 resize-none"
                   placeholder="How can we help you?"
+                  name="message"
                 ></textarea>
               </div>
 
