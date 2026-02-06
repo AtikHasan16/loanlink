@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { motion } from "motion/react";
+import userAxiosSecure from "../../Hooks/useAxiosSecure";
 import {
   FaPhoneAlt,
   FaEnvelope,
@@ -8,16 +9,42 @@ import {
   FaClock,
   FaPaperPlane,
 } from "react-icons/fa";
+import toast from "react-hot-toast";
+import useAuth from "../../Hooks/useAuth";
 
 const Contacts = () => {
-  const sendEmail = (e) => {
+  const axiosSecure = userAxiosSecure();
+  const { currentUser } = useAuth();
+  const sendEmail = async (e) => {
     e.preventDefault();
+    // no submission without login
+    if (!currentUser) {
+      toast.error("Please login to send a message.");
+      return;
+    }
+    if (!e.target.message.value) {
+      toast.error("Please enter a message before sending.");
+      return;
+    }
     const formData = {
-      name: e.target.firstName.value + " " + e.target.lastName.value,
+      name: e.target.name.value,
       email: e.target.email.value,
-      message: e.target.message.value,
+      message: e.target.message.value || "No message provided",
     };
     console.log(formData);
+    // Send form data to the server
+    try {
+      const response = await axiosSecure.post("/send-email", formData);
+      console.log("Email sent successfully:", response);
+      if (response.status === 200) {
+        toast.success("Your message has been sent successfully!");
+      }
+    } catch (error) {
+      console.error("Error sending email:", error);
+      toast.error("Failed to send your message. Please try again later.");
+    }
+
+    e.target.reset();
   };
 
   return (
@@ -127,30 +154,19 @@ const Contacts = () => {
 
             <h3 className="text-2xl font-bold mb-6">Send us a message</h3>
             <form onSubmit={sendEmail} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="w-full ">
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text font-medium text-base-content/80">
-                      First Name
+                      Name
                     </span>
                   </label>
                   <input
                     type="text"
-                    name="firstName"
-                    placeholder="John"
-                    className="input input-bordered w-full rounded-xl focus:border-primary focus:ring-1 focus:ring-primary bg-base-200/30"
-                  />
-                </div>
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text font-medium text-base-content/80">
-                      Last Name
-                    </span>
-                  </label>
-                  <input
-                    type="text"
-                    name="lastName"
-                    placeholder="Doe"
+                    name="name"
+                    defaultValue={currentUser?.displayName || currentUser?.name}
+                    disabled={!!currentUser?.displayName || !!currentUser?.name}
+                    placeholder="MD Example User"
                     className="input input-bordered w-full rounded-xl focus:border-primary focus:ring-1 focus:ring-primary bg-base-200/30"
                   />
                 </div>
@@ -166,6 +182,8 @@ const Contacts = () => {
                   type="email"
                   placeholder="john@example.com"
                   name="email"
+                  defaultValue={currentUser?.email}
+                  disabled={!!currentUser?.email}
                   className="input input-bordered w-full rounded-xl focus:border-primary focus:ring-1 focus:ring-primary bg-base-200/30"
                 />
               </div>
